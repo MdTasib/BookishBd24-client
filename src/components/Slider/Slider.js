@@ -20,9 +20,9 @@ const ImageSlider = () => {
 
 	return (
 		<Container>
-			<Slider {...settings} className='bg-red-500 '>
+			<Slider {...settings} className='mt-10'>
 				{images.map(image => (
-					<img className='w-full' src={image} height={100} alt='' />
+					<img className='w-full h-96 object-cover' src={image} alt='' />
 				))}
 			</Slider>
 		</Container>
