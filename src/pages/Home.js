@@ -1,5 +1,5 @@
 import React from "react";
-import Products from "../components/card/Products";
+import Products from "../components/products/Products";
 import Questions from "../components/questions/Questions";
 import ImageSlider from "../components/Slider/Slider";
 
