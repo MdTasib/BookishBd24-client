@@ -1,5 +1,6 @@
 import React from "react";
 import Products from "../components/card/Products";
+import Questions from "../components/questions/Questions";
 import ImageSlider from "../components/Slider/Slider";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
 		<div>
 			<ImageSlider />
 			<Products />
+			<Questions />
 		</div>
 	);
 }
