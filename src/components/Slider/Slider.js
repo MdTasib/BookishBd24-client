@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "infinite-react-carousel";
 import Container from "../ui/Container";
+import Loading from "../ui/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSlider } from "../../features/slider/sliderSlice";
 
 const ImageSlider = () => {
-	const images = [
-		"https://cdn.pixabay.com/photo/2022/11/12/10/53/landscape-7586742__340.jpg",
-		"https://cdn.pixabay.com/photo/2022/11/11/16/05/mushroom-7585277__340.jpg",
-		"https://cdn.pixabay.com/photo/2022/11/07/18/29/bird-7576994__340.jpg",
-		"https://cdn.pixabay.com/photo/2022/11/12/16/42/hydrangea-7587413__340.jpg",
-		"https://cdn.pixabay.com/photo/2022/11/13/12/49/bubble-7589151__340.jpg",
-	];
+	const dispatch = useDispatch();
+	const { sliders, isLoading, isError, error } = useSelector(
+		state => state.slider
+	);
+
+	useEffect(() => {
+		dispatch(fetchSlider());
+	}, [dispatch]);
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
+	if (isError) {
+		return (
+			<div className='alert alert-error shadow-lg container mx-auto mt-10'>
+				<div>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						className='stroke-current flex-shrink-0 h-6 w-6'
+						fill='none'
+						viewBox='0 0 24 24'>
+						<path
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							strokeWidth='2'
+							d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
+						/>
+					</svg>
+					<span>{error}</span>
+				</div>
+			</div>
+		);
+	}
 
 	const settings = {
 		arrows: false,
@@ -21,8 +51,13 @@ const ImageSlider = () => {
 	return (
 		<Container>
 			<Slider {...settings} className='mt-10'>
-				{images.map(image => (
-					<img className='w-full h-96 object-cover' src={image} alt='' />
+				{sliders.map(slider => (
+					<img
+						key={slider.id}
+						className='w-full h-96 object-cover'
+						src={slider.image}
+						alt=''
+					/>
 				))}
 			</Slider>
 		</Container>
