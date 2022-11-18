@@ -12,7 +12,7 @@ module.exports = withMT({
 					primary: "#1b8147",
 					secondary: "#FFF8F5",
 					success: "#e2fcf2",
-					accent: "#F4F7FC",
+					accent: "#deffe0",
 					neutral: "#3d4451",
 					"base-100": "#ffffff",
 				},
