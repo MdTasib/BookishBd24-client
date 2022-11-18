@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/ui/Footer";
 import Navbar from "./components/ui/Navbar";
@@ -8,8 +10,15 @@ import DashboardIntro from "./components/dashboard/DashboardIntro";
 import AddSlider from "./components/dashboard/AddSlider";
 import AddProduct from "./components/dashboard/AddProduct";
 import AddQuestion from "./components/dashboard/AddQuestion";
+import { fetchSlider } from "./features/slider/sliderSlice";
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchSlider());
+	}, [dispatch]);
+
 	return (
 		<Router>
 			<Navbar />
