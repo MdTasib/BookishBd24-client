@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Loading from "../ui/Loading";
 
 const Modal = () => {
-	const { modal } = useSelector(state => state.products);
+	const { modal, isLoading } = useSelector(state => state.products);
 
-	const { name, price, image } = modal[modal.length - 1];
+	if (isLoading) {
+		return <Loading />;
+	}
 
-	console.log(name, price, image);
+	const { name, price, image } = modal[modal.length - 1] || {};
 
 	return (
 		<>
