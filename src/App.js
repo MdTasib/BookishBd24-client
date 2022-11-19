@@ -8,6 +8,7 @@ import DashboardIntro from "./components/dashboard/DashboardIntro";
 import AddSlider from "./components/dashboard/AddSlider";
 import AddProduct from "./components/dashboard/AddProduct";
 import AddQuestion from "./components/dashboard/AddQuestion";
+import NotFound from "./pages/NotFound";
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 					<Route path='/dashboard/add-question' element={<AddQuestion />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
 				</Route>
+				<Route path='*' element={<NotFound />} />
 			</Routes>
 			<Footer />
 		</Router>
