@@ -6,12 +6,17 @@ const AddQuestion = () => {
 	const { register, handleSubmit, reset } = useForm();
 
 	const onSubmit = async data => {
-		fetch(`http://localhost:5000/product`, {
+		const faq = {
+			question: data.question,
+			answer: data.answer,
+		};
+
+		fetch(`http://localhost:5000/questions`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
 			},
-			body: JSON.stringify({}),
+			body: JSON.stringify(faq),
 		})
 			.then(res => res.json())
 			.then(data => {
@@ -19,7 +24,7 @@ const AddQuestion = () => {
 				Swal.fire({
 					position: "top-center",
 					icon: "success",
-					title: "Successfully upload a new product",
+					title: "Successfully upload a question",
 					showConfirmButton: false,
 					timer: 1500,
 				});
@@ -37,7 +42,7 @@ const AddQuestion = () => {
 									<span className='label-text'>Question?</span>
 								</label>
 								<input
-									{...register("name", { required: true })}
+									{...register("question", { required: true })}
 									type='text'
 									placeholder='Your Question'
 									className='input input-bordered input-primary w-full'
@@ -49,7 +54,7 @@ const AddQuestion = () => {
 									<span className='label-text'>Question Answer</span>
 								</label>
 								<textarea
-									{...register("description", { required: true })}
+									{...register("answer", { required: true })}
 									className='textarea textarea-primary w-full'
 									placeholder='Your Answer'></textarea>
 							</div>
