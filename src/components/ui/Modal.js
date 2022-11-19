@@ -42,6 +42,7 @@ const Modal = () => {
 	// // calculate
 
 	const handleCalculate = () => {
+		// eslint-disable-next-line eqeqeq
 		const selectMonth = months?.findIndex(x => x == month);
 		const selectBank = banks?.findIndex(x => x === bank);
 		const interestRate = ratesArray[selectBank][selectMonth];
