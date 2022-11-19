@@ -8,7 +8,7 @@ const Product = ({ product: { name, image, price } }) => {
 				<h2 className='card-title'>{name}</h2>
 				<p className=''>$ {price}</p>
 				<div className='card-actions'>
-					<button className='btn btn-sm btn-primary text-white'>Buy Now</button>
+					<button className='btn btn-sm btn-primary text-white'>Compare</button>
 				</div>
 			</div>
 		</div>
