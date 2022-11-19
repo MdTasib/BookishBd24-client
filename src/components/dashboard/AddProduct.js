@@ -19,37 +19,35 @@ const AddProduct = () => {
 		)
 			.then(res => res.json())
 			.then(result => {
-				const img = result.data.url;
+				const imgURL = result.data.url;
 
-				console.log(img);
+				const uploadProduct = {
+					name: data.name,
+					description: data.description,
+					price: data.price,
+					image: imgURL,
+				};
 
-				// const uploadProduct = {
-				// 	name: data.name,
-				// 	description: data.description,
-				// 	price: data.price,
-				// 	img,
-				// };
-
-				// if (result.success) {
-				// 	fetch(`http://localhost:5000/product`, {
-				// 		method: "POST",
-				// 		headers: {
-				// 			"content-type": "application/json",
-				// 		},
-				// 		body: JSON.stringify(uploadProduct),
-				// 	})
-				// 		.then(res => res.json())
-				// 		.then(data => {
-				// 			reset();
-				// 			Swal.fire({
-				// 				position: "top-center",
-				// 				icon: "success",
-				// 				title: "Successfully upload a new product",
-				// 				showConfirmButton: false,
-				// 				timer: 1500,
-				// 			});
-				// 		});
-				// }
+				if (result.success) {
+					fetch(`http://localhost:5000/product`, {
+						method: "POST",
+						headers: {
+							"content-type": "application/json",
+						},
+						body: JSON.stringify(uploadProduct),
+					})
+						.then(res => res.json())
+						.then(data => {
+							reset();
+							Swal.fire({
+								position: "top-center",
+								icon: "success",
+								title: "Successfully upload a new product",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						});
+				}
 			});
 	};
 

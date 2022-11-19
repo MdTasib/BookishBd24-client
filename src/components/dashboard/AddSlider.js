@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const AddSlider = () => {
 	const { register, handleSubmit, reset } = useForm();
@@ -7,7 +8,6 @@ const AddSlider = () => {
 	const onSubmit = async data => {
 		const image = data.image[0];
 		const formData = new FormData();
-		console.log(formData);
 		formData.append("image", image);
 
 		fetch(
@@ -19,35 +19,33 @@ const AddSlider = () => {
 		)
 			.then(res => res.json())
 			.then(result => {
-				const img = result.data.url;
+				const imageURL = result.data.url;
 
-				// const uploadProduct = {
-				// 	name: data.name,
-				// 	description: data.description,
-				// 	price: data.price,
-				// 	img,
-				// };
+				const uploadImage = {
+					image: imageURL,
+				};
 
-				// if (result.success) {
-				// 	fetch(`http://localhost:5000/product`, {
-				// 		method: "POST",
-				// 		headers: {
-				// 			"content-type": "application/json",
-				// 		},
-				// 		body: JSON.stringify(uploadProduct),
-				// 	})
-				// 		.then(res => res.json())
-				// 		.then(data => {
-				// 			reset();
-				// 			Swal.fire({
-				// 				position: "top-center",
-				// 				icon: "success",
-				// 				title: "Successfully upload a new product",
-				// 				showConfirmButton: false,
-				// 				timer: 1500,
-				// 			});
-				// 		});
-				// }
+				if (result.success) {
+					fetch(`http://localhost:5000/slider`, {
+						method: "POST",
+						headers: {
+							"content-type": "application/json",
+						},
+						body: JSON.stringify(uploadImage),
+					})
+						.then(res => res.json())
+						.then(data => {
+							Swal.fire({
+								position: "top-center",
+								icon: "success",
+								title: "Successfully upload a new product",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+
+							reset();
+						});
+				}
 			});
 	};
 
