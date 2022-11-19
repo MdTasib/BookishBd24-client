@@ -1,6 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Modal = () => {
+	const { modal } = useSelector(state => state.products);
+
+	const { name, price, image } = modal[modal.length - 1];
+
+	console.log(name, price, image);
+
 	return (
 		<>
 			<input type='checkbox' id='my-modal-3' className='modal-toggle' />
@@ -16,13 +23,13 @@ const Modal = () => {
 					<div className='hero'>
 						<div className='hero-content flex-col lg:flex-row'>
 							<img
-								src='https://placeimg.com/200/200/arch'
-								className='max-w-sm rounded-lg shadow-2xl'
+								src={image}
+								className='max-w-sm w-40 rounded-lg shadow-2xl'
 								alt=''
 							/>
 							<div>
-								<h2 className='text-2xl font-bold'>Product Name</h2>
-								<p className='py-6'>Price: $01393</p>
+								<h2 className='text-2xl font-bold'>{name}</h2>
+								<p className='py-6'>Price: ${price}</p>
 							</div>
 						</div>
 					</div>

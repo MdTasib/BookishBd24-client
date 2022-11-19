@@ -1,27 +1,36 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CompareProduct from "../components/products/CompareProduct";
 import Container from "../components/ui/Container";
 import ImageSlider from "../components/Slider/Slider";
-import Modal from "../components/ui/Modal";
-import { data } from "../data/data";
 
 const Compare = () => {
+	const { compare } = useSelector(state => state.products);
+
 	return (
 		<>
 			<ImageSlider />
 			<section className='py-20'>
 				<Container>
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-						{data?.products?.map(product => (
-							<CompareProduct key={product.id} product={product} />
-						))}
-					</div>
+					{compare.length === 0 ? (
+						<h4 className='text-center font-bold text-4xl'>
+							Compare Products Not Found
+						</h4>
+					) : (
+						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+							{compare?.map(product => (
+								<>
+									<CompareProduct key={product.id} product={product} />
+								</>
+							))}
+						</div>
+					)}
 					<div className='text-center pt-10'>
-						<div className='btn btn-primary'>ADD TO COMPARE</div>
+						<Link to='/' className='btn btn-primary'>
+							ADD TO COMPARE
+						</Link>
 					</div>
-
-					{/* modal */}
-					<Modal />
 				</Container>
 			</section>
 		</>

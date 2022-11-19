@@ -4,10 +4,11 @@ import { getProducts } from "./productApi";
 // INITIAL STATE
 const initialState = {
 	products: [],
-	compare: [],
 	isLoading: false,
 	isError: false,
 	error: "",
+	compare: [],
+	modal: [],
 };
 
 // create async thunk
@@ -40,6 +41,15 @@ const productSlice = createSlice({
 				state.products = [];
 			});
 	},
+	reducers: {
+		addCompare: (state, action) => {
+			state.compare.push(action.payload);
+		},
+		modalProduct: (state, action) => {
+			state.modal.push(action.payload);
+		},
+	},
 });
 
+export const { addCompare, modalProduct } = productSlice.actions;
 export default productSlice.reducer;
