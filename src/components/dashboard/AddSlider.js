@@ -26,7 +26,7 @@ const AddSlider = () => {
 				};
 
 				if (result.success) {
-					fetch(`http://localhost:5000/slider`, {
+					fetch(`https://beatnik-task-server.vercel.app/slider`, {
 						method: "POST",
 						headers: {
 							"content-type": "application/json",

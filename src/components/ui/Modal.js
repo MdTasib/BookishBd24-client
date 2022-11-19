@@ -8,6 +8,7 @@ const Modal = () => {
 	const [bank, setBank] = useState("dbbl");
 	const [money, setMoney] = useState(0);
 	const [monthlyInst, setMonthlyInst] = useState(0);
+	const [rate, setRate] = useState(0);
 	const dispatch = useDispatch();
 	const { modal, isLoading } = useSelector(state => state.products);
 	const {
@@ -21,7 +22,7 @@ const Modal = () => {
 		dispatch(fetchRates());
 	}, [dispatch]);
 
-	if (isLoading || loading) {
+	if (loading || isLoading) {
 		return <Loading />;
 	}
 
@@ -32,20 +33,21 @@ const Modal = () => {
 	}
 
 	const { name, price, image } = modal[modal.length - 1] || {};
-	const { months, banks, rates: ratesArray } = rates[0] || {};
+	const { months, banks, rates: ratesArray = [] } = rates[0] || {};
 
 	const handleMonth = e => setMonth(e.target.value);
 	const handleBank = e => setBank(e.target.value);
 	const handleMoney = e => setMoney(e.target.value);
 
-	// calculate
-	const selectBank = banks?.findIndex(x => x === bank);
-	const selectMonth = months?.findIndex(x => x == month);
-	const interestRate = ratesArray[selectBank][selectMonth];
-	const restMoney = price - Number(money);
-	const monthlyInstallment = restMoney * interestRate;
+	// // calculate
 
 	const handleCalculate = () => {
+		const selectMonth = months?.findIndex(x => x == month);
+		const selectBank = banks?.findIndex(x => x === bank);
+		const interestRate = ratesArray[selectBank][selectMonth];
+		const restMoney = price - Number(money);
+		const monthlyInstallment = restMoney * interestRate;
+		setRate(interestRate);
 		setMonthlyInst(monthlyInstallment);
 	};
 
@@ -123,7 +125,7 @@ const Modal = () => {
 					</div>
 					<div className='grid grid-cols-2 items-center px-14 py-2'>
 						<p className='font-bold'>Interest Rate</p>
-						<p className='text-right'>{interestRate}%</p>
+						<p className='text-right'>{rate}%</p>
 					</div>
 					<div className='grid grid-cols-2 items-center px-14 py-2'>
 						<p className='font-bold'>EMI Period</p>

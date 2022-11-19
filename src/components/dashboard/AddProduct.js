@@ -29,7 +29,7 @@ const AddProduct = () => {
 				};
 
 				if (result.success) {
-					fetch(`http://localhost:5000/product`, {
+					fetch(`https://beatnik-task-server.vercel.app/product`, {
 						method: "POST",
 						headers: {
 							"content-type": "application/json",

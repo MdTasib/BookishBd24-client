@@ -11,7 +11,7 @@ const AddQuestion = () => {
 			answer: data.answer,
 		};
 
-		fetch(`http://localhost:5000/questions`, {
+		fetch(`https://beatnik-task-server.vercel.app/questions`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
