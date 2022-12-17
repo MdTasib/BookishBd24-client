@@ -1,0 +1,30 @@
+.crt-btn {
+	position: absolute;
+	bottom: -19px;
+	right: 40px;
+	width: 42px;
+	height: 42px;
+	line-height: 42px;
+	border-radius: 100px;
+	background: linear-gradient(180deg, #000000, #009c43);
+	text-align: center;
+}
+
+.class-info {
+	padding: 24px 15px 27px;
+	border: 1px solid #d6d6d6;
+	border-top: 0;
+	border-radius: 0 0 10px 10px;
+}
+
+.react-multiple-carousel__arrow::before {
+	font-size: 36px;
+	padding: 0.5rem 0;
+	color: #fff;
+	display: block;
+	background: #1b8147;
+	font-family: revicons;
+	text-align: center;
+	z-index: 2;
+	position: relative;
+}
