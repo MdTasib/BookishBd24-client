@@ -45,7 +45,7 @@ const Navbar = () => {
 				<Container>
 					<div className='flex-1'>
 						<Link to='/' className='text-xl font-bold text-black'>
-							BookishBd
+							BookishBD
 							<span className='text-primary'>24</span>
 						</Link>
 					</div>
