@@ -30,7 +30,7 @@ const SectionBooks = () => {
 	return (
 		<section className='py-20'>
 			<Container>
-				<div className='shadow shadow-primary border-primary border p-3 mb-10'>
+				<div className='shadow shadow-primary border-primary border p-3 mb-4'>
 					<h2 className='text-primary font-medium'>
 						ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা
 					</h2>
@@ -42,7 +42,7 @@ const SectionBooks = () => {
 					))}
 				</Carousel>
 
-				<div className='text-center pt-8'>
+				<div className='text-center pt-4'>
 					<Button>সকল নতুন প্রকাশিত বই</Button>
 				</div>
 			</Container>
