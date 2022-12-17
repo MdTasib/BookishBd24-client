@@ -3,10 +3,9 @@ import cart from "../../assets/images/icon10.png";
 
 const Book = () => {
 	return (
-		<div className='mx-6 max-h-min rounded-lg mx-auto'>
+		<div className='mx-7 max-h-min border-2 rounded hover:border-primary cursor-pointer p-2'>
 			<img
-				style={{ objectFit: "cover" }}
-				className='rounded-t-lg w-full max-h-min'
+				className='block mx-auto'
 				src='https://wafilife-media.wafilife.com/uploads/2022/10/20221008_121307-192x254.jpg'
 				alt=''
 			/>
@@ -15,7 +14,7 @@ const Book = () => {
 					<img src={cart} alt='' />
 				</a>
 			</div>
-			<div class='class-info'>
+			<div class='px-4'>
 				<h3 className='text-sm font-bold'>শেষরাত্রির গল্পগুলো</h3>
 
 				<span className='text-xs py-3 block'>আবদুল্লাহ মাহমুদ নজীব</span>

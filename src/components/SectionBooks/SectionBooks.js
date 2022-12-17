@@ -3,6 +3,7 @@ import Container from "../ui/Container";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
+import Button from "../ui/Button";
 
 const SectionBooks = () => {
 	const items = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
@@ -40,6 +41,10 @@ const SectionBooks = () => {
 						<Book />
 					))}
 				</Carousel>
+
+				<div className='text-center pt-8'>
+					<Button>সকল নতুন প্রকাশিত বই</Button>
+				</div>
 			</Container>
 		</section>
 	);
