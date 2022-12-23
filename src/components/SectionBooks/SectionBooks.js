@@ -4,9 +4,10 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
 import Button from "../ui/Button";
+import { products } from "../../data/data";
 
-const SectionBooks = () => {
-	const items = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+const SectionBooks = ({ title }) => {
+	const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	const responsive = {
 		superLargeDesktop: {
 			// the naming can be any, depends on you.
@@ -28,17 +29,15 @@ const SectionBooks = () => {
 	};
 
 	return (
-		<section className='py-20'>
+		<section className='pb-10'>
 			<Container>
 				<div className='shadow shadow-primary border-primary border p-3 mb-4'>
-					<h2 className='text-primary font-medium'>
-						ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা
-					</h2>
+					<h2 className='text-primary font-medium'>{title}</h2>
 				</div>
 
 				<Carousel responsive={responsive}>
-					{items.map(item => (
-						<Book />
+					{products?.map(item => (
+						<Book key={item.id} item={item} />
 					))}
 				</Carousel>
 

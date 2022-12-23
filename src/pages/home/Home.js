@@ -6,7 +6,12 @@ function Home() {
 	return (
 		<div>
 			<ImageSlider />
-			<SectionBooks />
+			<SectionBooks title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা' />
+			<SectionBooks title='ঈমান আক্বিদা ও বিশ্বাস' />
+			<SectionBooks
+				title='শিশু-কিশোরদের ইসলামী বই
+'
+			/>
 		</div>
 	);
 }

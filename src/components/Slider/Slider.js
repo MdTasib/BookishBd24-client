@@ -69,7 +69,7 @@ const ImageSlider = () => {
 
 	return (
 		<Container>
-			<Slider {...settings} className='mt-10'>
+			<Slider {...settings} className='my-10'>
 				{sliders.map(slider => (
 					<img
 						key={slider.id}
