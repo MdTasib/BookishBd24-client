@@ -50,3 +50,42 @@ export const products = [
 		categorys: [],
 	},
 ];
+
+export const adsImages = [
+	{
+		id: 1,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/03/General-books-tiles.jpg",
+		url: "",
+	},
+	{
+		id: 2,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/03/child-books-tiles.jpg",
+		url: "",
+	},
+	{
+		id: 6,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/03/%E0%A6%86%E0%A6%A4%E0%A6%B0.jpg",
+		url: "",
+	},
+	{
+		id: 3,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/11/%E0%A6%97%E0%A6%A3%E0%A6%BF%E0%A6%A4-%E0%A6%AC%E0%A6%BF%E0%A6%B7%E0%A7%9F%E0%A6%95-1024x302.jpg",
+		url: "",
+	},
+	{
+		id: 4,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/11/%E0%A6%86%E0%A6%A4%E0%A7%8D%E0%A6%AE-%E0%A6%89%E0%A6%A8%E0%A7%8D%E0%A6%A8%E0%A7%9F%E0%A6%A8-1024x302.jpg",
+		url: "",
+	},
+	{
+		id: 5,
+		image:
+			"https://wafilife-media.wafilife.com/uploads/2021/11/%E0%A6%AE%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A7%87%E0%A6%9F%E0%A6%BF%E0%A6%82-%E0%A6%AC%E0%A6%BF%E0%A6%B7%E0%A7%9F%E0%A6%95-%E0%A6%AC%E0%A6%87-1536x453.jpg",
+		url: "",
+	},
+];

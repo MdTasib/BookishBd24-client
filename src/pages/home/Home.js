@@ -1,4 +1,5 @@
 import React from "react";
+import AdsGrid from "../../components/Ads/AdsGrid";
 import SectionBooks from "../../components/SectionBooks/SectionBooks";
 import ImageSlider from "../../components/Slider/Slider";
 
@@ -8,6 +9,7 @@ function Home() {
 			<ImageSlider />
 			<SectionBooks title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা' />
 			<SectionBooks title='ঈমান আক্বিদা ও বিশ্বাস' />
+			<AdsGrid />
 			<SectionBooks
 				title='শিশু-কিশোরদের ইসলামী বই
 '
