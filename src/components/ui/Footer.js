@@ -17,10 +17,10 @@ const Footer = () => {
 							BookishBD<span className='text-primary'>24</span>
 						</p>
 						<div className='flex gap-6 pb-5'>
-							<FaFacebook className='text-1xl cursor-pointer hover:text-blue-600' />
-							<FaInstagram className='text-1xl cursor-pointer hover:text-yellow-600' />
-							<FaTwitter className='text-1xl cursor-pointer hover:text-blue-600' />
-							<FaYoutube className='text-1xl cursor-pointer hover:text-red-600' />
+							<FaFacebook className='text-xl cursor-pointer hover:text-blue-600' />
+							<FaInstagram className='text-xl cursor-pointer hover:text-purple-600' />
+							<FaTwitter className='text-xl cursor-pointer hover:text-blue-600' />
+							<FaYoutube className='text-xl cursor-pointer hover:text-red-600' />
 						</div>
 					</ul>
 				</div>
