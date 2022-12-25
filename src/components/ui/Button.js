@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Button = ({ children }) => {
+const Button = ({ children, classes }) => {
 	return (
 		<>
 			{/* button 1 */}
-			<button class='relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring'>
+			<button
+				class={`relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring ${
+					classes ? classes : ""
+				}`}>
 				<span class='absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-primary group-hover:translate-y-0 group-hover:translate-x-0'></span>
 
 				<span class='relative block px-8 py-3 bg-primary border border-current'>

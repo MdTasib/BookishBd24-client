@@ -14,7 +14,7 @@ const Register = () => {
 						<div class='absolute bg-gradient-to-b from-indigo-600 to-blue-500 opacity-75 inset-0 z-0'></div>
 						<div class='w-full  max-w-md z-10'>
 							<div class='sm:text-4xl xl:text-5xl font-bold leading-tight mb-6'>
-								Reference site about Lorem Ipsum..
+								রেজিস্টার
 							</div>
 							<div class='sm:text-sm xl:text-md text-gray-200 font-normal'>
 								{" "}
@@ -25,18 +25,6 @@ const Register = () => {
 								type specimen book it has?
 							</div>
 						</div>
-						<ul class='circles'>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-						</ul>
 					</div>
 					<div class='md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white'>
 						<div class='max-w-md w-full space-y-8'>
