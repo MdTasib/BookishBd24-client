@@ -49,13 +49,26 @@ const Navbar = () => {
 							<span className='text-primary'>24</span>
 						</Link>
 					</div>
-					<div className='form-control flex-1'>
-						<input
-							type='text'
-							placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
-							className='input input-primary input-sm input-bordered w-100'
-						/>
+
+					<div class='flex items-center justify-center'>
+						<div class='flex border-2 '>
+							<input
+								type='text'
+								class='px-4 py-2 input-primary input-sm w-80'
+								placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
+							/>
+							<button class='flex items-center justify-center px-4 border-l'>
+								<svg
+									class='w-6 h-6 text-gray-600'
+									fill='currentColor'
+									xmlns='http://www.w3.org/2000/svg'
+									viewBox='0 0 24 24'>
+									<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
+								</svg>
+							</button>
+						</div>
 					</div>
+
 					<div className='flex-none'>
 						<div className='dropdown dropdown-end'>
 							<label tabIndex={2} className='btn btn-ghost lg:hidden'>
@@ -81,7 +94,7 @@ const Navbar = () => {
 							</ul>
 						</div>
 					</div>
-					<div className='navbar-end hidden lg:flex'>
+					<div className='navbar-end hidden lg:flex flex-1'>
 						<ul className='menu menu-horizontal p-0'>{menuItems}</ul>
 					</div>
 				</Container>

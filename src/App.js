@@ -11,6 +11,7 @@ import AddQuestion from "./components/dashboard/AddQuestion";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
+import Authors from "./pages/authors/Authors";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/home' element={<Home />} />
+				<Route path='/authors' element={<Authors />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/dashboard' element={<Dashboard />}>
