@@ -89,3 +89,54 @@ export const adsImages = [
 		url: "",
 	},
 ];
+
+export const authors = [
+	{
+		name: "মুনজেরিন শহীদ",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/a721f57c3_79420.jpg",
+		id: 1,
+	},
+	{
+		name: "সাইফুল ইসলাম",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/9fa2c38f2_82055.jpg",
+		id: 2,
+	},
+	{
+		name: "মুহম্মদ জাফর ইকবাল",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/1323bb4c3d84_93.jpg",
+		id: 3,
+	},
+	{
+		name: "ড. ইউসুফ আল কারযাভী",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/06993d400_11256.png",
+		id: 4,
+	},
+	{
+		name: "মোত্তাসিন পাহলভী",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/a81f159be_81098.jpg",
+		id: 5,
+	},
+	{
+		name: "রবীন্দ্রনাথ ঠাকুর",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/068d7a1a0_930.jpg",
+		id: 6,
+	},
+	{
+		name: "বিভূতিভূষণ বন্দ্যোপাধ্যায়",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/b2563d153c14_7245.jpg",
+		id: 7,
+	},
+	{
+		name: "হুমায়ূন আহমেদ",
+		author:
+			"https://s3-ap-southeast-1.amazonaws.com/rokomari110/people/2222ed505a94_1.jpg",
+		id: 8,
+	},
+];

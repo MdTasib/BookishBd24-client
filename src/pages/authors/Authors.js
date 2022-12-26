@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
+import { authors } from "../../data/data";
+import Button from "../../components/ui/Button";
+import { Link } from "react-router-dom";
 
 const Authors = () => {
 	return (
@@ -45,6 +47,30 @@ const Authors = () => {
 							</svg>
 						</button>
 					</div>
+				</div>
+
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'>
+					{authors.map(author => (
+						<div
+							key={author.id}
+							class='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md'>
+							<div class='flex flex-col items-center py-3'>
+								<img
+									class='w-24 border-primary border border-3 h-24 mb-3 rounded-full shadow-lg'
+									src={author.author}
+									alt={author.name}
+								/>
+								<h5 class='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
+									{author.name}
+								</h5>
+								<div class='text-center'>
+									<Link to={`/authors/${author.id}`}>
+										<Button>বিস্তারিত</Button>
+									</Link>
+								</div>
+							</div>
+						</div>
+					))}
 				</div>
 			</Container>
 		</div>

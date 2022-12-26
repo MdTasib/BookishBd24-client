@@ -2,3 +2,6 @@
 
 // slider
 https://react-slick.neostack.com/docs/example/responsive
+
+// components free
+https://flowbite.com/docs/components/card/
