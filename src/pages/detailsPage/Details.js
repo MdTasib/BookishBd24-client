@@ -1,11 +1,12 @@
 import React from 'react';
 import bookImg from '../../assets/images/book.png'
 import bookImg2 from '../../assets/images/book2.png'
-import Container from './Container';
+
 import addimg1 from '../../assets/images/Adds/add1.png';
 import addimg2 from '../../assets/images/Adds/add2.png';
 import addimg3 from '../../assets/images/Adds/add3.png';
 import addimg4 from '../../assets/images/Adds/add4.png';
+import Container from '../../components/ui/Container';
 
 const Details = () => {
     return (

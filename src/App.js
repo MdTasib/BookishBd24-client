@@ -12,7 +12,8 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Authors from "./pages/authors/Authors";
-import Details from "./components/ui/Details";
+import Details from "./pages/detailsPage/Details";
+
 
 function App() {
 	return (
