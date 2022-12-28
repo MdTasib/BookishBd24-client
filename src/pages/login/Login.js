@@ -1,10 +1,67 @@
-import React from "react";
+import { useEffect } from "react";
+import {
+	useSignInWithEmailAndPassword,
+	useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import facebookIcon from "../../assets/icons/facebook.png";
 import googleIcon from "../../assets/icons/google.png";
 import instagramIcon from "../../assets/icons/instagram.png";
 import Button from "../../components/ui/Button";
+import Loading from "../../components/ui/Loading";
+import auth from "../../firebase.init";
 
 const Login = () => {
+	const [signInWithGoogle, googleUser, googleLoading, googleError] =
+		useSignInWithGoogle(auth);
+	const [signInWithEmailAndPassword, user, loading, error] =
+		useSignInWithEmailAndPassword(auth);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const from = location.state?.from?.pathname || "/";
+
+	useEffect(() => {
+		if (user || googleUser) {
+			Swal.fire({
+				position: "top-center",
+				icon: "success",
+				title: "User login successfull",
+				showConfirmButton: false,
+				timer: 2000,
+			});
+
+			navigate(from, { replace: true });
+		}
+	}, [user, googleUser, from, navigate]);
+
+	// loading spinner
+	if (googleLoading || loading) {
+		return <Loading />;
+	}
+
+	// error message
+	let errorLogin;
+	if (googleError || error) {
+		errorLogin = (
+			<p className='text-red-500 pb-2 text-xl font-bold text-center'>
+				{googleError?.message.split(":")[1] || error?.message.split(":")[1]}
+			</p>
+		);
+	}
+
+	// submit login from
+	const onSubmit = async data => {
+		await signInWithEmailAndPassword(data.email, data.password);
+	};
+
 	return (
 		<div>
 			<div class='relative flex '>
@@ -36,31 +93,29 @@ const Login = () => {
 								</p>
 							</div>
 							<div class='flex flex-row justify-center items-center space-x-3'>
-								<a href='/' target='_blank' class='px-2'>
-									<img class='w-8 h-8' src={googleIcon} alt='Google login' />
-								</a>
-								<a href='/' target='_blank' class='px-2'>
-									<img
-										class='w-8 h-8'
-										src={facebookIcon}
-										alt='facebook login'
-									/>
-								</a>
-								<a href='/' target='_blank' class='px-2'>
-									<img
-										src={instagramIcon}
-										alt='instagram login'
-										class='w-8 h-8'
-									/>
-								</a>
+								<img
+									class='px-2 h-8 cursor-pointer'
+									src={googleIcon}
+									alt='Google login'
+									onClick={() => signInWithGoogle()}
+								/>
+								<img
+									class='px-2 h-8 cursor-pointer'
+									src={facebookIcon}
+									alt='facebook login'
+								/>
+								<img
+									src={instagramIcon}
+									alt='instagram login'
+									class='px-2 h-8 cursor-pointer'
+								/>
 							</div>
 							<div class='flex items-center justify-center space-x-2'>
 								<span class='h-px w-24 bg-gray-200'></span>
 								<span class='text-gray-300 font-normal'>অথবা</span>
 								<span class='h-px w-24 bg-gray-200'></span>
 							</div>
-							<form class='mt-8 space-y-6' action='#' method='POST'>
-								<input type='hidden' name='remember' value='true' />
+							<form class='mt-8 space-y-6' onSubmit={handleSubmit(onSubmit)}>
 								<div class='relative'>
 									<div class='absolute right-3 mt-4'>
 										<svg
@@ -83,8 +138,29 @@ const Login = () => {
 										class=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
 										type='email'
 										placeholder='আপনার ইমেইল'
-										required
+										{...register("email", {
+											required: {
+												value: true,
+												message: "Email is Required",
+											},
+											pattern: {
+												value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+												message: "Provide a valid Email",
+											},
+										})}
 									/>
+									<label className='label'>
+										{errors.email?.type === "required" && (
+											<span className='label-text-alt text-red-500'>
+												{errors.email.message}
+											</span>
+										)}
+										{errors.email?.type === "pattern" && (
+											<span className='label-text-alt text-red-500'>
+												{errors.email.message}
+											</span>
+										)}
+									</label>
 								</div>
 								<div class='mt-8 content-center'>
 									<label class='ml-3 text-sm font-bold text-gray-700 tracking-wide'>
@@ -94,15 +170,35 @@ const Login = () => {
 										class='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
 										type='password'
 										placeholder='আপনার পাসওয়ার্ড'
-										required
+										{...register("password", {
+											required: {
+												value: true,
+												message: "Password is Required",
+											},
+											minLength: {
+												value: 6,
+												message: "Must be 6 characters or longer",
+											},
+										})}
 									/>
+									<label className='label'>
+										{errors.password?.type === "required" && (
+											<span className='label-text-alt text-red-500'>
+												{errors.password.message}
+											</span>
+										)}
+										{errors.password?.type === "minLength" && (
+											<span className='label-text-alt text-red-500'>
+												{errors.password.message}
+											</span>
+										)}
+									</label>
 								</div>
 								<div class='flex items-center justify-between'>
 									<div className='form-control'>
 										<label className='cursor-pointer label'>
 											<input
 												type='checkbox'
-												checked={true}
 												className='checkbox checkbox-primary mr-2'
 											/>
 											<span className='label-text'>Remember me</span>
@@ -114,16 +210,18 @@ const Login = () => {
 										</a>
 									</div>
 								</div>
-								<div>
-									<Button classes='w-full'>লগইন</Button>
-								</div>
+
+								{/* error message */}
+								{errorLogin}
+
+								<Button classes='w-full'>লগইন</Button>
 								<p class='flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-sm'>
 									<span>কোনো অ্যাকাউন্ট নেই?</span>
-									<a
-										href='/'
+									<Link
+										to='/register'
 										class='text-primary font-bold no-underline hover:underline cursor-pointer transition ease-in duration-300 text-sm'>
 										রেজিস্টার
-									</a>
+									</Link>
 								</p>
 							</form>
 						</div>

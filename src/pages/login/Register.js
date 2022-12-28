@@ -56,7 +56,6 @@ const Register = () => {
 			<p className='text-red-500 pb-2 text-xl font-bold text-center'>
 				{googleError?.message.split(":")[1] ||
 					error?.message.split(":")[1] ||
-					error?.updateProfileError.split(":")[1] ||
 					error?.updateProfileError.split(":")[1]}
 			</p>
 		);
