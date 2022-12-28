@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Authors from "./pages/authors/Authors";
+import Details from "./components/ui/Details";
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 				<Route path='/' element={<Home />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/authors' element={<Authors />} />
+				<Route path='/details' element={<Details />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/dashboard' element={<Dashboard />}>
