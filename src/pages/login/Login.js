@@ -1,4 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+	sendPasswordResetEmail,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
 	useSignInWithEmailAndPassword,
 	useSignInWithGoogle,
@@ -12,54 +16,54 @@ import instagramIcon from "../../assets/icons/instagram.png";
 import Button from "../../components/ui/Button";
 import Loading from "../../components/ui/Loading";
 import auth from "../../firebase.init";
+import { useRef } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
 	const [signInWithGoogle, googleUser, googleLoading, googleError] =
 		useSignInWithGoogle(auth);
-	const [signInWithEmailAndPassword, user, loading, error] =
-		useSignInWithEmailAndPassword(auth);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
-	const navigate = useNavigate();
+	const emailRef = useRef("");
+	const passwordRef = useRef("");
+	let navigate = useNavigate();
 	const location = useLocation();
 
-	const from = location.state?.from?.pathname || "/";
+	let from = location.state?.from?.pathname || "/";
 
-	useEffect(() => {
-		if (user || googleUser) {
-			Swal.fire({
-				position: "top-center",
-				icon: "success",
-				title: "User login successfull",
-				showConfirmButton: false,
-				timer: 2000,
+	// handle user login email and password
+	const handleSubmit = async event => {
+		event.preventDefault();
+		const email = emailRef.current.value;
+		const password = passwordRef.current.value;
+
+		await signInWithEmailAndPassword(auth, email, password)
+			.then(result => {
+				const user = result.user;
+				console.log(user);
+				toast.success("User login successfully");
+
+				if (user.uid) {
+					navigate(from, { replace: true });
+				}
+			})
+			.catch(error => {
+				errorMessage(error);
 			});
+	};
 
-			navigate(from, { replace: true });
-		}
-	}, [user, googleUser, from, navigate]);
+	// handle forget password
+	const handleForgetPassword = () => {
+		const email = emailRef.current.value;
+		sendPasswordResetEmail(auth, email)
+			.then(() => toast.success("Please check your email and new password set"))
+			.catch(error => {
+				errorMessage(error);
+			});
+	};
 
-	// loading spinner
-	if (googleLoading || loading) {
-		return <Loading />;
-	}
-
-	// error message
-	let errorLogin;
-	if (googleError || error) {
-		errorLogin = (
-			<p className='text-red-500 pb-2 text-xl font-bold text-center'>
-				{googleError?.message.split(":")[1] || error?.message.split(":")[1]}
-			</p>
-		);
-	}
-
-	// submit login from
-	const onSubmit = async data => {
-		await signInWithEmailAndPassword(data.email, data.password);
+	// displayed error message
+	const errorMessage = error => {
+		let errorMessage = error.message;
+		toast.error(errorMessage.split(":")[1]);
 	};
 
 	return (
@@ -115,7 +119,7 @@ const Login = () => {
 								<span class='text-gray-300 font-normal'>অথবা</span>
 								<span class='h-px w-24 bg-gray-200'></span>
 							</div>
-							<form class='mt-8 space-y-6' onSubmit={handleSubmit(onSubmit)}>
+							<form class='mt-8 space-y-6' onSubmit={handleSubmit}>
 								<div class='relative'>
 									<div class='absolute right-3 mt-4'>
 										<svg
@@ -135,64 +139,24 @@ const Login = () => {
 										ইমেইল <span className='text-red-500'>*</span>
 									</label>
 									<input
+										required
+										ref={emailRef}
 										class=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
 										type='email'
 										placeholder='আপনার ইমেইল'
-										{...register("email", {
-											required: {
-												value: true,
-												message: "Email is Required",
-											},
-											pattern: {
-												value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-												message: "Provide a valid Email",
-											},
-										})}
 									/>
-									<label className='label'>
-										{errors.email?.type === "required" && (
-											<span className='label-text-alt text-red-500'>
-												{errors.email.message}
-											</span>
-										)}
-										{errors.email?.type === "pattern" && (
-											<span className='label-text-alt text-red-500'>
-												{errors.email.message}
-											</span>
-										)}
-									</label>
 								</div>
 								<div class='mt-8 content-center'>
 									<label class='ml-3 text-sm font-bold text-gray-700 tracking-wide'>
 										পাসওয়ার্ড <span className='text-red-500'>*</span>
 									</label>
 									<input
+										ref={passwordRef}
+										required
 										class='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
 										type='password'
 										placeholder='আপনার পাসওয়ার্ড'
-										{...register("password", {
-											required: {
-												value: true,
-												message: "Password is Required",
-											},
-											minLength: {
-												value: 6,
-												message: "Must be 6 characters or longer",
-											},
-										})}
 									/>
-									<label className='label'>
-										{errors.password?.type === "required" && (
-											<span className='label-text-alt text-red-500'>
-												{errors.password.message}
-											</span>
-										)}
-										{errors.password?.type === "minLength" && (
-											<span className='label-text-alt text-red-500'>
-												{errors.password.message}
-											</span>
-										)}
-									</label>
 								</div>
 								<div class='flex items-center justify-between'>
 									<div className='form-control'>
@@ -205,14 +169,13 @@ const Login = () => {
 										</label>
 									</div>
 									<div class='text-sm'>
-										<a href='/' class='text-primary font-bold hover:underline'>
+										<p
+											onClick={handleForgetPassword}
+											class='text-primary font-bold hover:underline cursor-pointer'>
 											আপনি কি পাসওয়ার্ড ভুলে গেছেন?
-										</a>
+										</p>
 									</div>
 								</div>
-
-								{/* error message */}
-								{errorLogin}
 
 								<Button classes='w-full'>লগইন</Button>
 								<p class='flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-sm'>
