@@ -9,6 +9,7 @@ import addimg4 from '../../assets/images/Adds/add4.png';
 import Container from '../../components/ui/Container';
 import Review from './Review';
 
+
 const Details = () => {
     return (
         <Container>
