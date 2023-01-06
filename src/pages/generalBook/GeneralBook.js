@@ -5,7 +5,14 @@ import Slider from '../../components/Slider/Slider';
 const GeneralBook = () => {
     return (
         <Container>
-            <Slider />
+            <div>
+                <Slider />
+            </div>
+            <div>
+                <div className='shadow shadow-gray-400 border-gray-400 border p-3 mb-4'>
+                    <h2 className='text-red-400 font-medium'>ভর্তি গাইড</h2>
+                </div>
+            </div>
         </Container>
     );
 };
