@@ -13,6 +13,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Authors from "./pages/authors/Authors";
 import Details from "./pages/detailsPage/Details";
+import GeneralBook from "./pages/generalBook/GeneralBook";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 				<Route path='/home' element={<Home />} />
 				<Route path='/authors' element={<Authors />} />
 				<Route path='/details' element={<Details />} />
+				<Route path='/generalbook' element={<GeneralBook />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/dashboard' element={<Dashboard />}>
