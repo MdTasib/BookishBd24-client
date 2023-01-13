@@ -15,10 +15,12 @@ import Authors from "./pages/authors/Authors";
 import Details from "./pages/detailsPage/Details";
 import GeneralBook from "./pages/generalBook/GeneralBook";
 
+import { Toaster } from "react-hot-toast";
 
 function App() {
 	return (
 		<Router>
+			<Toaster />
 			<Navbar />
 			<Routes>
 				<Route path='/' element={<Home />} />

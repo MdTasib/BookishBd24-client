@@ -1,6 +1,8 @@
 import React from 'react';
 import Container from '../../components/ui/Container';
 import Slider from '../../components/Slider/Slider';
+import books from '../../assets/images/book.png';
+import cart from "../../assets/images/icon10.png";
 
 const GeneralBook = () => {
     return (
