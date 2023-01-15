@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SidebarFilter = () => {
+const FilterBook = () => {
     return (
-        <div>
+        <div className='mb-5 overflow-hidden'>
             <div className='mb-5 bg-gray-200 pb-2'>
                 <p className='my-2 bg-primary p-2 text-white'>উপহার সামগ্রী</p>
                 <div className='pl-2'>
@@ -76,4 +76,4 @@ const SidebarFilter = () => {
     );
 };
 
-export default SidebarFilter;
+export default FilterBook;
