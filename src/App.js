@@ -16,6 +16,7 @@ import Details from "./pages/detailsPage/Details";
 import GeneralBook from "./pages/generalBook/GeneralBook";
 
 import { Toaster } from "react-hot-toast";
+import BookRoute from "./pages/bookRoute/BookRoute";
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 				<Route path='/home' element={<Home />} />
 				<Route path='/authors' element={<Authors />} />
 				<Route path='/details' element={<Details />} />
+				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
