@@ -12,17 +12,32 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Authors from "./pages/authors/Authors";
+
 import PriOrder from "./pages/priOrder/PriOrder";
+
+import Details from "./pages/detailsPage/Details";
+import GeneralBook from "./pages/generalBook/GeneralBook";
+
+import { Toaster } from "react-hot-toast";
+import BookRoute from "./pages/bookRoute/BookRoute";
+
 
 function App() {
 	return (
 		<Router>
+			<Toaster />
 			<Navbar />
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/authors' element={<Authors />} />
+
 				<Route path='/pri-order' element={<PriOrder />} />
+
+				<Route path='/details' element={<Details />} />
+				<Route path='/bookroute' element={<BookRoute />} />
+				<Route path='/generalbook' element={<GeneralBook />} />
+
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/dashboard' element={<Dashboard />}>
