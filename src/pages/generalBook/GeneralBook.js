@@ -16,7 +16,7 @@ const GeneralBook = () => {
                 </div>
             </div>
 
-            <div className=' w-full md:w-[82%] mx-auto grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5'>
                 {products?.map(item => (
 						<Book key={item.id} item={item} />
 					))}

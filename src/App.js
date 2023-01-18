@@ -18,7 +18,6 @@ import GeneralBook from "./pages/generalBook/GeneralBook";
 import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
 import ManageBook from "./components/dashboard/manageBook/ManageBook";
-import EditModal from "./components/dashboard/manageBook/EditModal";
 
 function App() {
 	return (
