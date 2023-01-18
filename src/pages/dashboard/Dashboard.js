@@ -20,6 +20,9 @@ const Dashboard = () => {
 						<NavLink to='/dashboard/add-product'>Add Book</NavLink>
 					</li>
 					<li className='text-primary my-1'>
+						<NavLink to='/dashboard/manage-book'>Manage Books</NavLink>
+					</li>
+					<li className='text-primary my-1'>
 						<NavLink to='/dashboard/add-question'>Add Question</NavLink>
 					</li>
 				</ul>
