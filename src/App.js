@@ -20,6 +20,10 @@ import GeneralBook from "./pages/generalBook/GeneralBook";
 
 import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
+import ManageBook from "./components/dashboard/manageBook/ManageBook";
+import OrderBook from "./components/dashboard/orderBook/OrderBook";
+import MyProfile from "./components/dashboard/profile/MyProfile";
+import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 
 
 function App() {
@@ -45,6 +49,11 @@ function App() {
 					<Route path='/dashboard/add-slider' element={<AddSlider />} />
 					<Route path='/dashboard/add-question' element={<AddQuestion />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
+					<Route path='/dashboard/manage-book' element={<ManageBook />} />
+					<Route path='/dashboard/order-book' element={<OrderBook />} />
+					<Route path='/dashboard/my-profile' element={<MyProfile />} />
+					<Route path='/dashboard/updateprofile' element={<UpdateProfile />} />
+					
 				</Route>
 				<Route path='*' element={<NotFound />} />
 			</Routes>

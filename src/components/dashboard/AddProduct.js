@@ -57,18 +57,155 @@ const AddProduct = () => {
 				<div className='card w-full shadow-2xl bg-base-100'>
 					<form onSubmit={handleSubmit(onSubmit)} className='card-body'>
 						<div className='form-control'>
-							<div className='grid grid-cols-2'>
+							<div className='grid grid-cols-2 gap-10'>
+								{/* ............................... */}
 								<div>
-									<label className='label'>
-										<span className='label-text'>Product Name</span>
-									</label>
-									<input
-										{...register("name", { required: true })}
-										type='text'
-										placeholder='Enter Title'
-										className='input input-bordered input-primary w-full max-w-xs'
-									/>
+									<div className="grid grid-cols-2 gap-6">
+										<div>
+											<label className='label'>
+												<span className='label-text'>Book Name</span>
+											</label>
+											<input
+												{...register("name", { required: true })}
+												type='text'
+												placeholder='Enter Title'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Writer Name</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Writer Name'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Category</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Category'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Publication</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Publication'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Subject</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Subject'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Pages</span>
+											</label>
+											<input
+												{...register("number", { required: true })}
+												type='number'
+												placeholder='Enter Pages'
+												className='input input-bordered input-primary w-full max-w-xs shadow-mg'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Cover</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Cover'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Edition</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Edition'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Language</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Language'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Price</span>
+											</label>
+											<input
+												{...register("price", { required: true })}
+												type='number'
+												placeholder='Enter Price'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Pre Price</span>
+											</label>
+											<input
+												{...register("price", { required: true })}
+												type='number'
+												placeholder='Enter Pre price'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Discount</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter Pre price'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
+											/>
+										</div>
+									</div>
+									<div className='form-control'>
+										<label className='label'>
+											<span className='label-text'>Description</span>
+										</label>
+										<textarea
+											{...register("description", { required: true })}
+											className='textarea textarea-primary w-full max-w-xs'
+											placeholder='Enter Description'></textarea>
+									</div>
+
 								</div>
+								{/* ............................... */}
 								<div>
 									<label className='label'>
 										<span className='label-text'>Upload Image</span>
@@ -105,33 +242,12 @@ const AddProduct = () => {
 											/>
 										</label>
 									</div>
-								</div>
-							</div>
-
-							<div className='grid grid-cols-2 pt-5'>
-								<div>
-									<div className='form-control'>
-										<label className='label'>
-											<span className='label-text'>Description</span>
-										</label>
-										<textarea
-											{...register("description", { required: true })}
-											className='textarea textarea-primary w-full max-w-xs'
-											placeholder='Enter Description'></textarea>
-									</div>
-								</div>
-								<div>
 									<label className='label'>
-										<span className='label-text'>Product Price</span>
+										<span className='label-text'>Upload More Images</span>
 									</label>
-									<input
-										{...register("price", { required: true })}
-										type='number'
-										placeholder='Enter Price'
-										className='input input-bordered input-primary w-full max-w-xs'
-									/>
 								</div>
 							</div>
+							
 						</div>
 
 						<div className='form-control mt-6'>
