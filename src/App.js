@@ -21,6 +21,7 @@ import ManageBook from "./components/dashboard/manageBook/ManageBook";
 import OrderBook from "./components/dashboard/orderBook/OrderBook";
 import MyProfile from "./components/dashboard/profile/MyProfile";
 import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
+import Cart from "./pages/cart/Cart";
 
 function App() {
 	return (
@@ -32,6 +33,7 @@ function App() {
 				<Route path='/home' element={<Home />} />
 				<Route path='/authors' element={<Authors />} />
 				<Route path='/details' element={<Details />} />
+				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
 				<Route path='/login' element={<Login />} />
