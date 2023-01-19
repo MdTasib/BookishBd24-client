@@ -69,7 +69,7 @@ const AddProduct = () => {
 												{...register("name", { required: true })}
 												type='text'
 												placeholder='Enter Title'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -80,7 +80,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Writer Name'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -91,7 +91,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Category'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -102,7 +102,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Publication'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -113,7 +113,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Subject'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -124,7 +124,7 @@ const AddProduct = () => {
 												{...register("number", { required: true })}
 												type='number'
 												placeholder='Enter Pages'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-mg'
 											/>
 										</div>
 										<div>
@@ -135,7 +135,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Cover'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -146,7 +146,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Edition'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -157,7 +157,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Language'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -168,7 +168,7 @@ const AddProduct = () => {
 												{...register("price", { required: true })}
 												type='number'
 												placeholder='Enter Price'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -179,7 +179,7 @@ const AddProduct = () => {
 												{...register("price", { required: true })}
 												type='number'
 												placeholder='Enter Pre price'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 										<div>
@@ -190,7 +190,7 @@ const AddProduct = () => {
 												{...register("text", { required: true })}
 												type='text'
 												placeholder='Enter Pre price'
-												className='input input-bordered input-primary w-full max-w-xs'
+												className='input input-bordered input-primary w-full max-w-xs shadow-md'
 											/>
 										</div>
 									</div>

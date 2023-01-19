@@ -18,6 +18,7 @@ import GeneralBook from "./pages/generalBook/GeneralBook";
 import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
 import ManageBook from "./components/dashboard/manageBook/ManageBook";
+import OrderBook from "./components/dashboard/orderBook/OrderBook";
 
 function App() {
 	return (
@@ -39,6 +40,7 @@ function App() {
 					<Route path='/dashboard/add-question' element={<AddQuestion />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
 					<Route path='/dashboard/manage-book' element={<ManageBook />} />
+					<Route path='/dashboard/order-book' element={<OrderBook />} />
 					
 				</Route>
 				<Route path='*' element={<NotFound />} />
