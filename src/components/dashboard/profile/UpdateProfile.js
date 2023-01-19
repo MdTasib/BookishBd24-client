@@ -7,7 +7,7 @@ const UpdateProfile = () => {
         <div className='card w-full shadow-2xl bg-base-100'>
                 <form onSubmit={handleSubmit()} className='card-body'>
                     <div className='form-control'>
-                        <h4 className="text-xl font-bold text-gray-800 text-center">Update Book</h4>
+                        <h4 className="text-xl font-bold text-gray-800 text-center">Update Your Profile</h4>
                         <div className=''>
 
 
