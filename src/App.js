@@ -20,6 +20,8 @@ import GeneralBook from "./pages/generalBook/GeneralBook";
 
 import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
+import Subject from "./pages/subject/Subject";
+import Publisher from "./pages/publisher/Publisher";
 
 
 function App() {
@@ -33,7 +35,8 @@ function App() {
 				<Route path='/authors' element={<Authors />} />
 
 				<Route path='/pri-order' element={<PriOrder />} />
-
+                <Route path='/subject' element={<Subject/>}/>
+                <Route path='/prokasok' element={<Publisher/>}/>
 				<Route path='/details' element={<Details />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />

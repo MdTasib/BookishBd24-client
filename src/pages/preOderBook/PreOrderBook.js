@@ -1,5 +1,7 @@
 import React from 'react';
 import cart from "../../assets/images/icon10.png";
+import Button from '../../components/ui/Button';
+import { Link } from "react-router-dom";
 
 
 const PreOrderBook = ({ item: { name, image, price, prevPrice, author } }) => {
@@ -25,7 +27,12 @@ const PreOrderBook = ({ item: { name, image, price, prevPrice, author } }) => {
                 </div>
             </div>
         </div>
-        <button className='border border-gray-600 mt-2 hover:bg-green-800 text-black py-2 px-4 rounded'>অর্ডার করুন</button>
+        {/* <button className='border border-green-900 mt-2 hover:bg-green-800 text-black py-2 px-4 rounded'>অর্ডার করুন</button> */}
+        <div class='text-center mt-2'>
+			<Link to={`/pri-order/${author.id}`}>
+				<Button>অর্ডার করুন</Button>
+			</Link>
+		</div>
     </div>
     );
 };
