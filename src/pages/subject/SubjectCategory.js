@@ -27,9 +27,9 @@ const SubjectCategory = ({ item: { name } }) => {
 
 
               <div className=' hover:bg-red-400 rounded' >
-              <img className='h-56 'src={back_img} alt=''/>
+              <img className='h-56'src={back_img} alt=''/>
               <div className=''>
-                 <h1 className='flex items-center justify-center'>{name}</h1>
+                 <h1 className='flex items-center justify-center mt-3 hover:text-white'>{name}</h1>
                  </div> 
              </div>
 

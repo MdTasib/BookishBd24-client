@@ -5,10 +5,11 @@ const AllPublisher = ({ item: { author } }) => {
     return (
         <div>
           <div className=' cursor-pointer'>
-            <img className='justify-center mx-auto' src={publisher} alt=''></img>
-            <h1 className='text-center'>{author}</h1>
-          </div>  
-        </div>
+            <img className='justify-center mx-auto transform transition-all hover:scale-90' src={publisher} alt=''></img>
+            <h1 className='text-center mt-5'>{author}</h1>
+          </div> 
+
+       </div>
     );
 };
 
