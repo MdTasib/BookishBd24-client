@@ -4,9 +4,9 @@ import bookimg from "../../../assets/images/book.png";
 const OrderBook = () => {
     return (
         <div className='bg-[#F3F6FC] h-[100vh]'>
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='lg:grid md:grid grid-cols-4 gap-4 p-2'>
                 <div className=''>
-                    <div className='flex gap-4 border bg-white mt-2 ml-2 p-4 rounded-md shadow-md'>
+                    <div className='flex gap-4 border bg-white mt-2 lg:ml-2 md:ml-2 p-4 rounded-md shadow-md'>
                         <div>
                             <img className='h-16' src={bookimg} alt="" />
                         </div>
@@ -18,7 +18,7 @@ const OrderBook = () => {
                     </div>
                 </div>
                 <div>
-                    <div className='flex gap-4 border bg-white mt-2 ml-2 p-4 rounded-md shadow-md'>
+                    <div className='flex gap-4 border bg-white mt-2 lg:ml-2 md:ml-2 p-4 rounded-md shadow-md'>
                         <div>
                             <img className='h-16' src={bookimg} alt="" />
                         </div>

@@ -14,7 +14,7 @@ const updateUserProfile = () => {
     return (
         <div className='bg-[#F3F6FC]  h-[100vh]'>
             <div className='flex justify-center'>
-                <div className='bg-white p-8 rounded-md shadow-md mt-12'>
+                <div className='bg-white p-8 rounded-md shadow-md mt-12 px-4 '>
                     <div className=''>
                         <img className='h-16 w-16 rounded-full' src={bookimg} alt="" />
                     </div>
