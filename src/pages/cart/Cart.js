@@ -36,7 +36,7 @@ const Cart = () => {
                                             <small>Only 26 copies available</small>
                                         </div>
                                     </div>
-                                    <div className='border border-gray-500 flex ml-4 md:ml-0 lg:ml-0'>
+                                    <div className='border border-gray-500 inline ml-4 md:ml-0 lg:ml-0'>
                                         <button className='px-4 border-r border-gray-500 bg-gray-200'>-</button>
                                         <button className='px-4 border-r border-gray-500 bg-white'>1</button>
                                         <button className='px-4 bg-gray-200'>+</button>
@@ -59,7 +59,7 @@ const Cart = () => {
                                             <small>Only 26 copies available</small>
                                         </div>
                                     </div>
-                                    <div className='border border-gray-500 flex ml-4 md:ml-0 lg:ml-0'>
+                                    <div className='border border-gray-500 inline ml-4 md:ml-0 lg:ml-0'>
                                         <button className='px-4 border-r border-gray-500 bg-gray-200'>-</button>
                                         <button className='px-4 border-r border-gray-500 bg-white'>1</button>
                                         <button className='px-4 bg-gray-200'>+</button>
@@ -79,7 +79,7 @@ const Cart = () => {
 
 
 
-                    <div className='md:w-[300px] lg:w-[300px] mt-8'>
+                    <div className='md:w-[300px] lg:w-[300px] mt-8 pb-4 md:pb-0 lg:pb-0'>
                         <Checkout />
                     </div>
                 </div>
