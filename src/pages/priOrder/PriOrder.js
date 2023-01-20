@@ -14,7 +14,7 @@ const PriOrder = () => {
             </div>
             
             
-            <div className='grid grid-cols-4 gap-y-4 mb-5 mt-8'>
+            <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-y-4 mb-5 mt-8'>
                     {products?.map(item => (
                         <PreOrderBook key={item.id} item={item} />
                     ))}

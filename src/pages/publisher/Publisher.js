@@ -50,19 +50,19 @@ const Publisher = () => {
         </section>
            <hr  className='text-black border'/> 
 
-           <div className='grid grid-cols-5 mb-5 mt-8'>
+           <div className='grid md:grid-cols-2 lg:grid-cols-5 mb-5 mt-8'>
                     {products?.map(item => (
                         <AllPublisher key={item.id} item={item} />
                     ))}
 
             </div>
-           <div className='grid grid-cols-5 mb-5 mt-8'>
+           <div className='grid md:grid-cols-2 lg:grid-cols-5 mb-5 mt-8'>
                     {products?.map(item => (
                         <AllPublisher key={item.id} item={item} />
                     ))}
 
             </div>
-           <div className='grid grid-cols-5 mb-5 mt-8'>
+           <div className='grid md:grid-cols-2 lg:grid-cols-5 mb-5 mt-8'>
                     {products?.map(item => (
                         <AllPublisher key={item.id} item={item} />
                     ))}

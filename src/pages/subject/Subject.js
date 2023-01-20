@@ -51,25 +51,15 @@ const Subject = () => {
 					</div>
         </section>
            <hr  className='text-black border'/>
+          
       
-           <div className='grid grid-cols-5 mb-5 mt-8 gap-4'>
+           <div className='grid md:grid-cols-2 lg:grid-cols-4 mb-5 mt-8 gap-4 h-96 border md:mb-96 lg:mb-28'>
                     {products?.map(item => (
                         <SubjectCategory key={item.id} item={item} />
                     ))}
 
             </div>
-           <div className='grid grid-cols-5 mb-5 mt-8 gap-4'>
-                    {products?.map(item => (
-                        <SubjectCategory key={item.id} item={item} />
-                    ))}
-
-            </div>
-           <div className='grid grid-cols-5 mb-5 mt-8 gap-4'>
-                    {products?.map(item => (
-                        <SubjectCategory key={item.id} item={item} />
-                    ))}
-
-            </div>
+            
           </Container>    
         </div>
     );
