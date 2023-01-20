@@ -30,6 +30,7 @@ import MyProfile from "./components/dashboard/profile/MyProfile";
 import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 import Cart from "./pages/cart/Cart";
 import AuthorDetails from "./pages/authors/AuthorDetails";
+import UserReview from "./pages/userReview/UserReview";
 
 
 
@@ -48,6 +49,7 @@ function App() {
                 <Route path='/prokasok' element={<Publisher/>}/>
 				<Route path='/details' element={<Details />} />
 				<Route path='/authordetails' element={<AuthorDetails />} />
+				<Route path='/userreview' element={<UserReview />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
