@@ -29,6 +29,7 @@ import OrderBook from "./components/dashboard/orderBook/OrderBook";
 import MyProfile from "./components/dashboard/profile/MyProfile";
 import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 import Cart from "./pages/cart/Cart";
+import AuthorDetails from "./pages/authors/AuthorDetails";
 
 
 
@@ -46,6 +47,7 @@ function App() {
                 <Route path='/subject' element={<Subject/>}/>
                 <Route path='/prokasok' element={<Publisher/>}/>
 				<Route path='/details' element={<Details />} />
+				<Route path='/authordetails' element={<AuthorDetails />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />

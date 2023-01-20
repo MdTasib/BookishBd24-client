@@ -6,6 +6,7 @@ import { authors } from "../../data/data";
 import Button from "../../components/ui/Button";
 import { Link } from "react-router-dom";
 
+
 const Authors = () => {
 	return (
 		<div className='py-6'>
