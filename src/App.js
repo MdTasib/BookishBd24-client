@@ -20,11 +20,16 @@ import GeneralBook from "./pages/generalBook/GeneralBook";
 
 import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
+
+import Subject from "./pages/subject/Subject";
+import Publisher from "./pages/publisher/Publisher";
+
 import ManageBook from "./components/dashboard/manageBook/ManageBook";
 import OrderBook from "./components/dashboard/orderBook/OrderBook";
 import MyProfile from "./components/dashboard/profile/MyProfile";
 import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 import Cart from "./pages/cart/Cart";
+
 
 
 function App() {
@@ -38,7 +43,8 @@ function App() {
 				<Route path='/authors' element={<Authors />} />
 
 				<Route path='/pri-order' element={<PriOrder />} />
-
+                <Route path='/subject' element={<Subject/>}/>
+                <Route path='/prokasok' element={<Publisher/>}/>
 				<Route path='/details' element={<Details />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
