@@ -7,7 +7,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardIntro from "./components/dashboard/DashboardIntro";
 import AddSlider from "./components/dashboard/AddSlider";
 import AddProduct from "./components/dashboard/AddProduct";
-import AddQuestion from "./components/dashboard/AddQuestion";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
@@ -31,6 +30,7 @@ import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 import Cart from "./pages/cart/Cart";
 import AuthorDetails from "./pages/authors/AuthorDetails";
 import UserReview from "./pages/userReview/UserReview";
+import AddAuthor from "./components/dashboard/AddAuthor";
 
 
 
@@ -59,7 +59,7 @@ function App() {
 				<Route path='/dashboard' element={<Dashboard />}>
 					<Route index element={<DashboardIntro />} />
 					<Route path='/dashboard/add-slider' element={<AddSlider />} />
-					<Route path='/dashboard/add-question' element={<AddQuestion />} />
+					<Route path='/dashboard/add-author' element={<AddAuthor />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
 					<Route path='/dashboard/manage-book' element={<ManageBook />} />
 					<Route path='/dashboard/order-book' element={<OrderBook />} />

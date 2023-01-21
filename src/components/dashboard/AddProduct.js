@@ -68,18 +68,40 @@ const AddProduct = () => {
 											<input
 												{...register("name", { required: true })}
 												type='text'
-												placeholder='Enter Title'
+												placeholder='Enter Book Name'
 												className='input input-bordered input-primary w-full max-w-xs'
 											/>
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Writer Name</span>
+												<span className='label-text'>Book Name in English</span>
+											</label>
+											<input
+												{...register("name", { required: true })}
+												type='text'
+												placeholder='Enter Book Name in English'
+												className='input input-bordered input-primary w-full max-w-xs'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Author Name</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
 												type='text'
-												placeholder='Enter Writer Name'
+												placeholder='Enter authr Name'
+												className='input input-bordered input-primary w-full max-w-xs'
+											/>
+										</div>
+										<div>
+											<label className='label'>
+												<span className='label-text'>Author Namr in English</span>
+											</label>
+											<input
+												{...register("text", { required: true })}
+												type='text'
+												placeholder='Enter author Name in English'
 												className='input input-bordered input-primary w-full max-w-xs'
 											/>
 										</div>
