@@ -111,7 +111,7 @@ const AddSlider = () => {
 			</div>
 
 			{/* MANAGE SLIDERS */}
-			<div className="flex justify-center mt-12">
+			<div className="mt-12">
 				<div class="overflow-x-auto">
 					<table class="table w-full">
 						<thead>
