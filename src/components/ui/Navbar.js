@@ -18,7 +18,7 @@ const Navbar = () => {
 			</li>
 
 			<li>
-				<div className='indicator'>
+				<div className='indicator mr-4'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-5 w-5'
@@ -33,7 +33,7 @@ const Navbar = () => {
 						/>
 					</svg>
 
-					<span className='badge badge-primary badge-sm indicator-item'>0</span>
+					<span className='badge badge-primary badge-sm indicator-item mt-2 mr-4'>0</span>
 				</div>
 			</li>
 			{/* Avatar */}
