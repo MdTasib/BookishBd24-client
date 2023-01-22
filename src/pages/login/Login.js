@@ -121,7 +121,7 @@ const Login = () => {
 							</div>
 							<form class='mt-8 space-y-6' onSubmit={handleSubmit}>
 								<div class='relative'>
-									<div class='absolute right-3 mt-4'>
+									<div class='absolute right-3 mt-8'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
 											class='h-6 w-6 text-green-500'
