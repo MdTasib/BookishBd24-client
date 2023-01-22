@@ -20,6 +20,9 @@ const Dashboard = () => {
 						<NavLink to='/dashboard/my-profile'>My Profile</NavLink>
 					</li>
 					<li className='text-primary my-1'>
+						<NavLink to='/dashboard/add-review'>Add Review</NavLink>
+					</li>
+					<li className='text-primary my-1'>
 						<NavLink to='/dashboard/order-book'>My Orders</NavLink>
 					</li>
 					<li className='text-primary my-1'>
