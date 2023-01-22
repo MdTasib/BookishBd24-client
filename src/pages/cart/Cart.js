@@ -22,7 +22,7 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <div className='bg-[#FFFAF4] mt-8 mb-8'>
+                        <div className='bg-[#FFF] mt-8 mb-8'>
                             <div>
                                 <div className='lg:flex md:flex items-center justify-between'>
                                     <div className='flex items-center gap-5 mt-5 mb-5 md:ml-10 lg:ml-10 ml-4 pt-5 md:pt-0 lg:pt-0'>
