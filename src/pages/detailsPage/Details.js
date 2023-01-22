@@ -18,7 +18,7 @@ const Details = () => {
                     <div>
                         <div className='md:flex gap-4'>
                             <div>
-                                <img className='md:h-[300px] md:w-[360px]' src={bookImg} alt="" />
+                                <img className='md:h-[3500px] md:w-[360px]' src={bookImg} alt="" />
                             </div>
                             <div>
                                 <div className='mb-3'>
