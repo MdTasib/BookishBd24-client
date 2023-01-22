@@ -44,7 +44,7 @@ const AddReview = () => {
                                                     {...register("image", { required: true })}
                                                     id='dropzone-file'
                                                     type='file'
-                                                    className='hidden'
+                                                    className='hidden w-full'
                                                 />
                                             </label>
                                         </div>
