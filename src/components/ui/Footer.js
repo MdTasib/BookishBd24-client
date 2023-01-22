@@ -6,6 +6,7 @@ import { FaYoutube } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { BiPhoneCall } from "react-icons/bi";
 import { TfiEmail } from "react-icons/tfi";
+import WhatsApp from "../../pages/whatsapp/WhatsApp";
 
 const Footer = () => {
 	return (
@@ -66,13 +67,14 @@ const Footer = () => {
 							here
 						</li>
 						<li className='text-sm pb-2 flex items-center'>
-							<BiPhoneCall className='mr-1' /> +880xxxxxxxxxxx
+							<BiPhoneCall className='mr-1' /> +8801518477021
 						</li>
 						<li className='text-sm pb-2 flex items-center'>
-							<TfiEmail className='mr-1' /> your@gmail.com
+							<TfiEmail className='mr-1' /> mohammadtasib3@gmail.com
 						</li>
 					</ul>
 				</div>
+				<WhatsApp />
 			</div>
 		</>
 	);

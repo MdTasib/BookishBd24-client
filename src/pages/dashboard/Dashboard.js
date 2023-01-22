@@ -29,7 +29,7 @@ const Dashboard = () => {
 						<NavLink to='/dashboard/manage-book'>Manage Books</NavLink>
 					</li>
 					<li className='text-primary my-1'>
-						<NavLink to='/dashboard/add-question'>Add Question</NavLink>
+						<NavLink to='/dashboard/add-author'>Add Author</NavLink>
 					</li>
 				</ul>
 			</div>
