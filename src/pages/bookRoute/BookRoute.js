@@ -16,12 +16,12 @@ const BookRoute = () => {
                     <label className='font-bold mr-2 text-gray-600' for="cars">সর্ট করুন</label>
                 </div>
                 <div className='inline'>
-                    <select className="select select-primary w-full max-w-xs">
+                    <select className="select select-primary select-sm w-full max-w-xs">
                         <option disabled selected>More relevant</option>
                         <option>Discount - low to high</option>
                         <option>Discount - high to low</option>
                         <option>price - low to high</option>
-                        <option>high to low</option>
+                        <option>price - high to low</option>
                     </select>
                 </div>
             </div>
