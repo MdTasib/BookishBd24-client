@@ -1,10 +1,10 @@
 import React from "react";
 import cart from "../../assets/images/icon10.png";
 
-const Book = ({ item: { name, image, price, prevPrice, author } }) => {
+const Book = ({ book: { name, imageURL, price, prePrice, author } }) => {
 	return (
 		<div className='mx-7 max-h-min border-2 rounded hover:border-primary cursor-pointer p-2'>
-			<img className='block mx-auto' src={image} alt='' />
+			<img className='block mx-auto max-h-60' src={imageURL} alt='' />
 			<div className='relative'>
 				<a href='/' title='' class='crt-btn flex items-center justify-center'>
 					<img src={cart} alt='' />
@@ -17,7 +17,7 @@ const Book = ({ item: { name, image, price, prevPrice, author } }) => {
 
 				<div className='grid grid-cols-2'>
 					<del aria-hidden={true}>
-						<bdi>{prevPrice} ৳</bdi>
+						<bdi>{prePrice} ৳</bdi>
 					</del>
 					<div className='col-end-4'>
 						<span className='text-md font-bold text-primary'>{price} ৳</span>
