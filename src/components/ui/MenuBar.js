@@ -10,12 +10,12 @@ const MenuBar = () => {
 				</NavLink>
 			</li>
 			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/book'>
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/bookroute'>
 					বই
 				</NavLink>
 			</li>
 			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/genaral-book'>
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/generalbook'>
 					জেনারেল বই
 				</NavLink>
 			</li>

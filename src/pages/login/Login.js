@@ -1,10 +1,71 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import {
+	sendPasswordResetEmail,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
+import {
+	useSignInWithEmailAndPassword,
+	useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import facebookIcon from "../../assets/icons/facebook.png";
 import googleIcon from "../../assets/icons/google.png";
 import instagramIcon from "../../assets/icons/instagram.png";
 import Button from "../../components/ui/Button";
+import Loading from "../../components/ui/Loading";
+import auth from "../../firebase.init";
+import { useRef } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
+	const [signInWithGoogle, googleUser, googleLoading, googleError] =
+		useSignInWithGoogle(auth);
+	const emailRef = useRef("");
+	const passwordRef = useRef("");
+	let navigate = useNavigate();
+	const location = useLocation();
+
+	let from = location.state?.from?.pathname || "/";
+
+	// handle user login email and password
+	const handleSubmit = async event => {
+		event.preventDefault();
+		const email = emailRef.current.value;
+		const password = passwordRef.current.value;
+
+		await signInWithEmailAndPassword(auth, email, password)
+			.then(result => {
+				const user = result.user;
+				console.log(user);
+				toast.success("User login successfully");
+
+				if (user.uid) {
+					navigate(from, { replace: true });
+				}
+			})
+			.catch(error => {
+				errorMessage(error);
+			});
+	};
+
+	// handle forget password
+	const handleForgetPassword = () => {
+		const email = emailRef.current.value;
+		sendPasswordResetEmail(auth, email)
+			.then(() => toast.success("Please check your email and new password set"))
+			.catch(error => {
+				errorMessage(error);
+			});
+	};
+
+	// displayed error message
+	const errorMessage = error => {
+		let errorMessage = error.message;
+		toast.error(errorMessage.split(":")[1]);
+	};
+
 	return (
 		<div>
 			<div class='relative flex '>
@@ -36,33 +97,31 @@ const Login = () => {
 								</p>
 							</div>
 							<div class='flex flex-row justify-center items-center space-x-3'>
-								<a href='/' target='_blank' class='px-2'>
-									<img class='w-8 h-8' src={googleIcon} alt='Google login' />
-								</a>
-								<a href='/' target='_blank' class='px-2'>
-									<img
-										class='w-8 h-8'
-										src={facebookIcon}
-										alt='facebook login'
-									/>
-								</a>
-								<a href='/' target='_blank' class='px-2'>
-									<img
-										src={instagramIcon}
-										alt='instagram login'
-										class='w-8 h-8'
-									/>
-								</a>
+								<img
+									class='px-2 h-8 cursor-pointer'
+									src={googleIcon}
+									alt='Google login'
+									onClick={() => signInWithGoogle()}
+								/>
+								<img
+									class='px-2 h-8 cursor-pointer'
+									src={facebookIcon}
+									alt='facebook login'
+								/>
+								<img
+									src={instagramIcon}
+									alt='instagram login'
+									class='px-2 h-8 cursor-pointer'
+								/>
 							</div>
 							<div class='flex items-center justify-center space-x-2'>
 								<span class='h-px w-24 bg-gray-200'></span>
 								<span class='text-gray-300 font-normal'>অথবা</span>
 								<span class='h-px w-24 bg-gray-200'></span>
 							</div>
-							<form class='mt-8 space-y-6' action='#' method='POST'>
-								<input type='hidden' name='remember' value='true' />
+							<form class='mt-8 space-y-6' onSubmit={handleSubmit}>
 								<div class='relative'>
-									<div class='absolute right-3 mt-4'>
+									<div class='absolute right-3 mt-8'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
 											class='h-6 w-6 text-green-500'
@@ -80,10 +139,11 @@ const Login = () => {
 										ইমেইল <span className='text-red-500'>*</span>
 									</label>
 									<input
+										required
+										ref={emailRef}
 										class=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
 										type='email'
 										placeholder='আপনার ইমেইল'
-										required
 									/>
 								</div>
 								<div class='mt-8 content-center'>
@@ -91,10 +151,11 @@ const Login = () => {
 										পাসওয়ার্ড <span className='text-red-500'>*</span>
 									</label>
 									<input
+										ref={passwordRef}
+										required
 										class='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
 										type='password'
 										placeholder='আপনার পাসওয়ার্ড'
-										required
 									/>
 								</div>
 								<div class='flex items-center justify-between'>
@@ -102,28 +163,28 @@ const Login = () => {
 										<label className='cursor-pointer label'>
 											<input
 												type='checkbox'
-												checked={true}
 												className='checkbox checkbox-primary mr-2'
 											/>
 											<span className='label-text'>Remember me</span>
 										</label>
 									</div>
 									<div class='text-sm'>
-										<a href='/' class='text-primary font-bold hover:underline'>
+										<p
+											onClick={handleForgetPassword}
+											class='text-primary font-bold hover:underline cursor-pointer'>
 											আপনি কি পাসওয়ার্ড ভুলে গেছেন?
-										</a>
+										</p>
 									</div>
 								</div>
-								<div>
-									<Button classes='w-full'>লগইন</Button>
-								</div>
+
+								<Button classes='w-full'>লগইন</Button>
 								<p class='flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-sm'>
 									<span>কোনো অ্যাকাউন্ট নেই?</span>
-									<a
-										href='/'
+									<Link
+										to='/register'
 										class='text-primary font-bold no-underline hover:underline cursor-pointer transition ease-in duration-300 text-sm'>
 										রেজিস্টার
-									</a>
+									</Link>
 								</p>
 							</form>
 						</div>
