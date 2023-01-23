@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { products } from '../../../data/data';
-import EditModal from './EditModal';
 
 const ManageBook = () => {
-    const [modal, setModal] = useState(false);
+    const navigate = useNavigate();
+
+    const editBook = () => {
+        navigate("/dashboard/edit-book")
+    }
 
     return (
         <div class="overflow-x-auto">
@@ -34,7 +37,7 @@ const ManageBook = () => {
                                 className="bg-red-500 px-2 rounded text-white">
                                 Delete
                             </button></td>
-                            <td><button for="edit-modal" className="bg-primary px-3 rounded text-white" onClick={()=>setModal(!modal)}>
+                            <td><button for="edit-modal" className="bg-primary px-3 rounded text-white" onClick={()=>editBook()}>
                                 Edit
                             </button></td>
                         </tr>)
@@ -42,9 +45,9 @@ const ManageBook = () => {
 
                 </tbody>
             </table>
-            {
+            {/* {
                 modal && <EditModal/>
-            }
+            } */}
         </div>
     );
 };
