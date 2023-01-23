@@ -11,9 +11,13 @@ const Book = ({ book: { name, imageURL, price, prePrice, author } }) => {
 				</a>
 			</div>
 			<div class='px-4'>
-				<h3 className='text-sm font-bold'>{name}</h3>
+				<h3 className='text-sm font-bold'>
+					{name.slice(0, 25)} {name.length > 25 ? "..." : ""}
+				</h3>
 
-				<span className='text-xs py-2 block'>{author}</span>
+				<span className='text-xs py-2 block'>
+					{author.slice(0, 40)} {author.length > 40 ? "..." : ""}
+				</span>
 
 				<div className='grid grid-cols-2'>
 					<del aria-hidden={true}>
