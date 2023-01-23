@@ -51,7 +51,7 @@ function App() {
                 <Route path='/prokasok' element={<Publisher/>}/>
 				<Route path='/details' element={<Details />} />
 				<Route path='/authordetails' element={<AuthorDetails />} />
-				<Route path='/userreview' element={<UserReview />} />
+				<Route path='/user-review' element={<UserReview />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />

@@ -7,7 +7,7 @@ const Navbar = () => {
 	const menuItems = (
 		<>
 			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/dashboard'>
+				<NavLink className='mx-1 text-sm  mb-2' to='/dashboard'>
 					ড্যাশবোর্ড
 				</NavLink>
 			</li>
