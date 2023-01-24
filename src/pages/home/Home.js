@@ -7,10 +7,17 @@ function Home() {
 	return (
 		<div>
 			<ImageSlider />
-			<SectionBooks title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা' />
-			<SectionBooks title='ঈমান আক্বিদা ও বিশ্বাস' />
+			<SectionBooks
+				filters={{ category: "বইমেলা" }}
+				title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা'
+			/>
+			<SectionBooks
+				filters={{ category: "ইবাদত" }}
+				title='ঈমান আক্বিদা ও বিশ্বাস'
+			/>
 			<AdsGrid />
 			<SectionBooks
+				filters={{ category: "ঈমান" }}
 				title='শিশু-কিশোরদের ইসলামী বই
 '
 			/>

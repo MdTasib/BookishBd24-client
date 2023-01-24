@@ -4,11 +4,16 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
 import Button from "../ui/Button";
-import { products } from "../../data/data";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 
-const SectionBooks = ({ title }) => {
-	const { data: books, isLoading, isError, error } = useGetBooksQuery();
+const SectionBooks = ({ title, filters }) => {
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ ...filters });
+	console.log(filters);
 
 	const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	const responsive = {

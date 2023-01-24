@@ -7,7 +7,13 @@ export const apiSlice = createApi({
 	}),
 	endpoints: builder => ({
 		getBooks: builder.query({
-			query: () => "/book",
+			// query: ({}) => "/book",
+			query: arg => {
+				return {
+					url: "/book",
+					params: { ...arg },
+				};
+			},
 		}),
 	}),
 });
