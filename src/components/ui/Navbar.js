@@ -6,8 +6,8 @@ import MenuBar from "./MenuBar";
 const Navbar = () => {
 	const menuItems = (
 		<>
-			<li>
-				<NavLink className='mx-1 text-sm  mb-2' to='/dashboard'>
+			<li className="p-0">
+				<NavLink className='text-sm mb-2 ' to='/dashboard'>
 					ড্যাশবোর্ড
 				</NavLink>
 			</li>

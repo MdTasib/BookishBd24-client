@@ -40,6 +40,11 @@ const MenuBar = () => {
 				</NavLink>
 			</li>
 			<li>
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/offer'>
+				অফারসমূহ
+				</NavLink>
+			</li>
+			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/pri-order'>
 					প্রি-অর্ডার
 				</NavLink>

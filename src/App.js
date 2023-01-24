@@ -33,6 +33,7 @@ import UserReview from "./pages/userReview/UserReview";
 import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
+import Offer from "./pages/offer/Offer";
 
 
 
@@ -55,6 +56,7 @@ function App() {
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
+				<Route path='/offer' element={<Offer />} />
 
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
