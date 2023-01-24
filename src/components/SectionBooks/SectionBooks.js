@@ -4,9 +4,17 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
 import Button from "../ui/Button";
-import { products } from "../../data/data";
+import { useGetBooksQuery } from "../../features/api/apiSlice";
 
-const SectionBooks = ({ title }) => {
+const SectionBooks = ({ title, filters }) => {
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ ...filters });
+	console.log(filters);
+
 	const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	const responsive = {
 		superLargeDesktop: {
@@ -28,6 +36,23 @@ const SectionBooks = ({ title }) => {
 		},
 	};
 
+	// conent loaded
+	let content = null;
+	if (isLoading) {
+		content = <h3 className='text-4xl'>Loading...</h3>;
+	}
+	if (!isLoading && isError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError && books?.data?.books?.length === 0) {
+		content = <p className='text-red-500'>Books not found!</p>;
+	}
+	if (!isError && !isLoading && books?.data?.books?.length > 0) {
+		content = books?.data?.books?.map(book => (
+			<Book key={book.id} book={book} />
+		));
+	}
+
 	return (
 		<section className='pb-10'>
 			<Container>
@@ -35,11 +60,7 @@ const SectionBooks = ({ title }) => {
 					<h2 className='text-primary font-medium'>{title}</h2>
 				</div>
 
-				<Carousel responsive={responsive}>
-					{products?.map(item => (
-						<Book key={item.id} item={item} />
-					))}
-				</Carousel>
+				<Carousel responsive={responsive}>{content}</Carousel>
 
 				<div className='text-center pt-4'>
 					<Button>সকল নতুন প্রকাশিত বই</Button>

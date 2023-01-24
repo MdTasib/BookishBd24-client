@@ -34,8 +34,6 @@ import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
 
-
-
 function App() {
 	return (
 		<Router>
@@ -47,8 +45,8 @@ function App() {
 				<Route path='/authors' element={<Authors />} />
 
 				<Route path='/pri-order' element={<PriOrder />} />
-                <Route path='/subject' element={<Subject/>}/>
-                <Route path='/prokasok' element={<Publisher/>}/>
+				<Route path='/subject' element={<Subject />} />
+				<Route path='/prokasok' element={<Publisher />} />
 				<Route path='/details' element={<Details />} />
 				<Route path='/authordetails' element={<AuthorDetails />} />
 				<Route path='/userreview' element={<UserReview />} />
@@ -69,7 +67,6 @@ function App() {
 					<Route path='/dashboard/my-profile' element={<MyProfile />} />
 					<Route path='/dashboard/add-review' element={<AddReview />} />
 					<Route path='/dashboard/updateprofile' element={<UpdateProfile />} />
-					
 				</Route>
 				<Route path='*' element={<NotFound />} />
 			</Routes>
