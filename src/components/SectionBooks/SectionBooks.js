@@ -48,7 +48,7 @@ const SectionBooks = ({ title, filters }) => {
 	}
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
 		content = books?.data?.books?.map(book => (
-			<Book key={book.id} book={book} />
+			<Book key={book._id} book={book} />
 		));
 	}
 
