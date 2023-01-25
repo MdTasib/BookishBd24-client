@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "../../components/ui/Container";
-import Slider from "../../components/Slider/Slider";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 
@@ -27,11 +26,8 @@ const GeneralBook = () => {
 	return (
 		<Container>
 			<div>
-				<Slider />
-			</div>
-			<div>
-				<div className='shadow shadow-gray-400 border-gray-400 border p-3 mb-4'>
-					<h2 className='text-red-400 font-medium'>ভর্তি গাইড</h2>
+				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
+					<h2 className='text-primary font-medium'>ভর্তি গাইড</h2>
 				</div>
 			</div>
 
