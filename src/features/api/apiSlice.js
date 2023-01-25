@@ -60,4 +60,10 @@ export const apiSlice = createApi({
 	}),
 });
 
-export const { useGetBooksQuery, useGetAuthorsQuery } = apiSlice;
+export const {
+	useGetBooksQuery,
+	useGetAuthorsQuery,
+	useGetBookDetailsQuery,
+	useCreateBookMutation,
+	useCreateAuthorMutation,
+} = apiSlice;

@@ -1,98 +1,142 @@
-import React from 'react';
-import bookImg from '../../assets/images/book.png'
-import bookImg2 from '../../assets/images/book2.png'
-
-import addimg1 from '../../assets/images/Adds/add1.png';
-import addimg2 from '../../assets/images/Adds/add2.png';
-import addimg3 from '../../assets/images/Adds/add3.png';
-import addimg4 from '../../assets/images/Adds/add4.png';
-import Container from '../../components/ui/Container';
-import Review from './Review';
-
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetBookDetailsQuery } from "../../features/api/apiSlice";
+import bookImg2 from "../../assets/images/book2.png";
+import addimg1 from "../../assets/images/Adds/add1.png";
+import addimg2 from "../../assets/images/Adds/add2.png";
+import addimg3 from "../../assets/images/Adds/add3.png";
+import addimg4 from "../../assets/images/Adds/add4.png";
+import Container from "../../components/ui/Container";
+import Review from "./Review";
 
 const Details = () => {
-    return (
-        <Container>
-            <div className='mb-12 mt-2'>
-                <div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
-                    <div>
-                        <div className='md:flex gap-4'>
-                            <div>
-                                <img className='md:h-[350px] md:w-[400px]' src={bookImg} alt="" />
-                            </div>
-                            <div>
-                                <div className='mb-3'>
-                                    <h2 className='text-xl'>সংশয় দূর হোক</h2>
-                                    <p>লেখক : <span className='text-[#F23534]'>মো. মিকাইল আহমেদ</span></p>
-                                    <p>প্রকাশনী : <span className='text-[#F23534]'>দুর্বার পাবলিকেশন্স</span></p>
-                                    <p>বিষয় : <span className='text-[#F23534]'>ইসলামি আদর্শ ও মতবাদ</span></p>
-                                    <small>পৃষ্ঠা : 332, কভার : হার্ড কভার, সংস্করণ : 1st Published, 2022</small>
-                                    <small>ভাষা : বাংলা</small>
-                                </div>
-                                <p className='mb-6'>আগ্রাসনমুখী পাশ্চাত্যের মুখে পৃথিবী যেমন হারিয়েছে তার নিজস্ব চোখ, তেমনি ইসলাম প্রসঙ্গে চৌদ্দশ বছর আগের যে চিত্র; দ্বিধা-সন্দেহ আর শতধা সংশয়কে একপাশে ফেলে রেখে রবের আশ্রয়ে নিজেকে সমর্পণ করে দিয়ে... আরো পড়ুন</p>
-                                <h2 className='text-xl mb-3 text-[#F23534]'>525 ৳ <del className='text-gray-500'>700 ৳</del>(25% ছাড়ে)</h2>
-                                <div>
-                                    <button className='bg-[#F23534] text-white px-4 py-2 rounded'>অর্ডার করুন</button>
-                                    <button className='bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]'>আরও পড়ুন</button>
-                                </div>
+	const { id } = useParams();
+	const { data: book, isLoading, isError, error } = useGetBookDetailsQuery(id);
 
-                                {/* ADDS IMAGES------------------------------- */}
-                                <div className='mt-4 md:grid grid-cols-2 gap-y-4'>
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt="" />
-                                </div>
-                            </div>
-                        </div>
+	// conent loaded
+	let content = null;
+	if (isLoading) {
+		content = <h3 className='text-4xl'>Loading...</h3>;
+	}
+	if (!isLoading && isError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError) {
+		content = (
+			<div className='flex flex-row gap-4'>
+				<div className='basis-1/4'>
+					<img className='h-1/2' src={book?.data?.imageURL} alt='' />
+				</div>
+				<div className='basis-3/4'>
+					<div className='mb-3'>
+						<h2 className='text-xl'>{book?.data?.name}</h2>
+						<p>
+							লেখক :{" "}
+							<span className='text-[#F23534]'>{book?.data?.author}</span>
+						</p>
+						<p>
+							প্রকাশনী :{" "}
+							<span className='text-[#F23534]'>{book?.data?.publication}</span>
+						</p>
+						<p>
+							বিষয় :{" "}
+							<span className='text-[#F23534]'>{book?.data?.subject}</span>
+						</p>
+						<small>
+							পৃষ্ঠা : {book?.data?.pages}, কভার : {book?.data?.cover}, সংস্করণ
+							: {book?.data?.edition}
+						</small>
+						<small>ভাষা : বাংলা</small>
+					</div>
+					<p className='mb-6'>{book?.data?.description}</p>
+					<h2 className='text-xl mb-3 text-[#F23534]'>
+						{book?.data?.price} ৳{" "}
+						<del className='text-gray-500'>{book?.data?.prePrice} ৳</del>(
+						{book?.data?.discount}% ছাড়ে)
+					</h2>
+					<div>
+						<button className='bg-[#F23534] text-white px-4 py-2 rounded'>
+							অর্ডার করুন
+						</button>
+						<button className='bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]'>
+							আরও পড়ুন
+						</button>
+					</div>
 
-                        <Review />
+					{/* ADDS IMAGES------------------------------- */}
+					<div className='mt-4 md:grid grid-cols-2 gap-y-4'>
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt='' />
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt='' />
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt='' />
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt='' />
+					</div>
+				</div>
+			</div>
+		);
+	}
 
+	return (
+		<Container>
+			<div className='mb-12 mt-2'>
+				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
+					<div>
+						{content}
 
-                    </div>
+						<Review />
+					</div>
 
+					<div className=''>
+						<div className='border border-gray-500 '>
+							<h2 className='border-b border-gray-500 p-3'>আরো দেখুন…</h2>
+							<div className='flex gap-2 border-b border-gray-500 p-2'>
+								<img className='h-24 w-20' src={bookImg2} alt='' />
+								<div>
+									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
+									<small className='text-gray-700 block'>আরিফ আজাদ</small>
+									<small className='text-gray-700 block'>
+										গার্ডিয়ান পাবলিকেশন্স
+									</small>
+									<small>
+										<del className='text-gray-600'>275</del>
+									</small>
+									<small className='text-[#F23534] ml-4'>214</small>
+								</div>
+							</div>
+							<div className='flex gap-2 border-b border-gray-500 p-2'>
+								<img className='h-24 w-20' src={bookImg2} alt='' />
+								<div>
+									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
+									<small className='text-gray-700 block'>আরিফ আজাদ</small>
+									<small className='text-gray-700 block'>
+										গার্ডিয়ান পাবলিকেশন্স
+									</small>
+									<small>
+										<del className='text-gray-600'>275</del>
+									</small>
+									<small className='text-[#F23534] ml-4'>214</small>
+								</div>
+							</div>
 
-                    <div className=''>
-                        <div className='border border-gray-500 '>
-                            <h2 className='border-b border-gray-500 p-3'>আরো দেখুন…</h2>
-                            <div className='flex gap-2 border-b border-gray-500 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
-
-                                </div>
-                            </div>
-                            <div className='flex gap-2 border-b border-gray-500 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
-                                </div>
-                            </div>
-
-                            <div className='flex gap-2 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Container>
-    );
+							<div className='flex gap-2 p-2'>
+								<img className='h-24 w-20' src={bookImg2} alt='' />
+								<div>
+									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
+									<small className='text-gray-700 block'>আরিফ আজাদ</small>
+									<small className='text-gray-700 block'>
+										গার্ডিয়ান পাবলিকেশন্স
+									</small>
+									<small>
+										<del className='text-gray-600'>275</del>
+									</small>
+									<small className='text-[#F23534] ml-4'>214</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Container>
+	);
 };
 
 export default Details;
