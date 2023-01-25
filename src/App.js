@@ -32,8 +32,7 @@ import AuthorDetails from "./pages/authors/AuthorDetails";
 import UserReview from "./pages/userReview/UserReview";
 import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
-
-
+import EditBook from "./components/dashboard/manageBook/EditBook";
 
 function App() {
 	return (
@@ -46,8 +45,8 @@ function App() {
 				<Route path='/authors' element={<Authors />} />
 
 				<Route path='/pri-order' element={<PriOrder />} />
-                <Route path='/subject' element={<Subject/>}/>
-                <Route path='/prokasok' element={<Publisher/>}/>
+				<Route path='/subject' element={<Subject />} />
+				<Route path='/prokasok' element={<Publisher />} />
 				<Route path='/details' element={<Details />} />
 				<Route path='/authordetails' element={<AuthorDetails />} />
 				<Route path='/userreview' element={<UserReview />} />
@@ -63,11 +62,11 @@ function App() {
 					<Route path='/dashboard/add-author' element={<AddAuthor />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
 					<Route path='/dashboard/manage-book' element={<ManageBook />} />
+					<Route path='/dashboard/edit-book' element={<EditBook />} />
 					<Route path='/dashboard/order-book' element={<OrderBook />} />
 					<Route path='/dashboard/my-profile' element={<MyProfile />} />
 					<Route path='/dashboard/add-review' element={<AddReview />} />
 					<Route path='/dashboard/updateprofile' element={<UpdateProfile />} />
-					
 				</Route>
 				<Route path='*' element={<NotFound />} />
 			</Routes>

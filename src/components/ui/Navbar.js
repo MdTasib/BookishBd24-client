@@ -18,7 +18,7 @@ const Navbar = () => {
 			</li>
 
 			<li>
-				<div className='indicator'>
+				<div className='indicator mr-4'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-5 w-5'
@@ -33,9 +33,36 @@ const Navbar = () => {
 						/>
 					</svg>
 
-					<span className='badge badge-primary badge-sm indicator-item'>0</span>
+					<span className='badge badge-primary badge-sm indicator-item mt-2 mr-4'>
+						0
+					</span>
 				</div>
 			</li>
+			{/* Avatar */}
+			<div className='flex-none gap-2'>
+				<div className='dropdown dropdown-end'>
+					<label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
+						<div className='w-10 rounded-full'>
+							<img src='https://placeimg.com/80/80/people' alt='' />
+						</div>
+					</label>
+					<ul
+						tabIndex={0}
+						className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'>
+						<li>
+							<a href='' className='justify-between'>
+								View Profile
+							</a>
+							<a href='' className='justify-between'>
+								Update Profile
+							</a>
+						</li>
+						<li>
+							<a href=''>Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</>
 	);
 

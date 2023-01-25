@@ -1,45 +1,65 @@
-import React from 'react';
-import Book from '../../components/SectionBooks/Book';
-import Container from '../../components/ui/Container';
-import { products } from '../../data/data';
-import FilterBook from './FilterBook';
+import React from "react";
+import Book from "../../components/SectionBooks/Book";
+import Container from "../../components/ui/Container";
+import { useGetBooksQuery } from "../../features/api/apiSlice";
+import FilterBook from "./FilterBook";
 
 const BookRoute = () => {
-    return (
-        <Container>
-            <div>
-                <h1 className='text-2xl'>বই</h1>
-            </div>
+	const { data: books, isLoading, isError, error } = useGetBooksQuery();
 
-            <div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
-                <div>
-                    <label className='font-bold mr-2 text-gray-600' for="cars">সর্ট করুন</label>
-                </div>
-                <div className='inline  border border-gray-400 bg-gray-300'>
-                    <select className='bg-gray-300' id="book">
-                        <option value="saab">More relevant</option>
-                        <option value="opel">Discount - low to high</option>
-                        <option value="audi">Discount - high to low</option>
-                        <option value="audi">price - low to high</option>
-                        <option value="audi">price - high to low</option>
-                    </select>
-                </div>
-            </div>
+	// conent loaded
+	let content = null;
+	if (isLoading) {
+		content = <h3 className='text-4xl'>Loading...</h3>;
+	}
+	if (!isLoading && isError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError && books?.data?.books?.length === 0) {
+		content = <p className='text-red-500'>Books not found!</p>;
+	}
+	if (!isError && !isLoading && books?.data?.books?.length > 0) {
+		content = books?.data?.books?.map(book => (
+			<Book key={book.id} book={book} />
+		));
+	}
 
-            <section className='md:flex lg:flex'>
-                <div className='w-[300px] mr-3'>
-                    <FilterBook />
-                </div>
+	return (
+		<Container>
+			<div>
+				<h1 className='text-2xl'>বই</h1>
+			</div>
 
-                <div className=' w-full md:w-[82%] mx-auto grid md:grid-cols-4 gap-y-4 mb-5 mt-8'>
-                    {products?.map(item => (
-                        <Book key={item.id} item={item} />
-                    ))}
+			<div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
+				<div>
+					<label className='font-bold mr-2 text-gray-600' for='cars'>
+						সর্ট করুন
+					</label>
+				</div>
+				<div className='inline'>
+					<select className='select select-primary select-sm w-full max-w-xs'>
+						<option disabled selected>
+							More relevant
+						</option>
+						<option>Discount - low to high</option>
+						<option>Discount - high to low</option>
+						<option>price - low to high</option>
+						<option>price - high to low</option>
+					</select>
+				</div>
+			</div>
 
-                </div>
-            </section>
-        </Container>
-    );
+			<section className='md:flex lg:flex'>
+				<div className='w-[300px] mr-3'>
+					<FilterBook />
+				</div>
+
+				<div className=' w-full md:w-[82%] mx-auto grid md:grid-cols-4 gap-y-4 mb-5 mt-8'>
+					{content}
+				</div>
+			</section>
+		</Container>
+	);
 };
 
 export default BookRoute;
