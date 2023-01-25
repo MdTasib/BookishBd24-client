@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 const AddProduct = () => {
 	const { register, handleSubmit, reset } = useForm();
 
+
 	const onSubmit = async data => {
+		console.log(data);
 		const image = data.image[0];
 		const formData = new FormData();
 		formData.append("image", image);
@@ -23,9 +25,22 @@ const AddProduct = () => {
 
 				const uploadProduct = {
 					name: data.name,
+					nameEng: data.nameEng,
+					author: data.author,
+					authorEng: data.authorEng,
+					publication: data.publication,
+					subject: data.subject,
+					pages: data.pages,
+					cover: data.cover,
+					edition: data.edition,
+					language: data.language,
 					description: data.description,
 					price: data.price,
+					prePrice: data.prePrice,
+					quentity: data.quentity,
+					discount: data.discount,
 					image: imgURL,
+					category: data.category,
 				};
 
 				if (result.success) {
@@ -77,7 +92,7 @@ const AddProduct = () => {
 												<span className='label-text'>Book Name in English</span>
 											</label>
 											<input
-												{...register("name", { required: true })}
+												{...register("nameEng", { required: true })}
 												type='text'
 												placeholder='Enter Book Name in English'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -88,7 +103,7 @@ const AddProduct = () => {
 												<span className='label-text'>Author Name</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("author", { required: true })}
 												type='text'
 												placeholder='Enter authr Name'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -99,7 +114,7 @@ const AddProduct = () => {
 												<span className='label-text'>Author Namr in English</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("authorEng", { required: true })}
 												type='text'
 												placeholder='Enter author Name in English'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -110,7 +125,7 @@ const AddProduct = () => {
 												<span className='label-text'>Category</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("category", { required: true })}
 												type='text'
 												placeholder='Enter Category'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -257,7 +272,7 @@ const AddProduct = () => {
 												</p>
 											</div>
 											<input
-												{...register("image", { required: true })}
+												{...register("imageURL", { required: true })}
 												id='dropzone-file'
 												type='file'
 												className='hidden'
@@ -273,7 +288,8 @@ const AddProduct = () => {
 						</div>
 
 						<div className='form-control mt-6'>
-							<button className='btn btn-primary'>UPLOAD</button>
+							<button type="submit" className='btn btn-primary'>UPLOAD</button>
+							
 						</div>
 					</form>
 				</div>
