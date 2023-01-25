@@ -47,7 +47,7 @@ function App() {
 				<Route path='/pri-order' element={<PriOrder />} />
 				<Route path='/subject' element={<Subject />} />
 				<Route path='/prokasok' element={<Publisher />} />
-				<Route path='/details' element={<Details />} />
+				<Route path='/book/:id' element={<Details />} />
 				<Route path='/authordetails' element={<AuthorDetails />} />
 				<Route path='/userreview' element={<UserReview />} />
 				<Route path='/cart' element={<Cart />} />
