@@ -5,7 +5,7 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:5000/api/v1",
 	}),
-	tagTypes: ["books", "authors"],
+	tagTypes: ["books", "authors", "book"],
 	endpoints: builder => ({
 		// get books on database
 		getBooks: builder.query({
@@ -17,6 +17,13 @@ export const apiSlice = createApi({
 			},
 			keepUnusedDataFor: 800,
 			providesTags: ["books"],
+		}),
+
+		// get book details by id
+		getBookDetails: builder.query({
+			query: id => `/book/${id}`,
+			keepUnusedDataFor: 800,
+			providesTags: ["books", "book"],
 		}),
 
 		// get authors on database

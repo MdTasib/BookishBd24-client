@@ -32,7 +32,7 @@ const ImageSlider = () => {
 	return (
 		<Container>
 			<Slider {...settings} className='my-10'>
-				{sliders.map(slider => (
+				{sliders?.map(slider => (
 					<img
 						key={slider.id}
 						className='w-full h-64 object-cover'
