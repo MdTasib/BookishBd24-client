@@ -2,21 +2,17 @@ import React from "react";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
-import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
 import { useGetAuthorsQuery } from "../../features/api/apiSlice";
 import Author from "./Author";
+import Loading from "../../components/ui/Loading";
 
 const Authors = () => {
 	const { data: authors, isLoading, isError, error } = useGetAuthorsQuery();
-	if (isLoading) {
-		console.log(authors);
-	}
 
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;

@@ -25,7 +25,7 @@ const AuthorDetails = () => {
 	}
 	if (!isLoading && !isError) {
 		content = (
-			<div className='hero-content flex-col lg:flex-row'>
+			<div className='hero-content flex-col lg:flex-row bg-accent '>
 				<div className='avatar'>
 					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
 						<img
@@ -65,7 +65,7 @@ const AuthorDetails = () => {
 					</p>
 				</section>
 
-				<div className='hero bg-accent rounded'>{content}</div>
+				<div className='hero rounded'>{content}</div>
 			</Container>
 		</div>
 	);
