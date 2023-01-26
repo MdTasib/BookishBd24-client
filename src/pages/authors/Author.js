@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 
-const Author = ({ author: { author, imageUrl } }) => {
+const Author = ({ author: { _id, author, imageUrl } }) => {
 	return (
 		<div class='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md'>
 			<div class='flex flex-col items-center py-3'>
@@ -15,7 +15,7 @@ const Author = ({ author: { author, imageUrl } }) => {
 					{author}
 				</h5>
 				<div class='text-center'>
-					<Link to={`/authors/${author.id}`}>
+					<Link to={`/author/${_id}`}>
 						<Button>বিস্তারিত</Button>
 					</Link>
 				</div>

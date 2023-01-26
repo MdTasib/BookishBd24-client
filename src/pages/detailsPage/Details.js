@@ -8,6 +8,7 @@ import addimg3 from "../../assets/images/Adds/add3.png";
 import addimg4 from "../../assets/images/Adds/add4.png";
 import Container from "../../components/ui/Container";
 import Review from "./Review";
+import Loading from "../../components/ui/Loading";
 
 const Details = () => {
 	const { id } = useParams();
@@ -16,14 +17,14 @@ const Details = () => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
 	}
 	if (!isLoading && !isError) {
 		content = (
-			<div className='flex flex-row gap-4'>
+			<div className='md:flex lg:flex gap-4'>
 				<div className='basis-1/4'>
 					<img className='h-1/2' src={book?.data?.imageURL} alt='' />
 				</div>
@@ -64,7 +65,7 @@ const Details = () => {
 					</div>
 
 					{/* ADDS IMAGES------------------------------- */}
-					<div className='mt-4 md:grid grid-cols-2 gap-y-4'>
+					<div className='mt-4 md:grid grid-cols-2 gap-4'>
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt='' />
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt='' />
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt='' />
