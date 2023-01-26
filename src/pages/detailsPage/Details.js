@@ -1,6 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useGetBookDetailsQuery } from "../../features/api/apiSlice";
+import { Link, useParams } from "react-router-dom";
+import {
+	useGetBookDetailsQuery,
+	useGetBooksQuery,
+} from "../../features/api/apiSlice";
 import bookImg2 from "../../assets/images/book2.png";
 import addimg1 from "../../assets/images/Adds/add1.png";
 import addimg2 from "../../assets/images/Adds/add2.png";
@@ -13,13 +16,21 @@ import Loading from "../../components/ui/Loading";
 const Details = () => {
 	const { id } = useParams();
 	const { data: book, isLoading, isError, error } = useGetBookDetailsQuery(id);
+	const {
+		data: relatedBooks,
+		isLoading: isRelatedBookLoading,
+		isError: isRelatedBookError,
+	} = useGetBooksQuery({ category: book?.data?.category });
 
 	// conent loaded
 	let content = null;
-	if (isLoading) {
+	if (isLoading && isRelatedBookLoading) {
 		content = <Loading />;
 	}
-	if (!isLoading && isError) {
+	if (
+		(!isLoading && isError) ||
+		(!isRelatedBookLoading && isRelatedBookError)
+	) {
 		content = <p className='text-red-500'>{error}</p>;
 	}
 	if (!isLoading && !isError) {
@@ -90,49 +101,35 @@ const Details = () => {
 							<h2 className='text-primary font-medium border-b border-t-primary border-t-2 border-gray-500 p-3'>
 								আরো দেখুন…
 							</h2>
-							<div className='flex gap-2 border-b border-gray-500 p-2'>
-								<img className='h-24 w-20' src={bookImg2} alt='' />
-								<div>
-									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-									<small className='text-gray-700 block'>আরিফ আজাদ</small>
-									<small className='text-gray-700 block'>
-										গার্ডিয়ান পাবলিকেশন্স
-									</small>
-									<small>
-										<del className='text-gray-600'>275</del>
-									</small>
-									<small className='text-[#F23534] ml-4'>214</small>
-								</div>
-							</div>
-							<div className='flex gap-2 border-b border-gray-500 p-2'>
-								<img className='h-24 w-20' src={bookImg2} alt='' />
-								<div>
-									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-									<small className='text-gray-700 block'>আরিফ আজাদ</small>
-									<small className='text-gray-700 block'>
-										গার্ডিয়ান পাবলিকেশন্স
-									</small>
-									<small>
-										<del className='text-gray-600'>275</del>
-									</small>
-									<small className='text-[#F23534] ml-4'>214</small>
-								</div>
-							</div>
 
-							<div className='flex gap-2 p-2'>
-								<img className='h-24 w-20' src={bookImg2} alt='' />
-								<div>
-									<h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-									<small className='text-gray-700 block'>আরিফ আজাদ</small>
-									<small className='text-gray-700 block'>
-										গার্ডিয়ান পাবলিকেশন্স
-									</small>
-									<small>
-										<del className='text-gray-600'>275</del>
-									</small>
-									<small className='text-[#F23534] ml-4'>214</small>
-								</div>
-							</div>
+							{!isRelatedBookLoading && !isRelatedBookError
+								? relatedBooks?.data?.books.slice(0, 8).map(book => (
+										<Link key={book._id} to={`/book/${book._id}`}>
+											<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
+												<img className='h-24 w-20' src={book.imageURL} alt='' />
+												<div>
+													<h4 className='mb-2'>
+														{book.name.slice(0, 30)}{" "}
+														{book.name.length > 30 ? "..." : ""}
+													</h4>
+													<small className='text-gray-700 block'>
+														{book.author.slice(0, 30)}{" "}
+														{book.author.length > 30 ? "..." : ""}
+													</small>
+													<small className='text-gray-700 block'>
+														{book.publication}
+													</small>
+													<small>
+														<del className='text-gray-600'>{book.prePrice}</del>
+													</small>
+													<small className='text-[#F23534] ml-4'>
+														{book.price}
+													</small>
+												</div>
+											</div>
+										</Link>
+								  ))
+								: ""}
 						</div>
 					</div>
 				</div>
