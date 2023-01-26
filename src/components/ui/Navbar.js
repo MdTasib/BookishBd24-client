@@ -1,13 +1,17 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "./Container";
 import MenuBar from "./MenuBar";
 
 const Navbar = () => {
+	const navigate = useNavigate();
+	const handleNavigate = () =>{
+		navigate("/cart")
+	}
 	const menuItems = (
 		<>
-			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/dashboard'>
+			<li className="p-0">
+				<NavLink className='text-sm mb-2 ' to='/dashboard'>
 					ড্যাশবোর্ড
 				</NavLink>
 			</li>
@@ -18,7 +22,7 @@ const Navbar = () => {
 			</li>
 
 			<li>
-				<div className='indicator mr-4'>
+				<div onClick={()=>handleNavigate()} className='indicator mr-4'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-5 w-5'

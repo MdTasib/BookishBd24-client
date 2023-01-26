@@ -6,6 +6,7 @@ const AddAuthor = () => {
 	const { register, handleSubmit, reset } = useForm();
 
 	const onSubmit = async data => {
+		console.log(data);
 		const faq = {
 			question: data.question,
 			answer: data.answer,

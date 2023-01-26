@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./assets/css/styles.css";
 import Footer from "./components/ui/Footer";
@@ -14,7 +15,6 @@ import Authors from "./pages/authors/Authors";
 import PriOrder from "./pages/priOrder/PriOrder";
 import Details from "./pages/detailsPage/Details";
 import GeneralBook from "./pages/generalBook/GeneralBook";
-import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
 import Subject from "./pages/subject/Subject";
 import Publisher from "./pages/publisher/Publisher";
@@ -28,6 +28,7 @@ import UserReview from "./pages/userReview/UserReview";
 import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
+import Offer from "./pages/offer/Offer";
 
 function App() {
 	return (
@@ -48,6 +49,7 @@ function App() {
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
+				<Route path='/offer' element={<Offer />} />
 
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />

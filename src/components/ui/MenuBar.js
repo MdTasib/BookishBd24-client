@@ -35,8 +35,13 @@ const MenuBar = () => {
 				</NavLink>
 			</li>
 			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/book-fire'>
-					বইমেলা ২০২২
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/user-review'>
+				রিভিউসমূহ
+				</NavLink>
+			</li>
+			<li>
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/offer'>
+				অফারসমূহ
 				</NavLink>
 			</li>
 			<li>

@@ -15,7 +15,7 @@ const MyProfile = () => {
         <div className='h-[100vh]'>
             <div>
                 <div className='w-[70%] mx-auto'>
-                    <div className='bg-gray-200 rounded-md mt-12 py-4 px-4 lg:px-12 md:px-12'>
+                    <div className='shadow-md rounded-md mt-12 py-4 px-4 lg:px-12 md:px-12'>
                         <div className='flex justify-between'>
                             <h2 className='mb-5 text-xl font-bold'>My Profile</h2>
                             <div onClick={() => updateUserProfile()}  className='flex items-center text-primary font-bold'>

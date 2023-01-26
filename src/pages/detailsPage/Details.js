@@ -78,17 +78,18 @@ const Details = () => {
 
 	return (
 		<Container>
-			<div className='mb-12 mt-2'>
+			<div className='py-10'>
 				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
 					<div>
 						{content}
-
 						<Review />
 					</div>
 
 					<div className=''>
 						<div className='border border-gray-500 '>
-							<h2 className='border-b border-gray-500 p-3'>আরো দেখুন…</h2>
+							<h2 className='text-primary font-medium border-b border-t-primary border-t-2 border-gray-500 p-3'>
+								আরো দেখুন…
+							</h2>
 							<div className='flex gap-2 border-b border-gray-500 p-2'>
 								<img className='h-24 w-20' src={bookImg2} alt='' />
 								<div>
