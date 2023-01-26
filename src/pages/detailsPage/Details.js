@@ -12,8 +12,10 @@ import addimg4 from "../../assets/images/Adds/add4.png";
 import Container from "../../components/ui/Container";
 import Review from "./Review";
 import Loading from "../../components/ui/Loading";
+import { useState } from "react";
 
 const Details = () => {
+	const [seeMore, setSeeMore] = useState(false);
 	const { id } = useParams();
 	const { data: book, isLoading, isError, error } = useGetBookDetailsQuery(id);
 	const {
@@ -60,7 +62,16 @@ const Details = () => {
 						</small>
 						<small>ভাষা : বাংলা</small>
 					</div>
-					<p className='mb-6'>{book?.data?.description}</p>
+					{/* <p className='mb-6'>{book?.data?.description}</p> */}
+
+					{seeMore ? book?.data?.description : `${book?.data?.description.substring(0, 250)}`}
+					<button onClick={() => setSeeMore(!seeMore)} className="">
+						<p className="text-red-600">
+							{seeMore ? "...অল্প পড়ুন" : "...আরো পড়ুন"}
+						</p>
+					</button>
+
+
 					<h2 className='text-xl mb-3 text-[#F23534]'>
 						{book?.data?.price} ৳{" "}
 						<del className='text-gray-500'>{book?.data?.prePrice} ৳</del>(
@@ -104,31 +115,31 @@ const Details = () => {
 
 							{!isRelatedBookLoading && !isRelatedBookError
 								? relatedBooks?.data?.books.slice(0, 8).map(book => (
-										<Link key={book._id} to={`/book/${book._id}`}>
-											<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
-												<img className='h-24 w-20' src={book.imageURL} alt='' />
-												<div>
-													<h4 className='mb-2'>
-														{book.name.slice(0, 30)}{" "}
-														{book.name.length > 30 ? "..." : ""}
-													</h4>
-													<small className='text-gray-700 block'>
-														{book.author.slice(0, 30)}{" "}
-														{book.author.length > 30 ? "..." : ""}
-													</small>
-													<small className='text-gray-700 block'>
-														{book.publication}
-													</small>
-													<small>
-														<del className='text-gray-600'>{book.prePrice}</del>
-													</small>
-													<small className='text-[#F23534] ml-4'>
-														{book.price}
-													</small>
-												</div>
+									<Link key={book._id} to={`/book/${book._id}`}>
+										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
+											<img className='h-24 w-20' src={book.imageURL} alt='' />
+											<div>
+												<h4 className='mb-2'>
+													{book.name.slice(0, 30)}{" "}
+													{book.name.length > 30 ? "..." : ""}
+												</h4>
+												<small className='text-gray-700 block'>
+													{book.author.slice(0, 30)}{" "}
+													{book.author.length > 30 ? "..." : ""}
+												</small>
+												<small className='text-gray-700 block'>
+													{book.publication}
+												</small>
+												<small>
+													<del className='text-gray-600'>{book.prePrice}</del>
+												</small>
+												<small className='text-[#F23534] ml-4'>
+													{book.price}
+												</small>
 											</div>
-										</Link>
-								  ))
+										</div>
+									</Link>
+								))
 								: ""}
 						</div>
 					</div>
