@@ -5,6 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
 import Button from "../ui/Button";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
+import Loading from "../../components/ui/Loading";
 
 const SectionBooks = ({ title, filters }) => {
 	const {
@@ -38,7 +39,7 @@ const SectionBooks = ({ title, filters }) => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;

@@ -38,6 +38,13 @@ export const apiSlice = createApi({
 			providesTags: ["authors"],
 		}),
 
+		// get author details by id
+		getAuthorDetails: builder.query({
+			query: id => `/author/${id}`,
+			keepUnusedDataFor: 800,
+			providesTags: ["auhtors", "author"],
+		}),
+
 		// post book on database
 		createBook: builder.mutation({
 			query: data => ({
@@ -63,6 +70,7 @@ export const apiSlice = createApi({
 export const {
 	useGetBooksQuery,
 	useGetAuthorsQuery,
+	useGetAuthorDetailsQuery,
 	useGetBookDetailsQuery,
 	useCreateBookMutation,
 	useCreateAuthorMutation,
