@@ -3,6 +3,7 @@ import Book from "../../components/SectionBooks/Book";
 import Container from "../../components/ui/Container";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import FilterBook from "./FilterBook";
+import Loading from "../../components/ui/Loading";
 
 const BookRoute = () => {
 	const { data: books, isLoading, isError, error } = useGetBooksQuery();
@@ -10,7 +11,7 @@ const BookRoute = () => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
