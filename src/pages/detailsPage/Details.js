@@ -22,7 +22,7 @@ const Details = () => {
 		data: relatedBooks,
 		isLoading: isRelatedBookLoading,
 		isError: isRelatedBookError,
-	} = useGetBooksQuery({ category: book?.data?.category });
+	} = useGetBooksQuery({ author: book?.data?.author });
 
 	// conent loaded
 	let content = null;
@@ -105,7 +105,7 @@ const Details = () => {
 				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
 					<div>
 						{content}
-						<Review />
+						{/* <Review /> */}
 					</div>
 
 					<div className=''>

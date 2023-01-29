@@ -1,12 +1,44 @@
-import React from "react";
+import { useState } from "react";
 import Book from "../../components/SectionBooks/Book";
 import Container from "../../components/ui/Container";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import FilterBook from "./FilterBook";
 import Loading from "../../components/ui/Loading";
+import { Pagination } from "antd";
+import { useEffect } from "react";
 
 const BookRoute = () => {
 	const { data: books, isLoading, isError, error } = useGetBooksQuery();
+	const [total, setTotal] = useState("");
+	const [page, setPage] = useState(1);
+	const [postPerPage, setPostPerPage] = useState(10);
+
+	useEffect(() => {
+		setTotal(books?.data?.books.length);
+	}, [books?.data?.books.length, total]);
+
+	const indexOfLastPage = page + postPerPage;
+	const indexOfFirstPage = indexOfLastPage - postPerPage;
+	const currentBooks = books?.data?.books.slice(
+		indexOfFirstPage,
+		indexOfLastPage
+	);
+
+	console.log(indexOfFirstPage, indexOfLastPage);
+
+	const onShowSizeChange = (current, pageSize) => {
+		setPostPerPage(pageSize);
+	};
+
+	const itemRender = (current, type, originalElement) => {
+		if (type === "prev") {
+			return <a>Previous</a>;
+		}
+		if (type === "next") {
+			return <a>Next</a>;
+		}
+		return originalElement;
+	};
 
 	// conent loaded
 	let content = null;
@@ -20,10 +52,13 @@ const BookRoute = () => {
 		content = <p className='text-red-500'>Books not found!</p>;
 	}
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
-		content = books?.data?.books?.map(book => (
-			<Book key={book.id} book={book} />
-		));
+		// content = books?.data?.books?.map(book => (
+		// 	<Book key={book.id} book={book} />
+		// ));
+		content = currentBooks?.map(book => <Book key={book.id} book={book} />);
 	}
+
+	console.log(currentBooks);
 
 	return (
 		<Container>
@@ -59,6 +94,17 @@ const BookRoute = () => {
 					{content}
 				</div>
 			</section>
+
+			<Pagination
+				onChange={value => setPage(value)}
+				pageSize={postPerPage}
+				total={total}
+				current={page}
+				showSizeChanger
+				showQuickJumper
+				onShowSizeChange={onShowSizeChange}
+				itemRender={itemRender}
+			/>
 		</Container>
 	);
 };
