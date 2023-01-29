@@ -22,7 +22,7 @@ const Details = () => {
 		data: relatedBooks,
 		isLoading: isRelatedBookLoading,
 		isError: isRelatedBookError,
-	} = useGetBooksQuery({ category: book?.data?.category });
+	} = useGetBooksQuery({ author: book?.data?.author });
 
 	// conent loaded
 	let content = null;
@@ -64,13 +64,14 @@ const Details = () => {
 					</div>
 					{/* <p className='mb-6'>{book?.data?.description}</p> */}
 
-					{seeMore ? book?.data?.description : `${book?.data?.description.substring(0, 250)}`}
-					<button onClick={() => setSeeMore(!seeMore)} className="">
-						<p className="text-red-600">
+					{seeMore
+						? book?.data?.description
+						: `${book?.data?.description.substring(0, 250)}`}
+					<button onClick={() => setSeeMore(!seeMore)} className=''>
+						<p className='text-red-600'>
 							{seeMore ? "...অল্প পড়ুন" : "...আরো পড়ুন"}
 						</p>
 					</button>
-
 
 					<h2 className='text-xl mb-3 text-[#F23534]'>
 						{book?.data?.price} ৳{" "}
@@ -104,7 +105,7 @@ const Details = () => {
 				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
 					<div>
 						{content}
-						<Review />
+						{/* <Review /> */}
 					</div>
 
 					<div className=''>
@@ -115,31 +116,31 @@ const Details = () => {
 
 							{!isRelatedBookLoading && !isRelatedBookError
 								? relatedBooks?.data?.books.slice(0, 8).map(book => (
-									<Link key={book._id} to={`/book/${book._id}`}>
-										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
-											<img className='h-24 w-20' src={book.imageURL} alt='' />
-											<div>
-												<h4 className='mb-2'>
-													{book.name.slice(0, 30)}{" "}
-													{book.name.length > 30 ? "..." : ""}
-												</h4>
-												<small className='text-gray-700 block'>
-													{book.author.slice(0, 30)}{" "}
-													{book.author.length > 30 ? "..." : ""}
-												</small>
-												<small className='text-gray-700 block'>
-													{book.publication}
-												</small>
-												<small>
-													<del className='text-gray-600'>{book.prePrice}</del>
-												</small>
-												<small className='text-[#F23534] ml-4'>
-													{book.price}
-												</small>
+										<Link key={book._id} to={`/book/${book._id}`}>
+											<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
+												<img className='h-24 w-20' src={book.imageURL} alt='' />
+												<div>
+													<h4 className='mb-2'>
+														{book.name.slice(0, 30)}{" "}
+														{book.name.length > 30 ? "..." : ""}
+													</h4>
+													<small className='text-gray-700 block'>
+														{book.author.slice(0, 30)}{" "}
+														{book.author.length > 30 ? "..." : ""}
+													</small>
+													<small className='text-gray-700 block'>
+														{book.publication}
+													</small>
+													<small>
+														<del className='text-gray-600'>{book.prePrice}</del>
+													</small>
+													<small className='text-[#F23534] ml-4'>
+														{book.price}
+													</small>
+												</div>
 											</div>
-										</div>
-									</Link>
-								))
+										</Link>
+								  ))
 								: ""}
 						</div>
 					</div>
