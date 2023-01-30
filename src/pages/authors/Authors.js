@@ -95,7 +95,9 @@ const Authors = () => {
 					</div>
 				</div>
 
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4' data-aos="fade-up"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="500">
 					{content}
 				</div>
 
