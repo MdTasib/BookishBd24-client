@@ -72,7 +72,9 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className='navbar bg-white border-b-2 border-primary py-0'>
+			<nav className='navbar bg-white border-b-2 border-primary py-0' data-aos="fade-down"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="1000">
 				<Container>
 					<div className='flex-1'>
 						<Link to='/' className='text-xl font-bold text-black'>

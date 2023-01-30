@@ -36,12 +36,12 @@ const MenuBar = () => {
 			</li>
 			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/userreview'>
-				রিভিউসমূহ
+					রিভিউসমূহ
 				</NavLink>
 			</li>
 			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/offer'>
-				অফারসমূহ
+					অফারসমূহ
 				</NavLink>
 			</li>
 			<li>
@@ -53,7 +53,9 @@ const MenuBar = () => {
 	);
 
 	return (
-		<div className='navbar shadow px-10 py-0'>
+		<div className='navbar shadow px-10 py-0' data-aos="fade-up"
+			data-aos-easing="ease-out-cubic"
+			data-aos-duration="1000">
 			<div className='navbar py-0'>
 				<div className='dropdown'>
 					<label tabIndex='0' className='btn btn-ghost lg:hidden'>
