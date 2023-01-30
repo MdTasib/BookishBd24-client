@@ -7,7 +7,7 @@ function Home() {
 	return (
 		<div>
 			<ImageSlider />
-			<SectionBooks
+			<SectionBooks 
 				filters={{ category: "বইমেলা" }}
 				title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা'
 			/>

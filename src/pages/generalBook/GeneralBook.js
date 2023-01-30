@@ -54,7 +54,7 @@ const GeneralBook = () => {
 		<Container>
 			<div>
 				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
-					<h2 className='text-primary font-medium'>ভর্তি গাইড</h2>
+					<h2 className='text-primary font-bold animate-pulse'>ভর্তি গাইড</h2>
 				</div>
 			</div>
 
