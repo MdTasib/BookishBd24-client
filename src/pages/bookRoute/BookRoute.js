@@ -8,23 +8,19 @@ import { Pagination } from "antd";
 import { useEffect } from "react";
 
 const BookRoute = () => {
-	const { data: books, isLoading, isError, error } = useGetBooksQuery();
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(10);
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ page, limit: postPerPage });
 
 	useEffect(() => {
-		setTotal(books?.data?.books.length);
-	}, [books?.data?.books.length, total]);
-
-	const indexOfLastPage = page + postPerPage;
-	const indexOfFirstPage = indexOfLastPage - postPerPage;
-	const currentBooks = books?.data?.books.slice(
-		indexOfFirstPage,
-		indexOfLastPage
-	);
-
-	console.log(indexOfFirstPage, indexOfLastPage);
+		setTotal(books?.data?.totalBooks);
+	}, [books?.data?.totalBooks, total]);
 
 	const onShowSizeChange = (current, pageSize) => {
 		setPostPerPage(pageSize);
@@ -55,10 +51,10 @@ const BookRoute = () => {
 		// content = books?.data?.books?.map(book => (
 		// 	<Book key={book.id} book={book} />
 		// ));
-		content = currentBooks?.map(book => <Book key={book.id} book={book} />);
+		content = books?.data?.books?.map(book => (
+			<Book key={book.id} book={book} />
+		));
 	}
-
-	console.log(currentBooks);
 
 	return (
 		<Container>
