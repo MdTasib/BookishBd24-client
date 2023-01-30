@@ -26,6 +26,7 @@ const Subject = () => {
 			<SubjectCategory key={book._id} book={book} />
 		));
 	}
+	
 
 	return (
 		<div className=''>

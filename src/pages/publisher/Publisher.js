@@ -5,8 +5,27 @@ import { RiArrowRightSLine } from 'react-icons/ri';
 import publiser from '../../assets/images/allpublisher.png'
 import { products } from '../../data/data';
 import AllPublisher from './AllPublisher';
+import { useGetBooksQuery } from '../../features/api/apiSlice';
 
 const Publisher = () => {
+    const { data: books, isLoading, isError, error } = useGetBooksQuery();
+    
+	// conent loaded
+	let content = null;
+	if (isLoading) {
+		content = <h3 className='text-4xl'>Loading...</h3>;
+	}
+	if (!isLoading && isError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError && books?.data?.books?.length === 0) {
+		content = <p className='text-red-500'>Books not found!</p>;
+	}
+	if (!isError && !isLoading && books?.data?.books?.length > 0) {
+		content = books?.data?.books?.map(book => (
+			<AllPublisher key={book._id} book={book} />
+		));
+	}
     return (
         <div>
         <Container>
@@ -51,9 +70,8 @@ const Publisher = () => {
            <hr  className='text-black border'/> 
 
            <div className='grid md:grid-cols-2 lg:grid-cols-5 mb-5 mt-8'>
-                    {products?.map(item => (
-                        <AllPublisher key={item.id} item={item} />
-                    ))}
+                    
+                    {content}
 
             </div>
          </Container>
