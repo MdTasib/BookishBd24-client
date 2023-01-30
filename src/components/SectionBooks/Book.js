@@ -8,11 +8,14 @@ const Book = ({ book: { _id, name, imageURL, price, prePrice, author } }) => {
 			<div className='mx-7 max-h-min border-2 rounded hover:border-primary cursor-pointer p-2'>
 				<img className='block mx-auto max-h-60' src={imageURL} alt='' />
 				<div className='relative'>
-					<a href='/' title='' class='crt-btn flex items-center justify-center'>
+					<a
+						href='/'
+						title=''
+						className='crt-btn flex items-center justify-center'>
 						<img src={cart} alt='' />
 					</a>
 				</div>
-				<div class='px-4'>
+				<div className='px-4'>
 					<h3 className='text-sm font-bold'>
 						{name.slice(0, 25)} {name.length > 25 ? "..." : ""}
 					</h3>

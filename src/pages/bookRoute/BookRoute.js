@@ -8,23 +8,19 @@ import { Pagination } from "antd";
 import { useEffect } from "react";
 
 const BookRoute = () => {
-	const { data: books, isLoading, isError, error } = useGetBooksQuery();
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
-	const [postPerPage, setPostPerPage] = useState(10);
+	const [postPerPage, setPostPerPage] = useState(9);
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ page, limit: postPerPage });
 
 	useEffect(() => {
-		setTotal(books?.data?.books.length);
-	}, [books?.data?.books.length, total]);
-
-	const indexOfLastPage = page + postPerPage;
-	const indexOfFirstPage = indexOfLastPage - postPerPage;
-	const currentBooks = books?.data?.books.slice(
-		indexOfFirstPage,
-		indexOfLastPage
-	);
-
-	console.log(indexOfFirstPage, indexOfLastPage);
+		setTotal(books?.data?.totalBooks);
+	}, [books?.data?.totalBooks, total]);
 
 	const onShowSizeChange = (current, pageSize) => {
 		setPostPerPage(pageSize);
@@ -32,10 +28,10 @@ const BookRoute = () => {
 
 	const itemRender = (current, type, originalElement) => {
 		if (type === "prev") {
-			return <a>Previous</a>;
+			return <p>Previous</p>;
 		}
 		if (type === "next") {
-			return <a>Next</a>;
+			return <p>Next</p>;
 		}
 		return originalElement;
 	};
@@ -52,13 +48,10 @@ const BookRoute = () => {
 		content = <p className='text-red-500'>Books not found!</p>;
 	}
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
-		// content = books?.data?.books?.map(book => (
-		// 	<Book key={book.id} book={book} />
-		// ));
-		content = currentBooks?.map(book => <Book key={book.id} book={book} />);
+		content = books?.data?.books?.map(book => (
+			<Book key={book._id} book={book} />
+		));
 	}
-
-	console.log(currentBooks);
 
 	return (
 		<Container>
@@ -68,19 +61,17 @@ const BookRoute = () => {
 
 			<div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
 				<div>
-					<label className='font-bold mr-2 text-gray-600' for='cars'>
+					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
 				</div>
 				<div className='inline'>
-					<select className='select select-primary select-sm w-full max-w-xs'>
-						<option disabled selected>
-							More relevant
-						</option>
-						<option>Discount - low to high</option>
-						<option>Discount - high to low</option>
-						<option>price - low to high</option>
+					<select
+						id='filters'
+						className='select select-primary select-sm w-full max-w-xs'>
+						<option selected>All</option>
 						<option>price - high to low</option>
+						<option>price - low to high</option>
 					</select>
 				</div>
 			</div>
@@ -90,21 +81,23 @@ const BookRoute = () => {
 					<FilterBook />
 				</div>
 
-				<div className=' w-full md:w-[82%] mx-auto grid md:grid-cols-4 gap-y-4 mb-5 mt-8'>
+				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5'>
 					{content}
 				</div>
 			</section>
 
-			<Pagination
-				onChange={value => setPage(value)}
-				pageSize={postPerPage}
-				total={total}
-				current={page}
-				showSizeChanger
-				showQuickJumper
-				onShowSizeChange={onShowSizeChange}
-				itemRender={itemRender}
-			/>
+			<div className='text-center py-10'>
+				<Pagination
+					onChange={value => setPage(value)}
+					pageSize={postPerPage}
+					total={total}
+					current={page}
+					showSizeChanger
+					showQuickJumper
+					onShowSizeChange={onShowSizeChange}
+					itemRender={itemRender}
+				/>
+			</div>
 		</Container>
 	);
 };
