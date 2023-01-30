@@ -110,7 +110,7 @@ const Details = () => {
 
 					<div className=''>
 						<div className='border border-gray-500 '>
-							<h2 className='text-primary font-medium border-b border-t-primary border-t-2 border-gray-500 p-3'>
+							<h2 className='text-primary font-bold border-b border-t-primary border-t-2 border-gray-500 p-3 animate-pulse'>
 								আরো দেখুন…
 							</h2>
 
