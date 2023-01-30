@@ -58,7 +58,9 @@ const GeneralBook = () => {
 				</div>
 			</div>
 
-			<div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5'>
+			<div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5' data-aos="flip-left"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="500">
 				{content}
 			</div>
 
