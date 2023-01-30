@@ -81,7 +81,9 @@ const BookRoute = () => {
 					<FilterBook />
 				</div>
 
-				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5'>
+				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5' data-aos="fade-up"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
 					{content}
 				</div>
 			</section>
