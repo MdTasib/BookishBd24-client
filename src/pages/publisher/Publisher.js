@@ -33,13 +33,17 @@ const Publisher = () => {
 				<hr className='text-black border' />
 				<section className='flex justify-center items-center my-5'>
 					<div className='mr-8'>
-						<h1 className='text-xl text-gray-700'>
+						<h1 className='text-xl text-gray-700' data-aos="flip-left"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="1000">
 							Search your favorite Publisher
 						</h1>
 					</div>
 
 					<div className='flex items-center justify-center'>
-						<div className='flex border border-primary border-2'>
+						<div className='flex border border-primary border-2' data-aos="flip-right"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="1000">
 							<input
 								type='text'
 								className='px-4 py-2 input-sm w-24 md:w-80 input-gray text-base'
