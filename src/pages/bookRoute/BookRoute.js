@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const BookRoute = () => {
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
-	const [postPerPage, setPostPerPage] = useState(10);
+	const [postPerPage, setPostPerPage] = useState(9);
 	const {
 		data: books,
 		isLoading,
@@ -86,21 +86,23 @@ const BookRoute = () => {
 					<FilterBook />
 				</div>
 
-				<div className=' w-full md:w-[82%] mx-auto grid md:grid-cols-4 gap-y-4 mb-5 mt-8'>
+				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5'>
 					{content}
 				</div>
 			</section>
 
-			<Pagination
-				onChange={value => setPage(value)}
-				pageSize={postPerPage}
-				total={total}
-				current={page}
-				showSizeChanger
-				showQuickJumper
-				onShowSizeChange={onShowSizeChange}
-				itemRender={itemRender}
-			/>
+			<div className='text-center py-10'>
+				<Pagination
+					onChange={value => setPage(value)}
+					pageSize={postPerPage}
+					total={total}
+					current={page}
+					showSizeChanger
+					showQuickJumper
+					onShowSizeChange={onShowSizeChange}
+					itemRender={itemRender}
+				/>
+			</div>
 		</Container>
 	);
 };
