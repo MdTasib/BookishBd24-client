@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterBook = () => {
     return (
-        <div className='mb-5 overflow-hidden' data-aos="flip-left"
+        <div className='mb-5 overflow-hidden' data-aos="fade-right"
             data-aos-easing="ease-out-cubic"
             data-aos-duration="500">
             <div className='mb-5 bg-gray-200 pb-2'>

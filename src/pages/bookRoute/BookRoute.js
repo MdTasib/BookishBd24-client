@@ -56,10 +56,14 @@ const BookRoute = () => {
 	return (
 		<Container>
 			<div>
-				<h1 className='text-2xl'>বই</h1>
+				<h1 data-aos="fade-up"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000" className='text-2xl'>বই</h1>
 			</div>
 
-			<div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
+			<div data-aos="fade-down"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="1000" className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
 				<div>
 					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
@@ -81,7 +85,7 @@ const BookRoute = () => {
 					<FilterBook />
 				</div>
 
-				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5' data-aos="fade-up"
+				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5' data-aos="fade-left"
 					data-aos-easing="ease-out-cubic"
 					data-aos-duration="1000">
 					{content}
