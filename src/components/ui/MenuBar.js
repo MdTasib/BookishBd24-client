@@ -35,7 +35,7 @@ const MenuBar = () => {
 				</NavLink>
 			</li>
 			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/user-review'>
+				<NavLink className='mx-1 text-sm py-1 mb-2' to='/userreview'>
 				রিভিউসমূহ
 				</NavLink>
 			</li>
