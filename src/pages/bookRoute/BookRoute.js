@@ -28,10 +28,10 @@ const BookRoute = () => {
 
 	const itemRender = (current, type, originalElement) => {
 		if (type === "prev") {
-			return <a>Previous</a>;
+			return <p>Previous</p>;
 		}
 		if (type === "next") {
-			return <a>Next</a>;
+			return <p>Next</p>;
 		}
 		return originalElement;
 	};
@@ -52,7 +52,7 @@ const BookRoute = () => {
 		// 	<Book key={book.id} book={book} />
 		// ));
 		content = books?.data?.books?.map(book => (
-			<Book key={book.id} book={book} />
+			<Book key={book._id} book={book} />
 		));
 	}
 
