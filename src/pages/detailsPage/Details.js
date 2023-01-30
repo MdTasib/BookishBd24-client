@@ -73,7 +73,7 @@ const Details = () => {
 						</p>
 					</button>
 
-					<h2 className='text-xl mb-3 text-[#F23534]'>
+					<h2 className='text-xl mb-3 text-[#F23534] animate-pulse'>
 						{book?.data?.price} ৳{" "}
 						<del className='text-gray-500'>{book?.data?.prePrice} ৳</del>(
 						{book?.data?.discount}% ছাড়ে)
@@ -89,8 +89,12 @@ const Details = () => {
 
 					{/* ADDS IMAGES------------------------------- */}
 					<div className='mt-4 md:grid grid-cols-2 gap-4'>
-						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt='' />
-						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt='' />
+						<img data-aos="flip-left"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="500" className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt='' />
+						<img data-aos="flip-right"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="500" className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt='' />
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt='' />
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt='' />
 					</div>
@@ -116,31 +120,31 @@ const Details = () => {
 
 							{!isRelatedBookLoading && !isRelatedBookError
 								? relatedBooks?.data?.books.slice(0, 8).map(book => (
-										<Link key={book._id} to={`/book/${book._id}`}>
-											<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
-												<img className='h-24 w-20' src={book.imageURL} alt='' />
-												<div>
-													<h4 className='mb-2'>
-														{book.name.slice(0, 30)}{" "}
-														{book.name.length > 30 ? "..." : ""}
-													</h4>
-													<small className='text-gray-700 block'>
-														{book.author.slice(0, 30)}{" "}
-														{book.author.length > 30 ? "..." : ""}
-													</small>
-													<small className='text-gray-700 block'>
-														{book.publication}
-													</small>
-													<small>
-														<del className='text-gray-600'>{book.prePrice}</del>
-													</small>
-													<small className='text-[#F23534] ml-4'>
-														{book.price}
-													</small>
-												</div>
+									<Link key={book._id} to={`/book/${book._id}`}>
+										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
+											<img className='h-24 w-20' src={book.imageURL} alt='' />
+											<div>
+												<h4 className='mb-2'>
+													{book.name.slice(0, 30)}{" "}
+													{book.name.length > 30 ? "..." : ""}
+												</h4>
+												<small className='text-gray-700 block'>
+													{book.author.slice(0, 30)}{" "}
+													{book.author.length > 30 ? "..." : ""}
+												</small>
+												<small className='text-gray-700 block'>
+													{book.publication}
+												</small>
+												<small>
+													<del className='text-gray-600'>{book.prePrice}</del>
+												</small>
+												<small className='text-[#F23534] ml-4'>
+													{book.price}
+												</small>
 											</div>
-										</Link>
-								  ))
+										</div>
+									</Link>
+								))
 								: ""}
 						</div>
 					</div>
