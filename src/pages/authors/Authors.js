@@ -63,7 +63,9 @@ const Authors = () => {
 					</ul>
 				</div>
 
-				<section className='py-2'>
+				<section className='py-2' data-aos="fade-left"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
 					<img src={authorPage} alt='' className='w-full' />
 					<p className='pt-2 text-gray-500 text-sm'>
 						লেখক! আক্ষরিক ভাবে বলতে গেলে সৃজনশীল কোনকিছু লেখেন যিনি তাকেই লেখক
@@ -77,8 +79,8 @@ const Authors = () => {
 				</section>
 
 				<div className='flex items-center py-4' data-aos="flip-right"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="500">
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="500">
 					<div className='flex border border-primary border-2'>
 						<input
 							type='text'
@@ -97,9 +99,9 @@ const Authors = () => {
 					</div>
 				</div>
 
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4' data-aos="fade-up"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="1000">
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4' data-aos="fade-right"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
 					{content}
 				</div>
 
