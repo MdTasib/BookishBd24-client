@@ -48,9 +48,6 @@ const BookRoute = () => {
 		content = <p className='text-red-500'>Books not found!</p>;
 	}
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
-		// content = books?.data?.books?.map(book => (
-		// 	<Book key={book.id} book={book} />
-		// ));
 		content = books?.data?.books?.map(book => (
 			<Book key={book._id} book={book} />
 		));
@@ -64,19 +61,17 @@ const BookRoute = () => {
 
 			<div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
 				<div>
-					<label className='font-bold mr-2 text-gray-600' for='cars'>
+					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
 				</div>
 				<div className='inline'>
-					<select className='select select-primary select-sm w-full max-w-xs'>
-						<option disabled selected>
-							More relevant
-						</option>
-						<option>Discount - low to high</option>
-						<option>Discount - high to low</option>
-						<option>price - low to high</option>
+					<select
+						id='filters'
+						className='select select-primary select-sm w-full max-w-xs'>
+						<option selected>All</option>
 						<option>price - high to low</option>
+						<option>price - low to high</option>
 					</select>
 				</div>
 			</div>

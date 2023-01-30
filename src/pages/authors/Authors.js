@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
 import { useGetAuthorsQuery } from "../../features/api/apiSlice";
 import Author from "./Author";
 import Loading from "../../components/ui/Loading";
+import { Pagination } from "antd";
 
 const Authors = () => {
-	const { data: authors, isLoading, isError, error } = useGetAuthorsQuery();
+	const [total, setTotal] = useState("");
+	const [page, setPage] = useState(1);
+	const [postPerPage, setPostPerPage] = useState(8);
+	const {
+		data: authors,
+		isLoading,
+		isError,
+		error,
+	} = useGetAuthorsQuery({ page, limit: postPerPage });
+
+	useEffect(() => {
+		setTotal(authors?.data?.totalAuthor);
+	}, [authors?.data?.totalAuthor, total]);
+
+	const onShowSizeChange = (current, pageSize) => {
+		setPostPerPage(pageSize);
+	};
+
+	const itemRender = (current, type, originalElement) => {
+		if (type === "prev") {
+			return <p>Previous</p>;
+		}
+		if (type === "next") {
+			return <p>Next</p>;
+		}
+		return originalElement;
+	};
 
 	// conent loaded
 	let content = null;
@@ -70,6 +97,19 @@ const Authors = () => {
 
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'>
 					{content}
+				</div>
+
+				<div className='text-center py-10'>
+					<Pagination
+						onChange={value => setPage(value)}
+						pageSize={postPerPage}
+						total={total}
+						current={page}
+						showSizeChanger
+						showQuickJumper
+						onShowSizeChange={onShowSizeChange}
+						itemRender={itemRender}
+					/>
 				</div>
 			</Container>
 		</div>
