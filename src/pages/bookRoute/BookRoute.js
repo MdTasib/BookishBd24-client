@@ -58,27 +58,37 @@ const BookRoute = () => {
 
 	return (
 		<Container>
-			<div>
-				<h1 className='text-2xl'>বই</h1>
-			</div>
+			<div className='grid grid-cols-2 py-4'>
+				<p className='text-start'>
+					<span className='text-primary font-bold'>
+						{page * postPerPage - postPerPage + 1}
+					</span>{" "}
+					থেকে{" "}
+					<span className='text-primary font-bold'>{page * postPerPage} </span>
+					দেখাচ্ছে। মোট{" "}
+					<span className='text-primary font-bold'>
+						{books?.data?.totalBooks}
+					</span>{" "}
+					টি আইটেম পাওয়া গিয়েছে
+				</p>
 
-			<div className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
-				<div>
+				<div className='text-end'>
 					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
-				</div>
-				<div className='inline'>
-					<select
-						onChange={handleFilters}
-						id='filters'
-						className='select select-primary select-sm w-full max-w-xs'>
-						<option selected value=''>
-							All
-						</option>
-						<option value='-price'>price - high to low</option>
-						<option value='price'>price - low to high</option>
-					</select>
+
+					<div className='inline'>
+						<select
+							onChange={handleFilters}
+							id='filters'
+							className='select select-primary select-sm'>
+							<option selected value=''>
+								All
+							</option>
+							<option value='-price'>price - high to low</option>
+							<option value='price'>price - low to high</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
