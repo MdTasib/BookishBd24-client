@@ -1,13 +1,17 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "./Container";
 import MenuBar from "./MenuBar";
 
 const Navbar = () => {
+	const navigate = useNavigate();
+	const handleNavigate = () => {
+		navigate("/cart");
+	};
 	const menuItems = (
 		<>
-			<li>
-				<NavLink className='mx-1 text-sm py-1 mb-2' to='/dashboard'>
+			<li className='p-0'>
+				<NavLink className='text-sm mb-2 ' to='/dashboard'>
 					ড্যাশবোর্ড
 				</NavLink>
 			</li>
@@ -18,7 +22,7 @@ const Navbar = () => {
 			</li>
 
 			<li>
-				<div className='indicator mr-4'>
+				<div onClick={() => handleNavigate()} className='indicator mr-4'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-5 w-5'
@@ -77,16 +81,16 @@ const Navbar = () => {
 						</Link>
 					</div>
 
-					<div class='flex items-center justify-center'>
-						<div class='flex border border-primary border-2'>
+					<div className='flex items-center justify-center'>
+						<div className='flex border border-primary border-2'>
 							<input
 								type='text'
-								class='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+								className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 								placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
 							/>
-							<button class='flex items-center justify-center px-4 bg-primary'>
+							<button className='flex items-center justify-center px-4 bg-primary'>
 								<svg
-									class='w-6 h-6 text-white'
+									className='w-6 h-6 text-white'
 									fill='currentColor'
 									xmlns='http://www.w3.org/2000/svg'
 									viewBox='0 0 24 24'>

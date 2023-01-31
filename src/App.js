@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./assets/css/styles.css";
 import Footer from "./components/ui/Footer";
@@ -11,18 +12,12 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Authors from "./pages/authors/Authors";
-
 import PriOrder from "./pages/priOrder/PriOrder";
-
 import Details from "./pages/detailsPage/Details";
 import GeneralBook from "./pages/generalBook/GeneralBook";
-
-import { Toaster } from "react-hot-toast";
 import BookRoute from "./pages/bookRoute/BookRoute";
-
 import Subject from "./pages/subject/Subject";
 import Publisher from "./pages/publisher/Publisher";
-
 import ManageBook from "./components/dashboard/manageBook/ManageBook";
 import OrderBook from "./components/dashboard/orderBook/OrderBook";
 import MyProfile from "./components/dashboard/profile/MyProfile";
@@ -33,6 +28,7 @@ import UserReview from "./pages/userReview/UserReview";
 import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
+import Offer from "./pages/offer/Offer";
 
 function App() {
 	return (
@@ -47,12 +43,13 @@ function App() {
 				<Route path='/pri-order' element={<PriOrder />} />
 				<Route path='/subject' element={<Subject />} />
 				<Route path='/prokasok' element={<Publisher />} />
-				<Route path='/details' element={<Details />} />
-				<Route path='/authordetails' element={<AuthorDetails />} />
+				<Route path='/book/:id' element={<Details />} />
+				<Route path='/author/:id' element={<AuthorDetails />} />
 				<Route path='/userreview' element={<UserReview />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
+				<Route path='/offer' element={<Offer />} />
 
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />

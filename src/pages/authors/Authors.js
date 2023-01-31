@@ -1,22 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
-import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
 import { useGetAuthorsQuery } from "../../features/api/apiSlice";
 import Author from "./Author";
+import Loading from "../../components/ui/Loading";
+import { Pagination } from "antd";
 
 const Authors = () => {
-	const { data: authors, isLoading, isError, error } = useGetAuthorsQuery();
-	if (isLoading) {
-		console.log(authors);
-	}
+	const [total, setTotal] = useState("");
+	const [page, setPage] = useState(1);
+	const [postPerPage, setPostPerPage] = useState(8);
+	const {
+		data: authors,
+		isLoading,
+		isError,
+		error,
+	} = useGetAuthorsQuery({ page, limit: postPerPage });
+
+	useEffect(() => {
+		setTotal(authors?.data?.totalAuthor);
+	}, [authors?.data?.totalAuthor, total]);
+
+	const onShowSizeChange = (current, pageSize) => {
+		setPostPerPage(pageSize);
+	};
+
+	const itemRender = (current, type, originalElement) => {
+		if (type === "prev") {
+			return <p>Previous</p>;
+		}
+		if (type === "next") {
+			return <p>Next</p>;
+		}
+		return originalElement;
+	};
 
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
@@ -53,16 +76,16 @@ const Authors = () => {
 					</p>
 				</section>
 
-				<div class='flex items-center py-4'>
-					<div class='flex border border-primary border-2'>
+				<div className='flex items-center py-4'>
+					<div className='flex border border-primary border-2'>
 						<input
 							type='text'
-							class='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 							placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
 						/>
-						<button class='flex items-center justify-center px-4 bg-primary'>
+						<button className='flex items-center justify-center px-4 bg-primary'>
 							<svg
-								class='w-6 h-6 text-white'
+								className='w-6 h-6 text-white'
 								fill='currentColor'
 								xmlns='http://www.w3.org/2000/svg'
 								viewBox='0 0 24 24'>
@@ -74,6 +97,19 @@ const Authors = () => {
 
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'>
 					{content}
+				</div>
+
+				<div className='text-center py-10'>
+					<Pagination
+						onChange={value => setPage(value)}
+						pageSize={postPerPage}
+						total={total}
+						current={page}
+						showSizeChanger
+						showQuickJumper
+						onShowSizeChange={onShowSizeChange}
+						itemRender={itemRender}
+					/>
 				</div>
 			</Container>
 		</div>

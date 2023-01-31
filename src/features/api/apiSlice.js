@@ -5,7 +5,7 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:5000/api/v1",
 	}),
-	tagTypes: ["books", "authors"],
+	tagTypes: ["books", "authors", "book"],
 	endpoints: builder => ({
 		// get books on database
 		getBooks: builder.query({
@@ -19,6 +19,13 @@ export const apiSlice = createApi({
 			providesTags: ["books"],
 		}),
 
+		// get book details by id
+		getBookDetails: builder.query({
+			query: id => `/book/${id}`,
+			keepUnusedDataFor: 800,
+			providesTags: ["books", "book"],
+		}),
+
 		// get authors on database
 		getAuthors: builder.query({
 			query: arg => {
@@ -29,6 +36,13 @@ export const apiSlice = createApi({
 			},
 			keepUnusedDataFor: 800,
 			providesTags: ["authors"],
+		}),
+
+		// get author details by id
+		getAuthorDetails: builder.query({
+			query: id => `/author/${id}`,
+			keepUnusedDataFor: 800,
+			providesTags: ["auhtors", "author"],
 		}),
 
 		// post book on database
@@ -53,4 +67,11 @@ export const apiSlice = createApi({
 	}),
 });
 
-export const { useGetBooksQuery, useGetAuthorsQuery } = apiSlice;
+export const {
+	useGetBooksQuery,
+	useGetAuthorsQuery,
+	useGetAuthorDetailsQuery,
+	useGetBookDetailsQuery,
+	useCreateBookMutation,
+	useCreateAuthorMutation,
+} = apiSlice;
