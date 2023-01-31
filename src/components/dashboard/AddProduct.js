@@ -5,65 +5,64 @@ import Swal from "sweetalert2";
 const AddProduct = () => {
 	const { register, handleSubmit, reset } = useForm();
 
-
 	const onSubmit = async data => {
 		console.log(data);
-		const image = data.image[0];
-		const formData = new FormData();
-		formData.append("image", image);
+		// const image = data.image[0];
+		// const formData = new FormData();
+		// formData.append("image", image);
 
-		fetch(
-			`https://api.imgbb.com/1/upload?key=eb7bb93d7839539a8bddb41471f7e0da`,
-			{
-				method: "POST",
-				body: formData,
-			}
-		)
-			.then(res => res.json())
-			.then(result => {
-				const imgURL = result.data.url;
+		// fetch(
+		// 	`https://api.imgbb.com/1/upload?key=eb7bb93d7839539a8bddb41471f7e0da`,
+		// 	{
+		// 		method: "POST",
+		// 		body: formData,
+		// 	}
+		// )
+		// 	.then(res => res.json())
+		// 	.then(result => {
+		// 		const imgURL = result.data.url;
 
-				const uploadProduct = {
-					name: data.name,
-					nameEng: data.nameEng,
-					author: data.author,
-					authorEng: data.authorEng,
-					publication: data.publication,
-					subject: data.subject,
-					pages: data.pages,
-					cover: data.cover,
-					edition: data.edition,
-					language: data.language,
-					description: data.description,
-					price: data.price,
-					prePrice: data.prePrice,
-					quentity: data.quentity,
-					discount: data.discount,
-					image: imgURL,
-					category: data.category,
-				};
+		// 		const uploadProduct = {
+		// 			name: data.name,
+		// 			nameEng: data.nameEng,
+		// 			author: data.author,
+		// 			authorEng: data.authorEng,
+		// 			publication: data.publication,
+		// 			subject: data.subject,
+		// 			pages: data.pages,
+		// 			cover: data.cover,
+		// 			edition: data.edition,
+		// 			language: data.language,
+		// 			description: data.description,
+		// 			price: data.price,
+		// 			prePrice: data.prePrice,
+		// 			quentity: data.quentity,
+		// 			discount: data.discount,
+		// 			image: imgURL,
+		// 			category: data.category,
+		// 		};
 
-				if (result.success) {
-					fetch(`https://beatnik-task-server.vercel.app/product`, {
-						method: "POST",
-						headers: {
-							"content-type": "application/json",
-						},
-						body: JSON.stringify(uploadProduct),
-					})
-						.then(res => res.json())
-						.then(data => {
-							reset();
-							Swal.fire({
-								position: "top-center",
-								icon: "success",
-								title: "Successfully upload a new product",
-								showConfirmButton: false,
-								timer: 1500,
-							});
-						});
-				}
-			});
+		// 		if (result.success) {
+		// 			fetch(`https://beatnik-task-server.vercel.app/product`, {
+		// 				method: "POST",
+		// 				headers: {
+		// 					"content-type": "application/json",
+		// 				},
+		// 				body: JSON.stringify(uploadProduct),
+		// 			})
+		// 				.then(res => res.json())
+		// 				.then(data => {
+		// 					reset();
+		// 					Swal.fire({
+		// 						position: "top-center",
+		// 						icon: "success",
+		// 						title: "Successfully upload a new product",
+		// 						showConfirmButton: false,
+		// 						timer: 1500,
+		// 					});
+		// 				});
+		// 		}
+		// 	});
 	};
 
 	return (
@@ -75,10 +74,10 @@ const AddProduct = () => {
 							<div className='md:grid grid-cols-2 gap-10'>
 								{/* ............................... */}
 								<div>
-									<div className="md:grid grid-cols-2 gap-6">
+									<div className='md:grid grid-cols-2 gap-6'>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Book Name</span>
+												<span className='label-text font-bold'>Book Name</span>
 											</label>
 											<input
 												{...register("name", { required: true })}
@@ -89,7 +88,9 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Book Name in English</span>
+												<span className='label-text font-bold'>
+													Book Name in English
+												</span>
 											</label>
 											<input
 												{...register("nameEng", { required: true })}
@@ -100,7 +101,9 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Author Name</span>
+												<span className='label-text font-bold'>
+													Author Name
+												</span>
 											</label>
 											<input
 												{...register("author", { required: true })}
@@ -111,7 +114,9 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Author Namr in English</span>
+												<span className='label-text font-bold'>
+													Author Namr in English
+												</span>
 											</label>
 											<input
 												{...register("authorEng", { required: true })}
@@ -122,7 +127,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Category</span>
+												<span className='label-text font-bold'>Category</span>
 											</label>
 											<input
 												{...register("category", { required: true })}
@@ -133,7 +138,9 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Publication</span>
+												<span className='label-text font-bold'>
+													Publication
+												</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -144,7 +151,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Subject</span>
+												<span className='label-text font-bold'>Subject</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -155,7 +162,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Pages</span>
+												<span className='label-text font-bold'>Pages</span>
 											</label>
 											<input
 												{...register("number", { required: true })}
@@ -166,7 +173,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Cover</span>
+												<span className='label-text font-bold'>Cover</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -177,7 +184,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Edition</span>
+												<span className='label-text font-bold'>Edition</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -188,7 +195,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Language</span>
+												<span className='label-text font-bold'>Language</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -199,7 +206,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Price</span>
+												<span className='label-text font-bold'>Price</span>
 											</label>
 											<input
 												{...register("price", { required: true })}
@@ -210,7 +217,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Pre Price</span>
+												<span className='label-text font-bold'>Pre Price</span>
 											</label>
 											<input
 												{...register("price", { required: true })}
@@ -221,7 +228,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Discount</span>
+												<span className='label-text font-bold'>Discount</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -233,63 +240,62 @@ const AddProduct = () => {
 									</div>
 									<div className='form-control'>
 										<label className='label'>
-											<span className='label-text'>Description</span>
+											<span className='label-text font-bold'>Description</span>
 										</label>
 										<textarea
 											{...register("description", { required: true })}
 											className='textarea textarea-primary w-full max-w-xs'
 											placeholder='Enter Description'></textarea>
 									</div>
-
 								</div>
 								{/* ............................... */}
 								<div>
-									<label className='label'>
-										<span className='label-text'>Upload Image</span>
-									</label>
+									<label className='formLabel'>Images for book</label>
+									<p className='text-sm'>
+										Image must be
+										<span className='text-primary font-bold'>
+											{" "}
+											(jpg / png / jpeg)
+										</span>
+									</p>
+									<input
+										className='formInputFile'
+										type='file'
+										max='6'
+										accept='.jpg,.png,.jpeg'
+										required
+										{...register("imageURL", { required: true })}
+									/>
 
-									<div className='flex justify-center items-center w-full'>
-										<label
-											for='dropzone-file'
-											className='flex flex-col justify-center items-center w-full bg-accent rounded-lg border-2 border-primary border-dashed cursor-pointer'>
-											<div className='flex flex-col justify-center items-center pt-5 pb-6'>
-												<svg
-													className='mb-3 w-5 h-5 text-primary'
-													fill='none'
-													stroke='currentColor'
-													viewBox='0 0 24 24'
-													xmlns='http://www.w3.org/2000/svg'>
-													<path
-														strokeLinecap='round'
-														strokeLinejoin='round'
-														strokeWidth='2'
-														d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'></path>
-												</svg>
-												<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
-													<span className='font-semibold'>
-														Click to upload image
-													</span>
-												</p>
-											</div>
-											<input
-												{...register("imageURL", { required: true })}
-												id='dropzone-file'
-												type='file'
-												className='hidden'
-											/>
+									<div className=''>
+										<label className='formLabel'>
+											Multiple images for book details
 										</label>
+										<p className='text-sm'>
+											The first image will be the cover{" "}
+											<span className='text-primary font-bold'>
+												(max 6) (jpg / png / jpeg)
+											</span>
+										</p>
+										<input
+											className='formInputFile'
+											type='file'
+											id='images'
+											max='6'
+											accept='.jpg,.png,.jpeg'
+											multiple
+											required
+											{...register("imagesURL", { required: true })}
+										/>
 									</div>
-									<label className='label'>
-										<span className='label-text'>Upload More Images</span>
-									</label>
 								</div>
 							</div>
-							
 						</div>
 
 						<div className='form-control mt-6'>
-							<button type="submit" className='btn btn-primary'>UPLOAD</button>
-							
+							<button type='submit' className='btn btn-primary'>
+								UPLOAD
+							</button>
 						</div>
 					</form>
 				</div>
