@@ -1,69 +1,84 @@
 import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import Loading from "../ui/Loading";
 
 const AddProduct = () => {
+	const [multipleImages, setMultipleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async data => {
-		console.log(data);
-		// const image = data.image[0];
-		// const formData = new FormData();
-		// formData.append("image", image);
+		if (multipleImages.length > 6) {
+			setLoading(false);
+			toast.error("Max 6 images");
+			return;
+		}
 
-		// fetch(
-		// 	`https://api.imgbb.com/1/upload?key=eb7bb93d7839539a8bddb41471f7e0da`,
-		// 	{
-		// 		method: "POST",
-		// 		body: formData,
-		// 	}
-		// )
-		// 	.then(res => res.json())
-		// 	.then(result => {
-		// 		const imgURL = result.data.url;
+		///////////////   Multiple images upload   //////////////////
+		// Store multiple images in firebase
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
 
-		// 		const uploadProduct = {
-		// 			name: data.name,
-		// 			nameEng: data.nameEng,
-		// 			author: data.author,
-		// 			authorEng: data.authorEng,
-		// 			publication: data.publication,
-		// 			subject: data.subject,
-		// 			pages: data.pages,
-		// 			cover: data.cover,
-		// 			edition: data.edition,
-		// 			language: data.language,
-		// 			description: data.description,
-		// 			price: data.price,
-		// 			prePrice: data.prePrice,
-		// 			quentity: data.quentity,
-		// 			discount: data.discount,
-		// 			image: imgURL,
-		// 			category: data.category,
-		// 		};
+				const storageRef = ref(storage, "images/" + fileName);
 
-		// 		if (result.success) {
-		// 			fetch(`https://beatnik-task-server.vercel.app/product`, {
-		// 				method: "POST",
-		// 				headers: {
-		// 					"content-type": "application/json",
-		// 				},
-		// 				body: JSON.stringify(uploadProduct),
-		// 			})
-		// 				.then(res => res.json())
-		// 				.then(data => {
-		// 					reset();
-		// 					Swal.fire({
-		// 						position: "top-center",
-		// 						icon: "success",
-		// 						title: "Successfully upload a new product",
-		// 						showConfirmButton: false,
-		// 						timer: 1500,
-		// 					});
-		// 				});
-		// 		}
-		// 	});
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
+						});
+					}
+				);
+			});
+		};
+
+		const imageURLS = await Promise.all(
+			[...multipleImages].map(image => storeImage(image))
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+		console.log(imageURLS);
+		///////////////   Multiple images upload   //////////////////
 	};
+
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className='hero'>
@@ -73,7 +88,7 @@ const AddProduct = () => {
 						<div className='form-control'>
 							<div className='md:grid grid-cols-2 gap-10'>
 								{/* ............................... */}
-								<div>
+								{/* <div>
 									<div className='md:grid grid-cols-2 gap-6'>
 										<div>
 											<label className='label'>
@@ -247,10 +262,10 @@ const AddProduct = () => {
 											className='textarea textarea-primary w-full max-w-xs'
 											placeholder='Enter Description'></textarea>
 									</div>
-								</div>
+								</div> */}
 								{/* ............................... */}
 								<div>
-									<label className='formLabel'>Images for book</label>
+									{/* <label className='formLabel'>Images for book</label>
 									<p className='text-sm'>
 										Image must be
 										<span className='text-primary font-bold'>
@@ -261,11 +276,9 @@ const AddProduct = () => {
 									<input
 										className='formInputFile'
 										type='file'
-										max='6'
-										accept='.jpg,.png,.jpeg'
 										required
 										{...register("imageURL", { required: true })}
-									/>
+									/> */}
 
 									<div className=''>
 										<label className='formLabel'>
@@ -280,12 +293,12 @@ const AddProduct = () => {
 										<input
 											className='formInputFile'
 											type='file'
-											id='images'
+											id='multipleImages'
 											max='6'
 											accept='.jpg,.png,.jpeg'
 											multiple
 											required
-											{...register("imagesURL", { required: true })}
+											onChange={e => setMultipleImages(e.target.files)}
 										/>
 									</div>
 								</div>
