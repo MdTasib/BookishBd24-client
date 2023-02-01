@@ -169,7 +169,7 @@ const Navbar = () => {
 							{searchData.length?
 								<ul className=" top-12 w-[376px] h-28 px-4 bg-gray-300 border-2 z-10 border-primary overflow-y-scroll mr-2">
 									{searchData.map(data =>
-										<li onClick={()=>setValue(data.name)} className="cursor-pointer">{data.name}</li>)
+										<li onClick={()=>setValue(data.name)} className="cursor-pointer"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
 									}
 
 								</ul>
