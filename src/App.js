@@ -1,5 +1,6 @@
-import { Toaster } from "react-hot-toast";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import "./assets/css/styles.css";
 import Footer from "./components/ui/Footer";
 import Navbar from "./components/ui/Navbar";
