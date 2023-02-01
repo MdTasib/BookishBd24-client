@@ -2,6 +2,7 @@ import React from "react";
 import AdsGrid from "../../components/Ads/AdsGrid";
 import SectionBooks from "../../components/SectionBooks/SectionBooks";
 import ImageSlider from "../../components/Slider/Slider";
+import PopularAuthor from "./popularAuthor/PopularAuthor";
 
 function Home() {
 	return (
@@ -21,6 +22,7 @@ function Home() {
 				title='শিশু-কিশোরদের ইসলামী বই
 '
 			/>
+			<PopularAuthor />
 		</div>
 	);
 }

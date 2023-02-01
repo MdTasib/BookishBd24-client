@@ -11,12 +11,13 @@ const BookRoute = () => {
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(9);
+	const [filters, setFilters] = useState("");
 	const {
 		data: books,
 		isLoading,
 		isError,
 		error,
-	} = useGetBooksQuery({ page, limit: postPerPage });
+	} = useGetBooksQuery({ page, limit: postPerPage, sort: filters });
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
@@ -35,6 +36,8 @@ const BookRoute = () => {
 		}
 		return originalElement;
 	};
+
+	const handleFilters = event => setFilters(event.target.value);
 
 	// conent loaded
 	let content = null;
@@ -68,15 +71,19 @@ const BookRoute = () => {
 					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
-				</div>
-				<div className='inline'>
-					<select
-						id='filters'
-						className='select select-primary select-sm w-full max-w-xs'>
-						<option selected>All</option>
-						<option>price - high to low</option>
-						<option>price - low to high</option>
-					</select>
+
+					<div className='inline'>
+						<select
+							onChange={handleFilters}
+							id='filters'
+							className='select select-primary select-sm'>
+							<option selected value=''>
+								All
+							</option>
+							<option value='-price'>price - high to low</option>
+							<option value='price'>price - low to high</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
