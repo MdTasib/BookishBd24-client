@@ -4,7 +4,6 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
 import SubjectCategory from "./SubjectCategory";
-import { products } from "../../data/data";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 
 const Subject = () => {

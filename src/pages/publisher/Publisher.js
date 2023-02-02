@@ -3,7 +3,6 @@ import Container from "../../components/ui/Container";
 import { FaHome } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import publiser from "../../assets/images/allpublisher.png";
-import { products } from "../../data/data";
 import AllPublisher from "./AllPublisher";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 
