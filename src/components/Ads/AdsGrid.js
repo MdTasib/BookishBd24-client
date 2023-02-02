@@ -7,7 +7,9 @@ const AdsGrid = () => {
 	return (
 		<section className='px-4 pb-14 pt-4'>
 			<Container>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+				<div data-aos="fade-left"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000" className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 					{adsImages.slice(0, 3).map(ads => (
 						<AdsItem key={ads.id} ads={ads} />
 					))}

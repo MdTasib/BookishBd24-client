@@ -5,16 +5,19 @@ const Button = ({ children, classes }) => {
 	return (
 		<>
 			{/* button 1 */}
-			<button
-				className={`relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring ${
-					classes ? classes : ""
-				}`}>
-				<span className='absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-primary group-hover:translate-y-0 group-hover:translate-x-0'></span>
+			<div data-aos="fade-right"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="1000">
+				<button
+					className={`relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring ${classes ? classes : ""
+						}`}>
+					<span className='absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-primary group-hover:translate-y-0 group-hover:translate-x-0'></span>
 
-				<span className='relative block px-8 py-3 bg-primary border border-current'>
-					{children}
-				</span>
-			</button>
+					<span className='relative block px-8 py-3 bg-primary border border-current'>
+						{children}
+					</span>
+				</button>
+			</div>
 
 			{/* button 2 */}
 			{/* <button className='relative inline-block text-sm font-medium text-white group focus:outline-none focus:ring'>
