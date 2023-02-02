@@ -10,6 +10,7 @@ export const apiSlice = createApi({
 		// get books on database
 		getBooks: builder.query({
 			query: arg => {
+				console.log(arg);
 				return {
 					url: "/book",
 					params: { ...arg },
