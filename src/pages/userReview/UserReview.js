@@ -7,7 +7,9 @@ const UserReview = () => {
 	return (
 		<Container>
 			<div>
-				<img className='w-full h-[250px]' src={reviewPage} alt='' />
+				<img data-aos="flip-left"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000" className='w-full h-[250px]' src={reviewPage} alt='' />
 				<h3 className='text-2xl mt-2 mb-4'>
 					বুকিশওয়ার্ড২৪ সম্পর্কে ক্রেতাদের মতামত:
 				</h3>
@@ -21,7 +23,7 @@ const UserReview = () => {
 							alt=''
 						/>
 						<div>
-							<h3 className='font-bold'>ঝংকার মাহবুব</h3>
+							<h3 className='font-bold animate-pulse'>ঝংকার মাহবুব</h3>
 							<div className='rating rating-sm'>
 								<input
 									type='radio'
@@ -69,7 +71,7 @@ const UserReview = () => {
 							alt=''
 						/>
 						<div>
-							<h3 className='font-bold'>ঝংকার মাহবুব</h3>
+							<h3 className='font-bold animate-pulse'>ঝংকার মাহবুব</h3>
 							<div className='rating rating-sm'>
 								<input
 									type='radio'
@@ -117,7 +119,7 @@ const UserReview = () => {
 							alt=''
 						/>
 						<div>
-							<h3 className='font-bold'>ঝংকার মাহবুব</h3>
+							<h3 className='font-bold animate-pulse'>ঝংকার মাহবুব</h3>
 							<div className='rating rating-sm'>
 								<input
 									type='radio'
