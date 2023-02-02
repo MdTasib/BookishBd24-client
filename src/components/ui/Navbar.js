@@ -4,7 +4,8 @@ import Container from "./Container";
 import MenuBar from "./MenuBar";
 
 const Navbar = () => {
-	const menuItems = (
+
+		const menuItems = (
 		<>
 			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/dashboard'>
@@ -84,7 +85,7 @@ const Navbar = () => {
 								class='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 								placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
 							/>
-							<button class='flex items-center justify-center px-4 bg-primary'>
+							<button  class='flex items-center justify-center px-4 bg-primary'>
 								<svg
 									class='w-6 h-6 text-white'
 									fill='currentColor'
@@ -93,7 +94,9 @@ const Navbar = () => {
 									<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
 								</svg>
 							</button>
+							
 						</div>
+	
 					</div>
 
 					<div className='flex-none'>

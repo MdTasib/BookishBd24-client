@@ -1,49 +1,119 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import bookimg from "../../../assets/images/book.png";
-import { FaRegEdit } from "react-icons/fa";
+import { useForm } from 'react-hook-form';
 
 
 const MyProfile = () => {
-    const navigate = useNavigate();
+    const { register, handleSubmit, reset } = useForm();
 
-    const updateUserProfile = () => {
-        navigate("/dashboard/updateprofile")
-    }
-
+	const onSubmit = async data => {
+    const image = data.image[0];
+		const formData = new FormData();
+		formData.append("image", image);
+        fetch(`https://api.imgbb.com/1/upload?key=471d1141ac13b90a4dedd43aa0764fc6`,{
+            method: "POST",
+            body: formData,
+          })
+          .then(res => res.json())
+          .then(result => {
+            const imageURL = result.data.url;
+            if(result.success){
+              const uploadProfile = {
+                name: data.name,
+                email:data.email,
+                address:data.address,
+                mobile:data.mobile,
+                image:imageURL,
+              };
+              console.log(uploadProfile);
+              reset()
+            }
+          });
+      };
+      
     return (
-        <div className='h-[100vh]'>
-            <div>
-                <div className='w-[70%] mx-auto'>
-                    <div className='bg-gray-200 rounded-md mt-12 py-4 px-4 lg:px-12 md:px-12'>
-                        <div className='flex justify-between'>
-                            <h2 className='mb-5 text-xl font-bold'>My Profile</h2>
-                            <div onClick={() => updateUserProfile()}  className='flex items-center text-primary font-bold'>
-                                <FaRegEdit />
-                                <p className='ml-1'>Edit</p>
-                            </div>
-                        </div>
-                        <div className='lg:flex md:flex gap-8 '>
-                            <div className=''>
-                                <img className='h-24 w-24 rounded-full' src={bookimg} alt="" />
-                                <button onClick={() => updateUserProfile()} className='px-2 py-2 bg-primary rounded-md text-white mt-4'>Edit profile</button>
-                            </div>
-                            <div className='mt-2 lg:ml-8 md:ml-8 font-bold'>
-                                <small>Name:</small>
-                                <p className='mb-2'>Ridima Rahman Mou</p>
-                                <small>Email:</small>
-                                <p className='mb-2'>ridimarahmanmou5804@gmail.com</p>
-                                <small>Address:</small>
-                                <p className='mb-2'>Birgonj, Dinajpur</p>
-                                <small>Phone:</small>
-                                <p className='mb-2'>01784056495</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/*  */}
+      <div className="hero min-h-screen">
+    <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+      <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+      <label
+											for='dropzone-file'
+											className='flex flex-col justify-center items-center w-full bg-accent rounded-lg border-2 border-primary border-dashed cursor-pointer'>
+											<div className='flex flex-col justify-center items-center pt-5 pb-6'>
+												<svg
+													className='mb-3 w-5 h-5 text-primary'
+													fill='none'
+													stroke='currentColor'
+													viewBox='0 0 24 24'
+													xmlns='http://www.w3.org/2000/svg'>
+													<path
+														strokeLinecap='round'
+														strokeLinejoin='round'
+														strokeWidth='2'
+														d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'></path>
+												</svg>
+												<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
+													<span className='font-semibold'>
+														Click to upload image
+													</span>
+												</p>
+											</div>
+											<input
+												{...register("imageURL", { required: true })}
+												id='dropzone-file'
+												type='file'
+												className='hidden'
+											/>
+										</label>
+        <div className="form-control">
+        <label className='label'>
+												<span className='label-text'>Your Name</span>
+											</label>
+											<input
+												{...register("name", { required: true })}
+												type='text'
+												placeholder='Enter Your Name'
+												className='input input-bordered input-primary w-full '
+											/>
         </div>
+        <div className="form-control">
+        <label className='label'>
+												<span className='label-text'>Your Email</span>
+											</label>
+											<input
+												{...register("email", { required: true })}
+												type='email'
+												placeholder='Enter Your Email'
+												className='input input-bordered input-primary w-full '
+											/>
+        </div>
+        <div className="form-control">
+        <label className='label'>
+												<span className='label-text'>Your Address</span>
+											</label>
+											<input
+												{...register("address", { required: true })}
+												type='text'
+												placeholder='Enter Your Address'
+												className='input input-bordered input-primary w-full '
+											/>
+        </div>
+        <div className="form-control">
+        <label className='label'>
+												<span className='label-text'>Your Mobile</span>
+											</label>
+											<input
+												{...register("mobile", { required: true })}
+												type='number'
+												placeholder='Enter Your Mobile'
+												className='input input-bordered input-primary w-full '
+											/>
+        </div>
+        
+        <div className="form-control mt-6">
+          <button className="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+</div>
     );
 };
 
