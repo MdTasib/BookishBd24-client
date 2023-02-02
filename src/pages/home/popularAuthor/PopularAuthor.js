@@ -36,7 +36,7 @@ const PopularAuthor = () => {
         },
         desktop: {
             breakpoint: { max: 1560, min: 1024 },
-            items: 4,
+            items: 5,
         },
         tablet: {
             breakpoint: { max: 1024, min: 780 },
@@ -51,16 +51,15 @@ const PopularAuthor = () => {
 
     return (
         <section className='pb-10'>
-			<Container>
-				<div data-aos="fade-left"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="1000" className='shadow shadow-primary border-primary border p-3 mb-4'>
-					<h2 className='text-primary font-medium'>আরো দেখুন...</h2>
-				</div>
-                <h3 className='pl-4 text-xl pt-2'>Weekly Popular Authors</h3>
-				<Carousel className='shadow-xl py-4' responsive={responsive}>{content}</Carousel>
-			</Container>
-		</section>
+            <Container>
+                <div data-aos="fade-left"
+                    data-aos-easing="ease-out-cubic"
+                    data-aos-duration="1000" className='shadow shadow-primary border-primary border p-3 mb-4'>
+                    <h2 className='text-primary font-medium'>জনপ্রিয় লেখকগণ</h2>
+                </div>
+                <Carousel className='shadow-xl py-4' responsive={responsive}>{content}</Carousel>
+            </Container>
+        </section>
     );
 };
 

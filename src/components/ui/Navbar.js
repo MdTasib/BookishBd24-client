@@ -15,16 +15,6 @@ const Navbar = () => {
 	const [cursorPosition, setCursorPosition] = useState();
 	console.log(cursorPosition);
 
-	const listItem = (Items) =>{
-		console.log(Items);
-	}
-	const inputRef = useRef(null);
-
-	// useEffect(() => {
-	// 	inputRef.current.selectionEnd = cursorPosition;
-	// },[cursorPosition])
-
-	
 
 	const [searchData, setSearchData] = useState([]);
 	console.log(searchData);
@@ -42,19 +32,13 @@ const Navbar = () => {
 		const result = books?.data?.books.filter((item) => {
 			return item.name.toLowerCase().includes(searchText.toLowerCase()) || item.nameEng.toLowerCase().includes(searchText.toLowerCase()) || item.author.toLowerCase().includes(searchText.toLowerCase()) || item.authorEng.toLowerCase().includes(searchText.toLowerCase())
 		})
-		if(!searchText){
+		if (!searchText) {
 			setSearchData([])
 			console.log("hello world");
 		}
 		else if (result) {
 			setSearchData(result)
 		}
-		// }else if(!result || !searchText){
-		// 	setSearchData([]);
-		// 	console.log("hello");
-		// }
-
-
 	}
 
 
@@ -142,8 +126,6 @@ const Navbar = () => {
 							<div className='flex border border-primary border-2'>
 
 								<input
-									ref={inputRef}
-									
 									type='text'
 									className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 									placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
@@ -166,10 +148,10 @@ const Navbar = () => {
 							</div>
 						</div>
 						<div className="absolute z-10">
-							{searchData.length?
+							{searchData.length ?
 								<ul className=" top-12 w-[376px] h-28 px-4 bg-gray-300 border-2 z-10 border-primary overflow-y-scroll mr-2">
 									{searchData.map(data =>
-										<li onClick={()=>setValue(data.name)} className="cursor-pointer"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
+										<li onClick={() => setValue(data.name)} className="cursor-pointer"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
 									}
 
 								</ul>
