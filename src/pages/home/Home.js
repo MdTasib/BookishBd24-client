@@ -2,12 +2,14 @@ import React from "react";
 import AdsGrid from "../../components/Ads/AdsGrid";
 import SectionBooks from "../../components/SectionBooks/SectionBooks";
 import ImageSlider from "../../components/Slider/Slider";
+import Education from "./education/Education";
 import PopularAuthor from "./popularAuthor/PopularAuthor";
 
 function Home() {
 	return (
 		<div>
 			<ImageSlider />
+			<Education />
 			<SectionBooks 
 				filters={{ category: "বইমেলা" }}
 				title='ইসলামী সাহিত্য, গল্প-উপন্যাস এবং সফরনামা'
