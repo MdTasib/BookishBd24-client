@@ -58,21 +58,16 @@ const BookRoute = () => {
 
 	return (
 		<Container>
-			<div className='grid grid-cols-2 py-4'>
-				<p className='text-start'>
-					<span className='text-primary font-bold'>
-						{page * postPerPage - postPerPage + 1}
-					</span>{" "}
-					থেকে{" "}
-					<span className='text-primary font-bold'>{page * postPerPage} </span>
-					দেখাচ্ছে। মোট{" "}
-					<span className='text-primary font-bold'>
-						{books?.data?.totalBooks}
-					</span>{" "}
-					টি আইটেম পাওয়া গিয়েছে
-				</p>
+			<div>
+				<h1 data-aos="fade-up"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000" className='text-2xl'>বই</h1>
+			</div>
 
-				<div className='text-end'>
+			<div data-aos="fade-down"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="1000" className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
+				<div>
 					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
@@ -97,7 +92,9 @@ const BookRoute = () => {
 					<FilterBook />
 				</div>
 
-				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5'>
+				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5' data-aos="fade-left"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
 					{content}
 				</div>
 			</section>

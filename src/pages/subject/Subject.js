@@ -39,9 +39,19 @@ const Subject = () => {
 				</section>
 
 				<div>
+<<<<<<< HEAD
 					<img className='w-full' src={bg_img} alt=''></img>
 					<p className='pt-2 text-gray-600 text-lg'>
 						লক্ষাধিক বইয়ের সংগ্রহ বৈশাখীবিডি-২৪ ডট কমে। বইয়ের এই বিশাল সমুদ্র-মন্থনে
+=======
+					<img data-aos="fade-right"
+						data-aos-easing="ease-out-cubic"
+						data-aos-duration="1000" className='w-full' src={bg_img} alt=''></img>
+					<p data-aos="fade-left"
+						data-aos-easing="ease-out-cubic"
+						data-aos-duration="1000" className='pt-2 text-gray-500 text-sm'>
+						লক্ষাধিক বইয়ের সংগ্রহ রকমারি ডট কমে। বইয়ের এই বিশাল সমুদ্র-মন্থনে
+>>>>>>> ab1ecf2b8c16fd3eba86a18acf8cb30cdc11bb01
 						পাঠকের সুবিধার্থে প্রায় ৫০ টির মতো ক্যাটাগরি ও সহস্রাধিক বিষয়ভিত্তিক
 						ক্যাটাগরি রয়েছে বৈশাখীবিডি-২৪ ডট কমে। যার ফলে খুব সহজেই পাঠক তার পছন্দের
 						ক্যাটাগরি বেছে নিয়ে নির্দিষ্ট বিষয়ভিত্তিক বইগুলো খুঁজে পাবে খুব
@@ -52,13 +62,17 @@ const Subject = () => {
 
 				<section className='flex justify-center items-center my-5'>
 					<div className='mr-8'>
-						<h1 className='text-xl text-gray-700'>
+						<h1 className='text-xl text-gray-700' data-aos="fade-down"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="1000">
 							Search your favorite category
 						</h1>
 					</div>
 
 					<div className='flex items-center justify-center'>
-						<div className='flex border border-primary border-2'>
+						<div className='flex border border-primary border-2' data-aos="fade-up"
+							data-aos-easing="ease-out-cubic"
+							data-aos-duration="1000">
 							<input
 								type='text'
 								className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
