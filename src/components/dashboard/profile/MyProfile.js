@@ -25,8 +25,8 @@ const MyProfile = () => {
 			return;
 		}
 
-		///////////////   Multiple images upload   //////////////////
-		// Store multiple images in firebase
+		///////////////   single images upload   //////////////////
+		// Store single images in firebase
 		const storeImage = async image => {
 			return new Promise((resolve, reject) => {
 				const storage = getStorage();
