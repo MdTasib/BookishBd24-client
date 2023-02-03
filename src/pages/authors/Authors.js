@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
@@ -6,6 +6,7 @@ import { useGetAuthorsQuery } from "../../features/api/apiSlice";
 import Author from "./Author";
 import Loading from "../../components/ui/Loading";
 import { Pagination } from "antd";
+import { NavLink } from "react-router-dom";
 
 const Authors = () => {
 	const [total, setTotal] = useState("");
@@ -17,6 +18,40 @@ const Authors = () => {
 		isError,
 		error,
 	} = useGetAuthorsQuery({ page, limit: postPerPage });
+	console.log(authors?.data?.authors);
+
+	// SEARCH AUTHOR Start
+	const inputRef = useRef(null)
+	const [searchListVisible, setSearchListVisible] = useState(true);
+
+	const reSeatInput = () => {
+		setSearchData([]);
+		inputRef.current.value = "";
+		// console.log(inputRef.current.value);
+	}
+
+	const [searchData, setSearchData] = useState([]);
+	// console.log(searchData);
+	const searchItem = event => {
+		const searchText = event.target.value;
+		console.log(searchText);
+		const result = authors?.data?.authors.filter(item => {
+			return (
+				item.author.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.authorEng.toLowerCase().includes(searchText.toLowerCase())
+			);
+		});
+		if (!searchText) {
+			setSearchData([]);
+			console.log("hello world");
+		} else if (result) {
+			setSearchData(result);
+		}
+		else if (result) {
+			setSearchData(result)
+		}
+	}
+	// SEARCH AUTHOR END
 
 	useEffect(() => {
 		setTotal(authors?.data?.totalAuthor);
@@ -78,24 +113,44 @@ const Authors = () => {
 					</p>
 				</section>
 
-				<div className='flex items-center py-4' data-aos="flip-right"
-					data-aos-easing="ease-out-cubic"
-					data-aos-duration="500">
-					<div className='flex border border-primary border-2'>
-						<input
-							type='text'
-							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
-							placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
-						/>
-						<button className='flex items-center justify-center px-4 bg-primary'>
-							<svg
-								className='w-6 h-6 text-white'
-								fill='currentColor'
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'>
-								<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
-							</svg>
-						</button>
+				<div>
+					<div className='flex items-center py-4 relative' data-aos="flip-right"
+						data-aos-easing="ease-out-cubic"
+						data-aos-duration="500">
+						<div className='flex border border-primary border-2'>
+							<input
+								ref={inputRef}
+								type='text'
+								className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+								placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
+								onChange={event => searchItem(event)}
+							/>
+							<button className='flex items-center justify-center px-4 bg-primary'>
+								<svg
+									className='w-6 h-6 text-white'
+									fill='currentColor'
+									xmlns='http://www.w3.org/2000/svg'
+									viewBox='0 0 24 24'>
+									<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div className="absolute z-10">
+						{searchListVisible && (
+							<div>
+								{searchData.length ?
+									<ul className="top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2">
+										{searchData.map(data =>
+											<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><NavLink to={`/author/${data._id}`}>{data.author}</NavLink></li>)
+										}
+
+									</ul>
+									:
+									""
+								}
+							</div>
+						)}
 					</div>
 				</div>
 
