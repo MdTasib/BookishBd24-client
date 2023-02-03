@@ -14,6 +14,15 @@ const Navbar = () => {
 	const [value, setValue] = useState("");
 	const [cursorPosition, setCursorPosition] = useState();
 	console.log(cursorPosition);
+	const [searchListVisible, setSearchListVisible] = useState(true);
+	const handleSearchResultClick = (data) => {
+		// setSearchListVisible(!false);
+		// navigate to other page
+		navigate(`book/${data._id}`);
+		setValue("");
+		console.log("cheak Value", value);
+	};
+	
 
 
 	const [searchData, setSearchData] = useState([]);
@@ -131,11 +140,6 @@ const Navbar = () => {
 									placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
 									onChange={event => searchItem(event)}
 								/>
-
-
-
-
-
 								<button className='flex items-center justify-center px-4 bg-primary'>
 									<svg
 										className='w-6 h-6 text-white'
@@ -148,16 +152,20 @@ const Navbar = () => {
 							</div>
 						</div>
 						<div className="absolute z-10">
-							{searchData.length ?
-								<ul className=" top-12 w-[376px] h-28 px-4 bg-gray-300 border-2 z-10 border-primary overflow-y-scroll mr-2">
-									{searchData.map(data =>
-										<li onClick={() => setValue(data.name)} className="cursor-pointer"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
-									}
+							{searchListVisible && (
+								<div>
+									{searchData.length ?
+										<ul className="top-12 w-[376px] h-auto px-4 bg-gray-300 border-2 z-10 border-primary mr-2">
+											{searchData.map(data =>
+												<li onClick={() => handleSearchResultClick(data)} className="cursor-pointer">{data.name}</li>)
+											}
 
-								</ul>
-								:
-								""
-							}
+										</ul>
+										:
+										""
+									}
+								</div>
+							)}
 						</div>
 	
 					</div>

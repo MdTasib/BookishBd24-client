@@ -48,13 +48,13 @@ const ManageBook = () => {
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
 		content = books?.data?.books?.map((book, index) => (
 			<tr>
+				<td></td>
 				<td>
 					<img className='h-8' src={book.imageURL} alt='' />
 				</td>
 				<td>{book.name.slice(0, 30)}</td>
 				<td>${book.prePrice}</td>
 				<td>{book.price}</td>
-				<td>{book.author.slice(0, 30)}</td>
 				<td>
 					<button className='bg-red-500 px-2 rounded text-white'>Delete</button>
 				</td>
@@ -84,7 +84,6 @@ const ManageBook = () => {
 						<th>নাম</th>
 						<th>পর্ব মূল্য</th>
 						<th>দাম</th>
-						<th>লেখক</th>
 						<th>Delete Book</th>
 						<th>Update Book</th>
 					</tr>
