@@ -5,6 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import Book from "./Book";
 import Button from "../ui/Button";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
+import Loading from "../../components/ui/Loading";
 
 const SectionBooks = ({ title, filters }) => {
 	const {
@@ -13,7 +14,6 @@ const SectionBooks = ({ title, filters }) => {
 		isError,
 		error,
 	} = useGetBooksQuery({ ...filters });
-	console.log(filters);
 
 	const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	const responsive = {
@@ -39,7 +39,7 @@ const SectionBooks = ({ title, filters }) => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
@@ -49,14 +49,16 @@ const SectionBooks = ({ title, filters }) => {
 	}
 	if (!isError && !isLoading && books?.data?.books?.length > 0) {
 		content = books?.data?.books?.map(book => (
-			<Book key={book.id} book={book} />
+			<Book key={book._id} book={book} />
 		));
 	}
 
 	return (
 		<section className='pb-10'>
 			<Container>
-				<div className='shadow shadow-primary border-primary border p-3 mb-4'>
+				<div data-aos="fade-left"
+				data-aos-easing="ease-out-cubic"
+				data-aos-duration="1000" className='shadow shadow-primary border-primary border p-3 mb-4'>
 					<h2 className='text-primary font-medium'>{title}</h2>
 				</div>
 

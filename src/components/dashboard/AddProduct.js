@@ -1,55 +1,84 @@
 import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import Loading from "../ui/Loading";
 
 const AddProduct = () => {
+	const [multipleImages, setMultipleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async data => {
-		const image = data.image[0];
-		const formData = new FormData();
-		formData.append("image", image);
+		if (multipleImages.length > 6) {
+			setLoading(false);
+			toast.error("Max 6 images");
+			return;
+		}
 
-		fetch(
-			`https://api.imgbb.com/1/upload?key=eb7bb93d7839539a8bddb41471f7e0da`,
-			{
-				method: "POST",
-				body: formData,
-			}
-		)
-			.then(res => res.json())
-			.then(result => {
-				const imgURL = result.data.url;
+		///////////////   Multiple images upload   //////////////////
+		// Store multiple images in firebase
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
 
-				const uploadProduct = {
-					name: data.name,
-					description: data.description,
-					price: data.price,
-					image: imgURL,
-				};
+				const storageRef = ref(storage, "images/" + fileName);
 
-				if (result.success) {
-					fetch(`https://beatnik-task-server.vercel.app/product`, {
-						method: "POST",
-						headers: {
-							"content-type": "application/json",
-						},
-						body: JSON.stringify(uploadProduct),
-					})
-						.then(res => res.json())
-						.then(data => {
-							reset();
-							Swal.fire({
-								position: "top-center",
-								icon: "success",
-								title: "Successfully upload a new product",
-								showConfirmButton: false,
-								timer: 1500,
-							});
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
 						});
-				}
+					}
+				);
 			});
+		};
+
+		const imageURLS = await Promise.all(
+			[...multipleImages].map(image => storeImage(image))
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+		console.log(imageURLS);
+		///////////////   Multiple images upload   //////////////////
 	};
+
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className='hero'>
@@ -59,11 +88,11 @@ const AddProduct = () => {
 						<div className='form-control'>
 							<div className='md:grid grid-cols-2 gap-10'>
 								{/* ............................... */}
-								<div>
-									<div className="md:grid grid-cols-2 gap-6">
+								{/* <div>
+									<div className='md:grid grid-cols-2 gap-6'>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Book Name</span>
+												<span className='label-text font-bold'>Book Name</span>
 											</label>
 											<input
 												{...register("name", { required: true })}
@@ -74,10 +103,12 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Book Name in English</span>
+												<span className='label-text font-bold'>
+													Book Name in English
+												</span>
 											</label>
 											<input
-												{...register("name", { required: true })}
+												{...register("nameEng", { required: true })}
 												type='text'
 												placeholder='Enter Book Name in English'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -85,10 +116,12 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Author Name</span>
+												<span className='label-text font-bold'>
+													Author Name
+												</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("author", { required: true })}
 												type='text'
 												placeholder='Enter authr Name'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -96,10 +129,12 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Author Namr in English</span>
+												<span className='label-text font-bold'>
+													Author Namr in English
+												</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("authorEng", { required: true })}
 												type='text'
 												placeholder='Enter author Name in English'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -107,10 +142,10 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Category</span>
+												<span className='label-text font-bold'>Category</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("category", { required: true })}
 												type='text'
 												placeholder='Enter Category'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -118,7 +153,9 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Publication</span>
+												<span className='label-text font-bold'>
+													Publication
+												</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -129,7 +166,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Subject</span>
+												<span className='label-text font-bold'>Subject</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -140,7 +177,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Pages</span>
+												<span className='label-text font-bold'>Pages</span>
 											</label>
 											<input
 												{...register("number", { required: true })}
@@ -151,7 +188,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Cover</span>
+												<span className='label-text font-bold'>Cover</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -162,7 +199,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Edition</span>
+												<span className='label-text font-bold'>Edition</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -173,7 +210,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Language</span>
+												<span className='label-text font-bold'>Language</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -184,7 +221,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Price</span>
+												<span className='label-text font-bold'>Price</span>
 											</label>
 											<input
 												{...register("price", { required: true })}
@@ -195,7 +232,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Pre Price</span>
+												<span className='label-text font-bold'>Pre Price</span>
 											</label>
 											<input
 												{...register("price", { required: true })}
@@ -206,7 +243,7 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
-												<span className='label-text'>Discount</span>
+												<span className='label-text font-bold'>Discount</span>
 											</label>
 											<input
 												{...register("text", { required: true })}
@@ -218,62 +255,60 @@ const AddProduct = () => {
 									</div>
 									<div className='form-control'>
 										<label className='label'>
-											<span className='label-text'>Description</span>
+											<span className='label-text font-bold'>Description</span>
 										</label>
 										<textarea
 											{...register("description", { required: true })}
 											className='textarea textarea-primary w-full max-w-xs'
 											placeholder='Enter Description'></textarea>
 									</div>
-
-								</div>
+								</div> */}
 								{/* ............................... */}
 								<div>
-									<label className='label'>
-										<span className='label-text'>Upload Image</span>
-									</label>
+									{/* <label className='formLabel'>Images for book</label>
+									<p className='text-sm'>
+										Image must be
+										<span className='text-primary font-bold'>
+											{" "}
+											(jpg / png / jpeg)
+										</span>
+									</p>
+									<input
+										className='formInputFile'
+										type='file'
+										required
+										{...register("imageURL", { required: true })}
+									/> */}
 
-									<div className='flex justify-center items-center w-full'>
-										<label
-											for='dropzone-file'
-											className='flex flex-col justify-center items-center w-full bg-accent rounded-lg border-2 border-primary border-dashed cursor-pointer'>
-											<div className='flex flex-col justify-center items-center pt-5 pb-6'>
-												<svg
-													className='mb-3 w-5 h-5 text-primary'
-													fill='none'
-													stroke='currentColor'
-													viewBox='0 0 24 24'
-													xmlns='http://www.w3.org/2000/svg'>
-													<path
-														strokeLinecap='round'
-														strokeLinejoin='round'
-														strokeWidth='2'
-														d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'></path>
-												</svg>
-												<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
-													<span className='font-semibold'>
-														Click to upload image
-													</span>
-												</p>
-											</div>
-											<input
-												{...register("image", { required: true })}
-												id='dropzone-file'
-												type='file'
-												className='hidden'
-											/>
+									<div className=''>
+										<label className='formLabel'>
+											Multiple images for book details
 										</label>
+										<p className='text-sm'>
+											The first image will be the cover{" "}
+											<span className='text-primary font-bold'>
+												(max 6) (jpg / png / jpeg)
+											</span>
+										</p>
+										<input
+											className='formInputFile'
+											type='file'
+											id='multipleImages'
+											max='6'
+											accept='.jpg,.png,.jpeg'
+											multiple
+											required
+											onChange={e => setMultipleImages(e.target.files)}
+										/>
 									</div>
-									<label className='label'>
-										<span className='label-text'>Upload More Images</span>
-									</label>
 								</div>
 							</div>
-							
 						</div>
 
 						<div className='form-control mt-6'>
-							<button className='btn btn-primary'>UPLOAD</button>
+							<button type='submit' className='btn btn-primary'>
+								UPLOAD
+							</button>
 						</div>
 					</form>
 				</div>

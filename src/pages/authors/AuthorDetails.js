@@ -1,45 +1,122 @@
-import React from 'react';
-import Container from '../../components/ui/Container';
+import React from "react";
+import Container from "../../components/ui/Container";
 import authorPage from "../../assets/images/author-page.jpg";
 import Breadcrumb from "../../components/ui/Breadcrumb";
-import bossimg from "../../assets/images/boss.png"
+import { useParams } from "react-router-dom";
+import {
+	useGetAuthorDetailsQuery,
+	useGetBooksQuery,
+} from "../../features/api/apiSlice";
+import Loading from "../../components/ui/Loading";
+import Carousel from "react-multi-carousel";
+import Book from "../../components/SectionBooks/Book";
 
 const AuthorDetails = () => {
-    return (
-        <div className='py-6'>
-            <Container>
-                <div className='text-sm breadcrumbs'>
-                    <ul>
-                        <Breadcrumb route='/' name='হোম' />
-                        <Breadcrumb route='/authors' name='লেখক' />
-                    </ul>
-                </div>
-                <section className='py-2'>
-                    <img src={authorPage} alt='' className='w-full' />
-                    <p className='pt-2 text-gray-500 text-sm'>
-                        লেখক! আক্ষরিক ভাবে বলতে গেলে সৃজনশীল কোনকিছু লেখেন যিনি তাকেই লেখক
-                        বলা যায়। কিন্তু ‘লেখক’ শব্দটির ব্যাপ্তি আসলে এতোটুকুতেই সীমাবদ্ধ নয়।
-                        লেখক এই বাস্তবিক জগতের সমান্তরালে একটি কাল্পনিক পৃথিবী তৈরির ক্ষমতা
-                        রাখেন। কাল্পনিক চরিত্রগুলো তার লেখনী ও কলমের প্রাণখোঁচায় জীবন্ত হয়ে
-                        ওঠে। একজন লেখক তাঁর লেখার মাধ্যমে একটি প্রজন্মের চিন্তাধারা গড়ে দিতে
-                        পারেন। তাই লেখকদের কিংবদন্তী হবার পথ করে দিতে রকমারি ডট কম বদ্ধ
-                        পরিকর।
-                    </p>
-                </section>
-                <div>
-                    <div className='md:flex lg:flex gap-8'>
-                        <div>
-                            <img className='md:h-[200px] lg:h-[200px] md:w-[800px] lg:w-[800px]' src={bossimg} alt="" />
-                        </div>
-                        <div>
-                            <h3 className='font-bold'>ঝংকার মাহবুব</h3>
-                            <p>পাঠকসমাজে তাঁর পরিচিতি এখন গৎবাঁধা লেখার বাইরে নতুনত্বের আমেজ এনে দেওয়া তরুণ লেখক হিসেবে। তিনি ঝংকার মাহবুব, পেশায় একজন ওয়েব ডেভেলপার। বাংলাদেশ প্রকৌশল বিশ্ববিদ্যালয় (বুয়েট) থেকে ইন্ডাস্ট্রিয়াল অ্যান্ড প্রোডাকশন ইঞ্জিনিয়ারিং এ স্নাতক পাশ করার পর যুক্তরাষ্ট্রের নর্থ ডাকোটা স্টেট ইউনিভার্সিটি থেকে কম্পিউটার সায়েন্সে স্নাতকোত্তর ডিগ্রি অর্জন করেন ঝংকার মাহবুব। বাংলাদেশের তরুণ লেখকদের মধ্য থেকে ঝংকার মাহবুব এর বই আলাদা করা যায় খুব সহজেই। তাঁর লেখার বিষয়গুলোও ব্যতিক্রমধর্মী। কম্পিউটার প্রোগ্রামিংকে কীভাবে এ দেশের তরুণদের মাঝে সহজবোধ্য করা যায়– তা নিয়েই ঝংকার মাহবুব এর বই সমূহ। তাঁর লেখা বইগুলোতে তিনি প্রোগ্রামিংয়ের মতো কাঠখোট্টা জিনিসকে আকর্ষণীয়ভাবে উপস্থাপনের চেষ্টা করে যাচ্ছেন। ঝংকার মাহবুবের বই সমগ্র এখন এ দেশের তরুণ প্রোগ্রামারদের কাছে প্রোগ্রামিং শেখার মজার বন্ধু হয়ে উঠছে এবং এই বইগুলোর জনপ্রিয়তা বেড়েই চলেছে। তাঁর লেখা উল্লেখযোগ্য কিছু বই হলো রিচার্জ ইয়োর ডাউন ব্যাটারি, হাবলুদের জন্য প্রোগ্রামিং, প্রোগ্রামিংয়ের বলদ টু বস, প্রোগ্রামিংয়ের চৌদ্দগোষ্ঠী, প্যারাময় লাইফের প্যারাসিটামল ইত্যাদি। প্রোগ্রামিং শেখানো সহজ করা বইগুলোর মূল উদ্দেশ্য হলেও ঝংকার মাহবুব তাঁর লেখার মাধ্যমে অনুপ্রাণিত করেছেন তরুণ প্রোগ্রামারদেরকে। লেখালেখির পাশাপাশি বর্তমানে তিনি শিকাগোর নিলসেন কোম্পানিতে সিনিয়র ওয়েব ডেভেলপার হিসেবে কর্মরত আছেন।</p>
-                        </div>
-                    </div>
-                </div>
-            </Container>
-        </div>
-    );
+	const { id } = useParams();
+	const {
+		data: author,
+		isLoading,
+		isError,
+		error,
+	} = useGetAuthorDetailsQuery(id);
+
+	const {
+		data: books,
+		isBookLoading,
+		isBookError,
+	} = useGetBooksQuery({ author: author?.data?.author });
+
+	console.log(books?.data);
+
+	const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+	const responsive = {
+		superLargeDesktop: {
+			// the naming can be any, depends on you.
+			breakpoint: { max: 4000, min: 1560 },
+			items: 6,
+		},
+		desktop: {
+			breakpoint: { max: 1560, min: 1024 },
+			items: 4,
+		},
+		tablet: {
+			breakpoint: { max: 1024, min: 780 },
+			items: 2,
+		},
+		mobile: {
+			breakpoint: { max: 780, min: 0 },
+			items: 1,
+		},
+	};
+
+	// conent loaded
+	let content = null;
+	if (isLoading && isBookLoading) {
+		content = <Loading />;
+	}
+	if (!isLoading && !isError && !isBookError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError && !isBookError) {
+		content = (
+			<div className='hero-content flex-col lg:flex-row bg-accent '>
+				<div className='avatar'>
+					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+						<img
+							src={author?.data?.imageUrl}
+							alt=''
+							className='rounded-lg shadow-2xl'
+						/>
+					</div>
+				</div>
+				<div>
+					<h1 className='text-xl font-bold'>{author?.data?.author}</h1>
+					<p className='py-2'>{author?.data?.description}</p>
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className='py-6'>
+			<Container>
+				<div className='text-sm breadcrumbs'>
+					<ul>
+						<Breadcrumb route='/' name='হোম' />
+						<Breadcrumb route='/authors' name='লেখক' />
+					</ul>
+				</div>
+				<section className='py-2'>
+					<img src={authorPage} alt='' className='w-full' />
+					<p className='pt-2 text-gray-500 text-sm'>
+						লেখক! আক্ষরিক ভাবে বলতে গেলে সৃজনশীল কোনকিছু লেখেন যিনি তাকেই লেখক
+						বলা যায়। কিন্তু ‘লেখক’ শব্দটির ব্যাপ্তি আসলে এতোটুকুতেই সীমাবদ্ধ নয়।
+						লেখক এই বাস্তবিক জগতের সমান্তরালে একটি কাল্পনিক পৃথিবী তৈরির ক্ষমতা
+						রাখেন। কাল্পনিক চরিত্রগুলো তার লেখনী ও কলমের প্রাণখোঁচায় জীবন্ত হয়ে
+						ওঠে। একজন লেখক তাঁর লেখার মাধ্যমে একটি প্রজন্মের চিন্তাধারা গড়ে দিতে
+						পারেন। তাই লেখকদের কিংবদন্তী হবার পথ করে দিতে রকমারি ডট কম বদ্ধ
+						পরিকর।
+					</p>
+				</section>
+
+				<div className='hero rounded'>{content}</div>
+
+				<div className='pt-10'>
+					<h3 className='text-xl pb-8'>{author?.data?.author} এর বই সমূহ</h3>
+
+					<Carousel responsive={responsive}>
+						{books?.data?.books.length > 0 ? (
+							books?.data?.books?.map(book => (
+								<Book key={book._id} book={book} />
+							))
+						) : (
+							<p className='text-xl font-bold text-primary'>Books no found</p>
+						)}
+					</Carousel>
+				</div>
+			</Container>
+		</div>
+	);
 };
 
 export default AuthorDetails;

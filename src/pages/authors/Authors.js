@@ -1,13 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import authorPage from "../../assets/images/author-page.jpg";
-import { authors } from "../../data/data";
-import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
-
+import { useGetAuthorsQuery } from "../../features/api/apiSlice";
+import Author from "./Author";
+import Loading from "../../components/ui/Loading";
+import { Pagination } from "antd";
 
 const Authors = () => {
+	const [total, setTotal] = useState("");
+	const [page, setPage] = useState(1);
+	const [postPerPage, setPostPerPage] = useState(8);
+	const {
+		data: authors,
+		isLoading,
+		isError,
+		error,
+	} = useGetAuthorsQuery({ page, limit: postPerPage });
+
+	useEffect(() => {
+		setTotal(authors?.data?.totalAuthor);
+	}, [authors?.data?.totalAuthor, total]);
+
+	const onShowSizeChange = (current, pageSize) => {
+		setPostPerPage(pageSize);
+	};
+
+	const itemRender = (current, type, originalElement) => {
+		if (type === "prev") {
+			return <p>Previous</p>;
+		}
+		if (type === "next") {
+			return <p>Next</p>;
+		}
+		return originalElement;
+	};
+
+	// conent loaded
+	let content = null;
+	if (isLoading) {
+		content = <Loading />;
+	}
+	if (!isLoading && isError) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError && authors?.data?.authors?.length === 0) {
+		content = <p className='text-red-500'>authors not found!</p>;
+	}
+	if (!isError && !isLoading && authors?.data?.authors?.length > 0) {
+		content = authors?.data?.authors?.map(author => (
+			<Author key={author._id} author={author} />
+		));
+	}
+
 	return (
 		<div className='py-6'>
 			<Container>
@@ -18,7 +63,9 @@ const Authors = () => {
 					</ul>
 				</div>
 
-				<section className='py-2'>
+				<section className='py-2' data-aos="fade-left"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
 					<img src={authorPage} alt='' className='w-full' />
 					<p className='pt-2 text-gray-500 text-sm'>
 						লেখক! আক্ষরিক ভাবে বলতে গেলে সৃজনশীল কোনকিছু লেখেন যিনি তাকেই লেখক
@@ -31,16 +78,18 @@ const Authors = () => {
 					</p>
 				</section>
 
-				<div class='flex items-center py-4'>
-					<div class='flex border border-primary border-2'>
+				<div className='flex items-center py-4' data-aos="flip-right"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="500">
+					<div className='flex border border-primary border-2'>
 						<input
 							type='text'
-							class='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 							placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
 						/>
-						<button class='flex items-center justify-center px-4 bg-primary'>
+						<button className='flex items-center justify-center px-4 bg-primary'>
 							<svg
-								class='w-6 h-6 text-white'
+								className='w-6 h-6 text-white'
 								fill='currentColor'
 								xmlns='http://www.w3.org/2000/svg'
 								viewBox='0 0 24 24'>
@@ -50,28 +99,23 @@ const Authors = () => {
 					</div>
 				</div>
 
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'>
-					{authors.map(author => (
-						<div
-							key={author.id}
-							class='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md'>
-							<div class='flex flex-col items-center py-3'>
-								<img
-									class='w-24 border-primary border border-3 h-24 mb-3 rounded-full shadow-lg'
-									src={author.author}
-									alt={author.name}
-								/>
-								<h5 class='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-									{author.name}
-								</h5>
-								<div class='text-center'>
-									<Link to={`/authors/${author.id}`}>
-										<Button>বিস্তারিত</Button>
-									</Link>
-								</div>
-							</div>
-						</div>
-					))}
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4' data-aos="fade-right"
+					data-aos-easing="ease-out-cubic"
+					data-aos-duration="1000">
+					{content}
+				</div>
+
+				<div className='text-center py-10'>
+					<Pagination
+						onChange={value => setPage(value)}
+						pageSize={postPerPage}
+						total={total}
+						current={page}
+						showSizeChanger
+						showQuickJumper
+						onShowSizeChange={onShowSizeChange}
+						itemRender={itemRender}
+					/>
 				</div>
 			</Container>
 		</div>
