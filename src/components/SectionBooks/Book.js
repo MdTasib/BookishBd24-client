@@ -4,10 +4,11 @@ import cart from "../../assets/images/icon10.png";
 
 const Book = ({ book: { _id, name, imageURL, price, prePrice, author } }) => {
 	return (
-		<Link to={`/book/${_id}`}>
+		
 			<div className='mx-7 max-h-min border-2 rounded hover:border-primary cursor-pointer p-2' data-aos="flip-right"
 				data-aos-easing="ease-out-cubic"
 				data-aos-duration="1000">
+				<Link to={`/book/${_id}`}>	
 				<img className='block mx-auto max-h-60' src={imageURL} alt='' />
 				<div className='relative'>
 					<a
@@ -35,8 +36,9 @@ const Book = ({ book: { _id, name, imageURL, price, prePrice, author } }) => {
 						</div>
 					</div>
 				</div>
+				</Link>
 			</div>
-		</Link>
+		
 	);
 };
 
