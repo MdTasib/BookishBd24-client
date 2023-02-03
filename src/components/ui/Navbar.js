@@ -13,21 +13,15 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const [value, setValue] = useState("");
 	const [cursorPosition, setCursorPosition] = useState();
-	console.log(cursorPosition);
 	const [searchListVisible, setSearchListVisible] = useState(true);
-	const handleSearchResultClick = (data) => {
+	const handleSearchResultClick = data => {
 		// setSearchListVisible(!false);
 		// navigate to other page
 		navigate(`book/${data._id}`);
 		setValue("");
-		console.log("cheak Value", value);
 	};
-	
-
 
 	const [searchData, setSearchData] = useState([]);
-	console.log(searchData);
-
 
 	const { data: books, isLoading, isError } = useGetBooksQuery();
 	if (isLoading) {
@@ -35,22 +29,24 @@ const Navbar = () => {
 	}
 	// console.log(books?.data?.books);
 
-	const searchItem = (event) => {
-		const searchText = event.target.value
+	const searchItem = event => {
+		const searchText = event.target.value;
 		console.log(searchText);
-		const result = books?.data?.books.filter((item) => {
-			return item.name.toLowerCase().includes(searchText.toLowerCase()) || item.nameEng.toLowerCase().includes(searchText.toLowerCase()) || item.author.toLowerCase().includes(searchText.toLowerCase()) || item.authorEng.toLowerCase().includes(searchText.toLowerCase())
-		})
+		const result = books?.data?.books.filter(item => {
+			return (
+				item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.nameEng.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.author.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.authorEng.toLowerCase().includes(searchText.toLowerCase())
+			);
+		});
 		if (!searchText) {
-			setSearchData([])
+			setSearchData([]);
 			console.log("hello world");
+		} else if (result) {
+			setSearchData(result);
 		}
-		else if (result) {
-			setSearchData(result)
-		}
-	}
-
-
+	};
 
 	const handleNavigate = () => {
 		navigate("/cart");
@@ -119,9 +115,11 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className='navbar bg-white border-b-2 border-primary py-0' data-aos="fade-down"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="1000">
+			<nav
+				className='navbar bg-white border-b-2 border-primary py-0'
+				data-aos='fade-down'
+				data-aos-easing='ease-out-cubic'
+				data-aos-duration='1000'>
 				<Container>
 					<div className='flex-1'>
 						<Link to='/' className='text-xl font-bold text-black'>
@@ -130,10 +128,9 @@ const Navbar = () => {
 						</Link>
 					</div>
 
-					<div className="relative">
+					<div className='relative'>
 						<div className='flex items-center justify-center'>
 							<div className='flex border border-primary border-2'>
-
 								<input
 									type='text'
 									className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
@@ -151,25 +148,26 @@ const Navbar = () => {
 								</button>
 							</div>
 						</div>
-						<div className="absolute z-10">
+						<div className='absolute z-10'>
 							{searchListVisible && (
 								<div>
-									{searchData.length ?
-										<ul className="top-12 w-[376px] h-auto px-4 bg-gray-300 border-2 z-10 border-primary mr-2">
-											{searchData.map(data =>
-												<li onClick={() => handleSearchResultClick(data)} className="cursor-pointer">{data.name}</li>)
-											}
-
+									{searchData.length ? (
+										<ul className='top-12 w-[376px] h-auto px-4 bg-gray-300 border-2 z-10 border-primary mr-2'>
+											{searchData.map(data => (
+												<li
+													onClick={() => handleSearchResultClick(data)}
+													className='cursor-pointer'>
+													{data.name}
+												</li>
+											))}
 										</ul>
-										:
+									) : (
 										""
-									}
+									)}
 								</div>
 							)}
 						</div>
 					</div>
-
-
 
 					<div className='flex-none'>
 						<div className='dropdown dropdown-end'>
