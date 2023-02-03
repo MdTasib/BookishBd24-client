@@ -19,6 +19,33 @@ const BookRoute = () => {
 		language: "",
 	});
 
+	// FILTERS QUERY
+	let filtersQuery = {};
+	if (filtersBySelect.category !== "") {
+		filtersQuery.category = filtersBySelect.category;
+	}
+	if (filtersBySelect.author !== "") {
+		filtersQuery.author = filtersBySelect.author;
+	}
+	if (filtersBySelect.publication !== "") {
+		filtersQuery.publication = filtersBySelect.publication;
+	}
+	if (filtersBySelect.language !== "") {
+		filtersQuery.language = filtersBySelect.language;
+	}
+
+	const handleResetFilter = () => {
+		setFiltersBySelect({
+			category: "",
+			author: "",
+			language: "",
+			publication: "",
+		});
+		filtersQuery = {};
+		setFilters("");
+	};
+	console.log("filtersQuery", filtersQuery);
+
 	const {
 		data: books,
 		isLoading,
@@ -28,12 +55,14 @@ const BookRoute = () => {
 		page,
 		limit: postPerPage,
 		sort: filters,
+		...filtersQuery,
 	});
+	const { data, loading, ifError } = useGetBooksQuery();
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
-		setTotalBooks(books?.data?.books);
-	}, [books?.data?.totalBooks, books?.data?.books, total]);
+		setTotalBooks(data?.data?.books);
+	}, [books?.data?.totalBooks, data?.data?.books, total]);
 
 	// PAGINATION
 	const onShowSizeChange = (current, pageSize) => {
@@ -52,10 +81,10 @@ const BookRoute = () => {
 
 	// conent loaded
 	let content = null;
-	if (isLoading) {
+	if (isLoading || loading) {
 		content = <Loading />;
 	}
-	if (!isLoading && isError) {
+	if ((!isLoading && isError) || (!loading && ifError)) {
 		content = <p className='text-red-500'>{error}</p>;
 	}
 	if (!isLoading && !isError && books?.data?.books?.length === 0) {
@@ -75,34 +104,40 @@ const BookRoute = () => {
 		});
 	};
 
-	const handleResetFilter = () => {
-		setFiltersBySelect({});
-		setFilters("");
-	};
-
 	const uniqueAuthors = getUniqueListBy(totalBooks, "author");
 	const uniquePublications = getUniqueListBy(totalBooks, "publication");
 	const uniqueCategory = getUniqueListBy(totalBooks, "category");
 	const uniqueLanguage = getUniqueListBy(totalBooks, "language");
 
-	console.log(filtersBySelect);
+	console.log(books?.data?.books);
 
 	return (
 		<Container>
-			<div>
-				<h1 data-aos="fade-up"
-					data-aos-easing="ease-out-cubic"
-					data-aos-duration="1000" className='text-2xl'>বই</h1>
-			</div>
-
-			<div data-aos="fade-down"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="1000" className='flex items-center md:ml-[950px] lg:md:ml-[950px]'>
-				<div>
+			<div className='grid grid-cols-2 py-4'>
+				<p
+					className='text-start'
+					data-aos='fade-right'
+					data-aos-easing='ease-out-cubic'
+					data-aos-duration='1000'>
+					<span className='text-primary font-bold'>
+						{page * postPerPage - postPerPage + 1}
+					</span>{" "}
+					থেকে{" "}
+					<span className='text-primary font-bold'>{page * postPerPage} </span>
+					দেখাচ্ছে। মোট{" "}
+					<span className='text-primary font-bold'>
+						{books?.data?.totalBooks}
+					</span>{" "}
+					টি আইটেম পাওয়া গিয়েছে
+				</p>
+				<div
+					className='text-end'
+					data-aos='fade-left'
+					data-aos-easing='ease-out-cubic'
+					data-aos-duration='1000'>
 					<label className='font-bold mr-2 text-gray-600' htmlFor='filters'>
 						সর্ট করুন
 					</label>
-
 					<div className='inline'>
 						<select
 							onChange={handleFilters}
@@ -228,9 +263,11 @@ const BookRoute = () => {
 					</div>
 				</div>
 
-				<div className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5' data-aos="fade-left"
-					data-aos-easing="ease-out-cubic"
-					data-aos-duration="1000">
+				<div
+					className='w-full md:w-[82%] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 my-5'
+					data-aos='fade-left'
+					data-aos-easing='ease-out-cubic'
+					data-aos-duration='1000'>
 					{content}
 				</div>
 			</section>
