@@ -18,9 +18,9 @@ const colors = {
 }
 
 const AddReview = () => {
-  const [singleImages, setSingleImages] = useState({});
-	const { register, handleSubmit, reset } = useForm();
-	const [loading, setLoading] = useState(false);
+    const [singleImages, setSingleImages] = useState({});
+	  const { register, handleSubmit, reset } = useForm();
+	  const [loading, setLoading] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [comment, setComment] = useState('');
@@ -102,7 +102,7 @@ const AddReview = () => {
           
       const uploadReview = {
         review: data.review,
-        rating: data.rating,
+        rating: rating,
         imagesURLS: imageURLS[0]
       };
       console.log(uploadReview);
@@ -121,7 +121,7 @@ const AddReview = () => {
             <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
             <label
 										for='dropzone-file'
-										className='flex flex-col justify-center items-center w-full bg-accent rounded-lg border-2 border-primary border-dashed cursor-pointer'>
+										className='flex flex-col justify-center items-center w-full bg-accent rounded-lg  cursor-pointer'>
 										<div className='flex flex-col justify-center items-center pt-5 pb-6'>
 											<svg
 												className='mb-3 w-5 h-5 text-primary'
@@ -137,7 +137,7 @@ const AddReview = () => {
 											</svg>
 											<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
 												<span className='font-semibold'>
-													Click to upload image
+													upload
 												</span>
 											</p>
 										</div>
