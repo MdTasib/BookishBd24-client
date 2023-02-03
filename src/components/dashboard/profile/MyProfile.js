@@ -1,35 +1,18 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-
 
 const MyProfile = () => {
-    const { register, handleSubmit, reset } = useForm();
-
 	const onSubmit = async data => {
-    const image = data.image[0];
-		const formData = new FormData();
-		formData.append("image", image);
-        fetch(`https://api.imgbb.com/1/upload?key=471d1141ac13b90a4dedd43aa0764fc6`,{
-            method: "POST",
-            body: formData,
-          })
-          .then(res => res.json())
-          .then(result => {
-            const imageURL = result.data.url;
-            if(result.success){
-              const uploadProfile = {
+    
+        const uploadProfile = {
                 name: data.name,
                 email:data.email,
                 address:data.address,
                 mobile:data.mobile,
-                image:imageURL,
-              };
-              console.log(uploadProfile);
-              reset()
-            }
-          });
-      };
-      
+        };
+        console.log(uploadProfile);
+        reset()
+    }
+         
     return (
       <div className="hero min-h-screen">
     <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
