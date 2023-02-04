@@ -19,7 +19,7 @@ const colors = {
 };
 
 const AddReview = () => {
-	const [addReveiw, { isLoading, isError, isSuccess, error, data: review }] =
+	const [addReveiw, { isLoading, isError, isSuccess }] =
 		useCreateReviewMutation();
 	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
@@ -30,16 +30,14 @@ const AddReview = () => {
 	const stars = Array(5).fill(0);
 
 	// RENDER BY CONDITION
-	let content;
 	if (isLoading || loading) {
-		content = <Loading />;
+		return <Loading />;
 	}
 	if (!isLoading && isError) {
-		// content = <p className='text-red-500'>Review can't added!😢</p>;
-		content = console.log(error);
+		toast.error("Review can't added!😢");
 	}
 	if (!isError && !isLoading && isSuccess) {
-		content = console.log(review);
+		toast.success("Review added");
 	}
 
 	const handleComment = e => {
@@ -124,7 +122,6 @@ const AddReview = () => {
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
-			console.log(uploadReview, content);
 		}
 
 		reset();
@@ -132,7 +129,7 @@ const AddReview = () => {
 
 	return (
 		<div className='w-full p-10 lg:w-1/2 mx-auto'>
-			<h1 className='text-2xl text-center text-primary'>
+			<h1 className='text-xl text-center text-primary'>
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>
 			<form onSubmit={handleSubmit(onSubmit)} className='card-body pb-0'>
