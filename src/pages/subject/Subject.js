@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
 import SubjectCategory from "./SubjectCategory";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { getUniqueListBy } from "../../utils/getUniqueListBy";
+import { Pagination } from "antd";
 
 const Subject = () => {
-	const { data: books, isLoading, isError, error } = useGetBooksQuery();
+	const [total, setTotal] = useState("");
+	const [page, setPage] = useState(1);
+	const [postPerPage, setPostPerPage] = useState(26);
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ page, limit: postPerPage });
+
+	useEffect(() => {
+		setTotal(books?.data?.totalBooks);
+	}, [books?.data?.totalBooks, total]);
+
+	const onShowSizeChange = (current, pageSize) => {
+		setPostPerPage(pageSize);
+	};
+
+	const itemRender = (current, type, originalElement) => {
+		if (type === "prev") {
+			return <p>Previous</p>;
+		}
+		if (type === "next") {
+			return <p>Next</p>;
+		}
+		return originalElement;
+	};
 
 	// conent loaded
 	let content = null;
@@ -54,13 +81,14 @@ const Subject = () => {
 					data-aos='fade-left'
 					data-aos-easing='ease-out-cubic'
 					data-aos-duration='1000'
-					className='pt-2 text-gray-500 text-sm'>
-					লক্ষাধিক বইয়ের সংগ্রহ রকমারি ডট কমে। বইয়ের এই বিশাল সমুদ্র-মন্থনে
-					পাঠকের সুবিধার্থে প্রায় ৫০ টির মতো ক্যাটাগরি ও সহস্রাধিক বিষয়ভিত্তিক
-					ক্যাটাগরি রয়েছে রকমারি ডট কমে। যার ফলে খুব সহজেই পাঠক তার পছন্দের
-					ক্যাটাগরি বেছে নিয়ে নির্দিষ্ট বিষয়ভিত্তিক বইগুলো খুঁজে পাবে খুব সহজেই।
-					রকমারি ডট কমের এই বিশাল বইয়ের সমুদ্রে জ্ঞানের জাহাজের নাবিক হতে আপনাকে
-					নিমন্ত্রণ। মানচিত্রটা ধরা আছে নিচেই...
+					className='pt-2 text-lg text-gray-500 text-sm'>
+					লক্ষাধিক বইয়ের সংগ্রহ বৈশাখীবিডি-২৪ ডট কমে। বইয়ের এই বিশাল
+					সমুদ্র-মন্থনে পাঠকের সুবিধার্থে প্রায় ৫০ টির মতো ক্যাটাগরি ও সহস্রাধিক
+					বিষয়ভিত্তিক ক্যাটাগরি রয়েছে বৈশাখীবিডি-২৪ ডট কমে। যার ফলে খুব সহজেই
+					পাঠক তার পছন্দের ক্যাটাগরি বেছে নিয়ে নির্দিষ্ট বিষয়ভিত্তিক বইগুলো
+					খুঁজে পাবে খুব সহজেই। বৈশাখীবিডি-২৪ ডট কমের এই বিশাল বইয়ের সমুদ্রে
+					জ্ঞানের জাহাজের নাবিক হতে আপনাকে নিমন্ত্রণ। মানচিত্রটা ধরা আছে
+					নিচেই...
 				</p>
 			</div>
 
@@ -101,6 +129,19 @@ const Subject = () => {
 
 			<div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 py-10'>
 				{content}
+			</div>
+
+			<div className='text-center py-10'>
+				<Pagination
+					onChange={value => setPage(value)}
+					pageSize={postPerPage}
+					total={total}
+					current={page}
+					showSizeChanger
+					showQuickJumper
+					onShowSizeChange={onShowSizeChange}
+					itemRender={itemRender}
+				/>
 			</div>
 		</Container>
 	);
