@@ -47,7 +47,7 @@ export const apiSlice = createApi({
 
 		// get reviews
 		getReviews: builder.query({
-			query: () => "/reviews",
+			query: () => "/review",
 			keepUnusedDataFor: 800,
 			providesTags: ["reviews"],
 		}),

@@ -43,9 +43,7 @@ const AddReview = () => {
 	}
 
 	const handleComment = e => {
-		const limit = 120;
-		//  only take 50 characters
-		setComment(e.target.value.slice(0, limit));
+		setComment(e.target.value);
 	};
 
 	const handleClick = value => {
@@ -117,6 +115,8 @@ const AddReview = () => {
 
 		const uploadReview = {
 			review: data.review,
+			name: "test name",
+			email: "test email",
 			rating: rating,
 			photoURL: imageURLS[0],
 		};
