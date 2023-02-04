@@ -1,20 +1,20 @@
 import React from "react";
 
 const Review = ({
-	review: { review, rating, photoURL, name, email, date },
+	review: { review, rating = 1, photoURL, name, email, date },
 }) => {
 	return (
 		<div className='shadow-xl p-4 rounded-md'>
 			<div className='flex items-center gap-4'>
 				<img
 					className='w-24 border-primary border border-3 h-24 mb-3 rounded-full shadow-lg'
-					src={photoURL ? photoURL : name.slice(0, 1)}
+					src={photoURL ? photoURL : email.slice(0, 1)}
 					alt=''
 				/>
 				<div>
 					<h3 className='font-bold animate-pulse'>{name}</h3>
 					<div className='rating rating-sm'>
-						{[...Array(Number(rating))].map((star, index) => (
+						{[...Array(Number(rating))]?.map((star, index) => (
 							<input
 								type='radio'
 								name='rating-4'
