@@ -15,7 +15,3 @@ const SubjectCategory = ({ book: { category } }) => {
 };
 
 export default SubjectCategory;
-
-
-
-

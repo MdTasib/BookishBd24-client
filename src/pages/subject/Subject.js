@@ -31,7 +31,6 @@ const Subject = () => {
 			<SubjectCategory key={book._id} book={book} />
 		));
 	}
-	
 
 	return (
 		<Container>
@@ -43,8 +42,7 @@ const Subject = () => {
 				<h1>বিষয়</h1>
 			</section>
 
-
-				<div>
+			<div>
 				<img
 					data-aos='fade-right'
 					data-aos-easing='ease-out-cubic'
@@ -75,7 +73,6 @@ const Subject = () => {
 						data-aos-duration='1000'>
 						Search your favorite category
 					</h1>
-
 				</div>
 
 				<div className='flex items-center justify-center'>

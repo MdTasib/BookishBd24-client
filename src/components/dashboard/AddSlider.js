@@ -113,41 +113,9 @@ const AddSlider = () => {
 			</div>
 
 			{/* MANAGE SLIDERS */}
-
-			<div className="mt-12">
-				<div class="overflow-x-auto w-full">
-					<table class="table w-full">
-						<thead>
-							<tr>
-								<th></th>
-								<th className="pl-24">Image</th>
-								<th className="flex justify-end pr-14">Remove Slider</th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								sliders?.map((slider, index) => <tr>
-									<th>{index + 1}</th>
-									<td className="pl-8"><img className='h-8' src={slider.image} alt="" /></td>
-									<td className="flex justify-end mr-14"><button
-										className="bg-red-500 px-2 rounded text-white block">
-										Delete
-									</button></td>
-								</tr>)
-							}
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-			{/* <div className="mt-12">
-				<div class="overflow-x-auto">
-					<table class="table w-full">
-=======
 			<div className='mt-12'>
 				<div className='overflow-x-auto'>
 					<table className='table w-full'>
->>>>>>> 56e6b20bd077dcea99c4fe6cd04ffc2dad46edb0
 						<thead>
 							<tr>
 								<th></th>
@@ -159,16 +127,6 @@ const AddSlider = () => {
 							{sliders?.map((slider, index) => (
 								<tr>
 									<th>{index + 1}</th>
-<<<<<<< HEAD
-									<td><img className='h-8' src={slider.image} alt="" /></td>
-									<td><button
-										className="bg-red-500 px-2 rounded text-white">
-										Delete
-									</button></td>
-								</tr>)
-							}
-							
-=======
 									<td>
 										<img className='h-8' src={slider.image} alt='' />
 									</td>
@@ -179,11 +137,10 @@ const AddSlider = () => {
 									</td>
 								</tr>
 							))}
->>>>>>> 56e6b20bd077dcea99c4fe6cd04ffc2dad46edb0
 						</tbody>
 					</table>
 				</div>
-			</div> */}
+			</div>
 		</>
 	);
 };
