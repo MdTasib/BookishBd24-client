@@ -60,14 +60,12 @@ const Subject = () => {
 
 	return (
 		<Container>
-			<section className='flex my-5'>
-				<div className='text-sm breadcrumbs'>
-					<ul>
-						<Breadcrumb route='/' name='হোম' />
-						<Breadcrumb route='/subject' name='বিষয়' />
-					</ul>
-				</div>
-			</section>
+			<div className='text-sm breadcrumbs py-4'>
+				<ul>
+					<Breadcrumb route='/' name='হোম' />
+					<Breadcrumb route='/subject' name='বিষয়' />
+				</ul>
+			</div>
 
 			<div>
 				<img
