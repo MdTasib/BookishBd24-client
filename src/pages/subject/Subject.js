@@ -1,6 +1,5 @@
 import React from "react";
-import { FaHome } from "react-icons/fa";
-import { RiArrowRightSLine } from "react-icons/ri";
+import Breadcrumb from "../../components/ui/Breadcrumb";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
 import SubjectCategory from "./SubjectCategory";
@@ -35,11 +34,12 @@ const Subject = () => {
 	return (
 		<Container>
 			<section className='flex my-5'>
-				<FaHome className='hover:cursor-pointer' />
-				<RiArrowRightSLine className='mx-1 mt-0.5' />
-				<button>বই</button>
-				<RiArrowRightSLine className='mx-1 mt-0.5' />
-				<h1>বিষয়</h1>
+				<div className='text-sm breadcrumbs'>
+					<ul>
+						<Breadcrumb route='/' name='হোম' />
+						<Breadcrumb route='/subject' name='বিষয়' />
+					</ul>
+				</div>
 			</section>
 
 			<div>
