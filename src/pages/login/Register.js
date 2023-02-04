@@ -76,88 +76,92 @@ const Register = () => {
 
 	return (
 		<div>
-			<div class='relative flex '>
-				<div class='flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white'>
-					<div class='sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-primary text-white bg-no-repeat bg-cover relative'>
-						<div class='absolute bg-gradient-to-b from-primary to-accent opacity-75 inset-0 z-0'></div>
-						<div class='w-full  max-w-md z-10'>
-							<div class='sm:text-xl xl:text-2xl font-bold leading-tight mb-6'>
+			<div className='relative flex '>
+				<div className='flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white'>
+					<div className='sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-primary text-white bg-no-repeat bg-cover relative'>
+						<div className='absolute bg-gradient-to-b from-primary to-accent opacity-75 inset-0 z-0'></div>
+						<div className='w-full  max-w-md z-10'>
+							<div className='sm:text-xl xl:text-2xl font-bold leading-tight mb-6'>
 								বাংলাদেশের যেকোনো প্রান্তে বই পৌঁছে যাবে আপনার ঠিকানায় 😍
 							</div>
-							<div class='sm:text-sm xl:text-md text-gray-200 font-normal'>
+							<div className='sm:text-sm xl:text-md text-gray-200 font-normal'>
 								{" "}
 								জন্মদিন, বিবাহ, যে কোন অনুষ্ঠানে BookiesBD আপনার পাশে। পছন্দের
 								মানুষকে গিফ্ট করতে পছন্দের বই সিলেক্ট করুন।
 							</div>
 						</div>
 					</div>
-					<div class='md:flex md:items-center md:justify-center w-full p-8 md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white'>
-						<div class='max-w-md w-full space-y-8'>
-							<div class='text-center'>
-								<h2 class='mt-6 text-3xl font-bold text-gray-900'>রেজিস্টার</h2>
-								<p class='mt-2 text-sm text-gray-500'>
+					<div className='md:flex md:items-center md:justify-center w-full p-8 md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white'>
+						<div className='max-w-md w-full space-y-8'>
+							<div className='text-center'>
+								<h2 className='mt-6 text-3xl font-bold text-gray-900'>
+									রেজিস্টার
+								</h2>
+								<p className='mt-2 text-sm text-gray-500'>
 									আপনার ফেসবুক বা গুগল অ্যাকাউন্ট দিয়ে সহজেই রেজিস্টার করুন
 								</p>
 							</div>
-							<div class='flex flex-row justify-center items-center space-x-3'>
+							<div className='flex flex-row justify-center items-center space-x-3'>
 								<img
 									onClick={() => signInWithGoogle()}
-									class='cursor-pointer h-8 px-2'
+									className='cursor-pointer h-8 px-2'
 									src={googleIcon}
 									alt='Google login'
 								/>
 								<img
-									class='cursor-pointer h-8 px-2'
+									className='cursor-pointer h-8 px-2'
 									src={facebookIcon}
 									alt='facebook login'
 								/>
 								<img
 									src={instagramIcon}
 									alt='cursor-pointer instagram login'
-									class='h-8 px-2'
+									className='h-8 px-2'
 								/>
 							</div>
-							<div class='flex items-center justify-center space-x-2'>
-								<span class='h-px w-24 bg-gray-200'></span>
-								<span class='text-gray-300 font-normal'>অথবা</span>
-								<span class='h-px w-24 bg-gray-200'></span>
+							<div className='flex items-center justify-center space-x-2'>
+								<span className='h-px w-24 bg-gray-200'></span>
+								<span className='text-gray-300 font-normal'>অথবা</span>
+								<span className='h-px w-24 bg-gray-200'></span>
 							</div>
-							<form class='mt-8 space-y-6' onSubmit={handleSubmit(onSubmit)}>
-								<div class='mt-8 content-center'>
+							<form
+								className='mt-8 space-y-6'
+								onSubmit={handleSubmit(onSubmit)}>
+								<div className='mt-8 content-center'>
 									<label
-										class='ml-3 text-sm font-bold text-gray-700 tracking-wide'
+										className='ml-3 text-sm font-bold text-gray-700 tracking-wide'
 										htmlFor='name'>
 										নাম <span className='text-red-500'>*</span>
 									</label>
 									<input
 										{...register("name")}
 										id='name'
-										class='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
+										className='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
 										type='text'
 										placeholder='আপনার নাম'
 										required
 									/>
 								</div>
-								<div class='mt-8 content-center'>
+								<div className='mt-8 content-center'>
 									<label
-										class='ml-3 text-sm font-bold text-gray-700 tracking-wide'
+										className='ml-3 text-sm font-bold text-gray-700 tracking-wide'
 										htmlFor='number'>
 										ফোন নাম্বার <span className='text-red-500'>*</span>
 									</label>
 									<input
 										{...register("number")}
 										id='number'
-										class='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
+										className='w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary'
 										type='phone'
 										placeholder='আপনার ফোন নাম্বার'
 										required
 									/>
 								</div>
-								<div class='relative'>
-									<div class='absolute right-3 mt-8'>
+								<div className='relative'>
+									<div className='absolute right-3 mt-8'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
-											class='h-6 w-6 text-green-500'
+											className='h-6 w-6 text-green-500'
 											fill='none'
 											viewBox='0 0 24 24'
 											stroke='currentColor'>
@@ -169,7 +173,7 @@ const Register = () => {
 										</svg>
 									</div>
 									<label
-										class='ml-3 text-sm font-bold text-gray-700 tracking-wide'
+										className='ml-3 text-sm font-bold text-gray-700 tracking-wide'
 										htmlFor='email'>
 										ইমেইল <span className='text-red-500'>*</span>
 									</label>
@@ -185,7 +189,7 @@ const Register = () => {
 											},
 										})}
 										id='email'
-										class=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
+										className=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
 										type='email'
 										placeholder='আপনার ইমেইল'
 										required
@@ -203,8 +207,8 @@ const Register = () => {
 										)}
 									</label>
 								</div>
-								<div class='relative'>
-									<div class='absolute right-3 mt-8'>
+								<div className='relative'>
+									<div className='absolute right-3 mt-8'>
 										<img
 											onClick={() => setPasswordShow(!passwordShow)}
 											src={passwordShow ? showIcon : hideIcon}
@@ -213,7 +217,7 @@ const Register = () => {
 										/>
 									</div>
 									<label
-										class='ml-3 text-sm font-bold text-gray-700 tracking-wide'
+										className='ml-3 text-sm font-bold text-gray-700 tracking-wide'
 										htmlFor='password'>
 										পাসওয়ার্ড <span className='text-red-500'>*</span>
 									</label>
@@ -229,7 +233,7 @@ const Register = () => {
 											},
 										})}
 										id='password'
-										class=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
+										className=' w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary'
 										type={passwordShow ? "text" : "password"}
 										placeholder='আপনার পাসওয়ার্ড'
 										required
@@ -254,11 +258,11 @@ const Register = () => {
 								<div>
 									<Button classes='w-full'>রেজিস্টার</Button>
 								</div>
-								<p class='flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-sm'>
+								<p className='flex flex-col items-center justify-center mt-10 text-center text-gray-500 text-sm'>
 									<span>আগের অ্যাকাউন্ট আছে?</span>
 									<Link
 										to='/login'
-										class='text-primary font-bold no-underline hover:underline cursor-pointer transition ease-in duration-300 text-sm'>
+										className='text-primary font-bold no-underline hover:underline cursor-pointer transition ease-in duration-300 text-sm'>
 										লগইন
 									</Link>
 								</p>

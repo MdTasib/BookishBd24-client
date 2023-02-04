@@ -1,98 +1,173 @@
-import React from 'react';
-import bookImg from '../../assets/images/book.png'
-import bookImg2 from '../../assets/images/book2.png'
-
-import addimg1 from '../../assets/images/Adds/add1.png';
-import addimg2 from '../../assets/images/Adds/add2.png';
-import addimg3 from '../../assets/images/Adds/add3.png';
-import addimg4 from '../../assets/images/Adds/add4.png';
-import Container from '../../components/ui/Container';
-import Review from './Review';
-
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+	useGetBookDetailsQuery,
+	useGetBooksQuery,
+} from "../../features/api/apiSlice";
+import addimg1 from "../../assets/images/Adds/add1.png";
+import addimg2 from "../../assets/images/Adds/add2.png";
+import addimg3 from "../../assets/images/Adds/add3.png";
+import addimg4 from "../../assets/images/Adds/add4.png";
+import Container from "../../components/ui/Container";
+import Loading from "../../components/ui/Loading";
+import { useState } from "react";
 
 const Details = () => {
-    return (
-        <Container>
-            <div className='mb-12 mt-2'>
-                <div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
-                    <div>
-                        <div className='md:flex gap-4'>
-                            <div>
-                                <img className='md:h-[300px] md:w-[360px]' src={bookImg} alt="" />
-                            </div>
-                            <div>
-                                <div className='mb-3'>
-                                    <h2 className='text-xl'>সংশয় দূর হোক</h2>
-                                    <p>লেখক : <span className='text-[#F23534]'>মো. মিকাইল আহমেদ</span></p>
-                                    <p>প্রকাশনী : <span className='text-[#F23534]'>দুর্বার পাবলিকেশন্স</span></p>
-                                    <p>বিষয় : <span className='text-[#F23534]'>ইসলামি আদর্শ ও মতবাদ</span></p>
-                                    <small>পৃষ্ঠা : 332, কভার : হার্ড কভার, সংস্করণ : 1st Published, 2022</small>
-                                    <small>ভাষা : বাংলা</small>
-                                </div>
-                                <p className='mb-6'>আগ্রাসনমুখী পাশ্চাত্যের মুখে পৃথিবী যেমন হারিয়েছে তার নিজস্ব চোখ, তেমনি ইসলাম প্রসঙ্গে চৌদ্দশ বছর আগের যে চিত্র; দ্বিধা-সন্দেহ আর শতধা সংশয়কে একপাশে ফেলে রেখে রবের আশ্রয়ে নিজেকে সমর্পণ করে দিয়ে... আরো পড়ুন</p>
-                                <h2 className='text-xl mb-3 text-[#F23534]'>525 ৳ <del className='text-gray-500'>700 ৳</del>(25% ছাড়ে)</h2>
-                                <div>
-                                    <button className='bg-[#F23534] text-white px-4 py-2 rounded'>অর্ডার করুন</button>
-                                    <button className='bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]'>আরও পড়ুন</button>
-                                </div>
+	const [seeMore, setSeeMore] = useState(false);
+	const { id } = useParams();
+	const { data: book, isLoading, isError, error } = useGetBookDetailsQuery(id);
+	const {
+		data: relatedBooks,
+		isLoading: isRelatedBookLoading,
+		isError: isRelatedBookError,
+	} = useGetBooksQuery({
+		author: book?.data?.author,
+	});
 
-                                {/* ADDS IMAGES------------------------------- */}
-                                <div className='mt-4 md:grid grid-cols-2 gap-y-4'>
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt="" />
-                                    <img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt="" />
-                                </div>
-                            </div>
-                        </div>
+	// conent loaded
+	let content = null;
+	if (isLoading && isRelatedBookLoading) {
+		content = <Loading />;
+	}
+	if (
+		(!isLoading && isError) ||
+		(!isRelatedBookLoading && isRelatedBookError)
+	) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+	if (!isLoading && !isError) {
+		content = (
+			<div className='md:flex lg:flex gap-4'>
+				<div className='basis-1/4'>
+					<img className='h-1/2' src={book?.data?.imageURL} alt='' />
+				</div>
+				<div className='basis-3/4'>
+					<div className='mb-3'>
+						<h2 className='text-xl'>{book?.data?.name}</h2>
+						<p>
+							লেখক :{" "}
+							<span className='text-[#F23534]'>{book?.data?.author}</span>
+						</p>
+						<p>
+							প্রকাশনী :{" "}
+							<span className='text-[#F23534]'>{book?.data?.publication}</span>
+						</p>
+						<p>
+							বিষয় :{" "}
+							<span className='text-[#F23534]'>{book?.data?.subject}</span>
+						</p>
+						<small>
+							পৃষ্ঠা : {book?.data?.pages}, কভার : {book?.data?.cover}, সংস্করণ
+							: {book?.data?.edition}
+						</small>
+						<small>ভাষা : বাংলা</small>
+					</div>
+					{/* <p className='mb-6'>{book?.data?.description}</p> */}
 
-                        <Review />
+					{seeMore
+						? book?.data?.description
+						: `${book?.data?.description.substring(0, 250)}`}
+					<button onClick={() => setSeeMore(!seeMore)} className=''>
+						<p className='text-red-600'>
+							{seeMore ? "...অল্প পড়ুন" : "...আরো পড়ুন"}
+						</p>
+					</button>
 
+					<h2 className='text-xl mb-3 text-[#F23534] animate-pulse'>
+						{book?.data?.price} ৳{" "}
+						<del className='text-gray-500'>{book?.data?.prePrice} ৳</del>(
+						{book?.data?.discount}% ছাড়ে)
+					</h2>
+					<div>
+						<button className='bg-[#F23534] text-white px-4 py-2 rounded'>
+							অর্ডার করুন
+						</button>
+						<button className='bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]'>
+							আরও পড়ুন
+						</button>
+					</div>
 
-                    </div>
+					{/* ADDS IMAGES------------------------------- */}
+					<div className='mt-4 md:grid grid-cols-2 gap-4'>
+						<img
+							data-aos='flip-left'
+							data-aos-easing='ease-out-cubic'
+							data-aos-duration='500'
+							className='w-80 h-auto mb-4 md:mb-0'
+							src={addimg1}
+							alt=''
+						/>
+						<img
+							data-aos='flip-right'
+							data-aos-easing='ease-out-cubic'
+							data-aos-duration='500'
+							className='w-80 h-auto mb-4 md:mb-0'
+							src={addimg2}
+							alt=''
+						/>
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt='' />
+						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt='' />
+					</div>
+				</div>
+			</div>
+		);
+	}
 
+	return (
+		<Container>
+			<div className='py-10'>
+				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
+					<div>
+						{content}
+						{/* <Review /> */}
+					</div>
 
-                    <div className=''>
-                        <div className='border border-gray-500 '>
-                            <h2 className='border-b border-gray-500 p-3'>আরো দেখুন…</h2>
-                            <div className='flex gap-2 border-b border-gray-500 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
+					<div className=''>
+						<div className='border border-gray-500 '>
+							<h2 className='text-primary font-bold border-b border-t-primary border-t-2 border-gray-500 p-3 animate-pulse'>
+								আরো দেখুন…
+							</h2>
 
-                                </div>
-                            </div>
-                            <div className='flex gap-2 border-b border-gray-500 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
-                                </div>
-                            </div>
-
-                            <div className='flex gap-2 p-2'>
-                                <img className='h-24 w-20' src={bookImg2} alt="" />
-                                <div>
-                                    <h4 className='mb-2'>প্যারাডক্সিক্যাল সাজিদ</h4>
-                                    <small className='text-gray-700 block'>আরিফ আজাদ</small>
-                                    <small className='text-gray-700 block'>গার্ডিয়ান পাবলিকেশন্স</small>
-                                    <small><del className='text-gray-600'>275</del></small>
-                                    <small className='text-[#F23534] ml-4'>214</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Container>
-    );
+							{!isRelatedBookLoading &&
+							!isRelatedBookError &&
+							relatedBooks?.data?.books.length > 0 ? (
+								relatedBooks?.data?.books.slice(0, 8).map(book => (
+									<Link key={book._id} to={`/book/${book._id}`}>
+										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
+											<img className='h-24 w-20' src={book.imageURL} alt='' />
+											<div>
+												<h4 className='mb-2'>
+													{book.name.slice(0, 30)}{" "}
+													{book.name.length > 30 ? "..." : ""}
+												</h4>
+												<small className='text-gray-700 block'>
+													{book.author.slice(0, 30)}{" "}
+													{book.author.length > 30 ? "..." : ""}
+												</small>
+												<small className='text-gray-700 block'>
+													{book.publication}
+												</small>
+												<small>
+													<del className='text-gray-600'>{book.prePrice}</del>
+												</small>
+												<small className='text-[#F23534] ml-4'>
+													{book.price}
+												</small>
+											</div>
+										</div>
+									</Link>
+								))
+							) : (
+								<p className='text-primary font-medium text-center py-2'>
+									এই লেখকের অন্য কোন বই পাওয়া যায়নি
+								</p>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</Container>
+	);
 };
 
 export default Details;
