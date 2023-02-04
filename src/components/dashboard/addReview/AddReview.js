@@ -119,6 +119,7 @@ const AddReview = () => {
 			email: "test email",
 			rating: rating,
 			photoURL: imageURLS[0],
+			date: new Date().toDateString(),
 		};
 
 		if (!isLoading || isSuccess) {

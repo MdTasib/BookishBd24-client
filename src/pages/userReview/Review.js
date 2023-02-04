@@ -1,6 +1,8 @@
 import React from "react";
 
-const Review = ({ review: { review, rating, photoURL, name, email } }) => {
+const Review = ({
+	review: { review, rating, photoURL, name, email, date },
+}) => {
 	return (
 		<div className='shadow-xl p-4 rounded-md'>
 			<div className='flex items-center gap-4'>
@@ -12,33 +14,18 @@ const Review = ({ review: { review, rating, photoURL, name, email } }) => {
 				<div>
 					<h3 className='font-bold animate-pulse'>{name}</h3>
 					<div className='rating rating-sm'>
-						<input
-							type='radio'
-							name='rating-4'
-							className='mask mask-star-2 bg-green-500'
-						/>
-						<input
-							type='radio'
-							name='rating-4'
-							className='mask mask-star-2 bg-green-500'
-							checked
-						/>
-						<input
-							type='radio'
-							name='rating-4'
-							className='mask mask-star-2 bg-green-500'
-						/>
-						<input
-							type='radio'
-							name='rating-4'
-							className='mask mask-star-2 bg-green-500'
-						/>
-						<input
-							type='radio'
-							name='rating-4'
-							className='mask mask-star-2 bg-green-500'
-						/>
+						{[...Array(Number(rating))].map((star, index) => (
+							<input
+								type='radio'
+								name='rating-4'
+								className='mask mask-star-2 bg-green-500'
+							/>
+						))}
 					</div>
+					<h3 className='font-xs'>
+						<span className='font-bold'>Date:</span>{" "}
+						{date ? date?.split(" ").join(" - ") : "2 year ago"}
+					</h3>
 				</div>
 			</div>
 			<div>
