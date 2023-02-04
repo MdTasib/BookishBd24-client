@@ -5,7 +5,7 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:5000/api/v1",
 	}),
-	tagTypes: ["books", "authors", "book"],
+	tagTypes: ["books", "authors", "book", "reviews"],
 	endpoints: builder => ({
 		// get books on database
 		getBooks: builder.query({
@@ -45,6 +45,13 @@ export const apiSlice = createApi({
 			providesTags: ["auhtors", "author"],
 		}),
 
+		// get reviews
+		getReviews: builder.query({
+			query: () => "/reviews",
+			keepUnusedDataFor: 800,
+			providesTags: ["reviews"],
+		}),
+
 		// post book on database
 		createBook: builder.mutation({
 			query: data => ({
@@ -64,6 +71,15 @@ export const apiSlice = createApi({
 			}),
 			invalidatesTags: ["authors"],
 		}),
+
+		createReview: builder.mutation({
+			query: data => ({
+				url: "/review",
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags: ["reviews"],
+		}),
 	}),
 });
 
@@ -72,6 +88,8 @@ export const {
 	useGetAuthorsQuery,
 	useGetAuthorDetailsQuery,
 	useGetBookDetailsQuery,
+	useGetReviewsQuery,
 	useCreateBookMutation,
 	useCreateAuthorMutation,
+	useCreateReviewMutation,
 } = apiSlice;
