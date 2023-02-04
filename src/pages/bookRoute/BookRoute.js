@@ -113,7 +113,7 @@ const BookRoute = () => {
 
 	return (
 		<Container>
-			<div className="">
+			<div className="main">
 				<div className='grid grid-cols-2 py-4'>
 					<p
 						className='text-start'
