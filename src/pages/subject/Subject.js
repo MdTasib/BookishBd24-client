@@ -54,7 +54,8 @@ const Subject = () => {
 	const searchItem = event => {
 		const searchText = event.target.value;
 		// console.log(searchText);
-		const result = books?.data?.books.filter(item => {
+		const categorys = getUniqueListBy(books?.data?.books, "category")
+		const result = categorys.filter(item => {
 			return (
 				item.category.toLowerCase().includes(searchText.toLowerCase()) ||
 				item.category.toLowerCase().includes(searchText.toLowerCase())
@@ -62,7 +63,7 @@ const Subject = () => {
 		});
 		if (!searchText) {
 			setSearchData([]);
-			console.log("hello world");
+			// console.log("hello world");
 		} else if (result) {
 			setSearchData(result);
 		}
@@ -115,8 +116,8 @@ const Subject = () => {
 					</h1>
 				</div>
 
-				<div className='flex items-center justify-center'>
-					<div className="relative">
+				<div className="relative">
+					<div className='flex items-center justify-center'>
 						<div
 							className='flex border border-primary border-2'
 							data-aos='fade-up'
@@ -140,11 +141,11 @@ const Subject = () => {
 							</button>
 						</div>
 					</div>
-					<div className="absolute z-10">
+					<div className="absolute z-10 mb-[-110px]">
 						{searchListVisible && (
 							<div>
 								{searchData.length ?
-									<ul className="mt-[285px] w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-1">
+									<ul className="w-[378px] h-auto px-4 bg-accent border-2 z-10 border-primary">
 										{searchData.map(data =>
 											<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><Link to="/bookroute" >{data.category}</Link></li>)
 										}
