@@ -1,6 +1,4 @@
-import { data } from "autoprefixer";
 import React from "react";
-import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -11,17 +9,18 @@ import MenuBar from "./MenuBar";
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const [value, setValue] = useState("");
-	const [cursorPosition, setCursorPosition] = useState();
+	const inputRef = useRef(null)
 	const [searchListVisible, setSearchListVisible] = useState(true);
-	const handleSearchResultClick = data => {
-		// setSearchListVisible(!false);
-		// navigate to other page
-		navigate(`book/${data._id}`);
-		setValue("");
-	};
 
+	const reSeatInput = () =>{
+		setSearchData([]);
+		inputRef.current.value = "";
+		// console.log(inputRef.current.value);
+	}
+	
 	const [searchData, setSearchData] = useState([]);
+	// console.log(searchData);
+
 
 	const { data: books, isLoading, isError } = useGetBooksQuery();
 	if (isLoading) {
@@ -46,10 +45,17 @@ const Navbar = () => {
 		} else if (result) {
 			setSearchData(result);
 		}
-	};
+		else if (result) {
+			setSearchData(result)
+		}
+	}
+
+	
+
 
 	const handleNavigate = () => {
 		navigate("/cart");
+		
 	};
 	const menuItems = (
 		<>
@@ -132,6 +138,7 @@ const Navbar = () => {
 						<div className='flex items-center justify-center'>
 							<div className='flex border border-primary border-2'>
 								<input
+								 ref = {inputRef}
 									type='text'
 									className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 									placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
@@ -148,25 +155,23 @@ const Navbar = () => {
 								</button>
 							</div>
 						</div>
-						<div className='absolute z-10'>
+						<div className="absolute z-10">
 							{searchListVisible && (
 								<div>
-									{searchData.length ? (
-										<ul className='top-12 w-[376px] h-auto px-4 bg-gray-300 border-2 z-10 border-primary mr-2'>
-											{searchData.map(data => (
-												<li
-													onClick={() => handleSearchResultClick(data)}
-													className='cursor-pointer'>
-													{data.name}
-												</li>
-											))}
+									{searchData.length ?
+										<ul className="top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2">
+											{searchData.map(data =>
+												<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
+											}
+
 										</ul>
-									) : (
+										:
 										""
-									)}
+									}
 								</div>
 							)}
 						</div>
+	
 					</div>
 
 					<div className='flex-none'>

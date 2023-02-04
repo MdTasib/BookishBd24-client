@@ -1,36 +1,91 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-hot-toast";
+import Loading from "../ui/Loading";
+import { useState } from "react";
 
 const AddAuthor = () => {
+	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async data => {
-		console.log(data);
-		const faq = {
-			question: data.question,
-			answer: data.answer,
+		if (singleImages.length > 1) {
+			setLoading(false);
+			toast.error("Max 1 images");
+			return;
+		}
+
+		///////////////   single images upload   //////////////////
+		// Store single images in firebase
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
+
+				const storageRef = ref(storage, "images/" + fileName);
+
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
+						});
+					}
+				);
+			});
 		};
 
-		fetch(`https://beatnik-task-server.vercel.app/questions`, {
-			method: "POST",
-			headers: {
-				"content-type": "application/json",
-			},
-			body: JSON.stringify(faq),
-		})
-			.then(res => res.json())
-			.then(data => {
-				reset();
-				Swal.fire({
-					position: "top-center",
-					icon: "success",
-					title: "Successfully upload a question",
-					showConfirmButton: false,
-					timer: 1500,
-				});
-			});
-	};
+		const imageURLS = await Promise.all(
+			[...singleImages].map(image => storeImage(image))
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+		console.log(imageURLS);
+        
+        const faq = {
+			AuthorName: data.AuthorName,
+			AuthorNameEng: data.AuthorNameEng,
+			description: data.description,
+			imagesURLS: imageURLS[0]
+		};
+		console.log(faq);
+        reset()
+		
+    }
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className='hero'>
@@ -71,6 +126,7 @@ const AddAuthor = () => {
 											id='dropzone-file'
 											type='file'
 											className='hidden'
+											onChange={e => setSingleImages(e.target.files)}
 										/>
 									</label>
 								</div>
@@ -81,7 +137,7 @@ const AddAuthor = () => {
 									<span className='label-text'>Author Name</span>
 								</label>
 								<input
-									{...register("Author Name", { required: true })}
+									{...register("AuthorName", { required: true })}
 									type='text'
 									placeholder='Author Name'
 									className='input input-bordered input-primary w-full'
@@ -92,7 +148,7 @@ const AddAuthor = () => {
 									<span className='label-text'>Author Name English</span>
 								</label>
 								<input
-									{...register("Author Name Eng", { required: true })}
+									{...register("AuthorNameEng", { required: true })}
 									type='text'
 									placeholder='Author Name Eng'
 									className='input input-bordered input-primary w-full'
@@ -104,7 +160,7 @@ const AddAuthor = () => {
 									<span className='label-text'>Description</span>
 								</label>
 								<textarea
-									{...register("answer", { required: true })}
+									{...register("description", { required: true })}
 									className='textarea textarea-primary w-full'
 									placeholder='Description'></textarea>
 							</div>

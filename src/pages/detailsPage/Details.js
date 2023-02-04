@@ -4,13 +4,11 @@ import {
 	useGetBookDetailsQuery,
 	useGetBooksQuery,
 } from "../../features/api/apiSlice";
-import bookImg2 from "../../assets/images/book2.png";
 import addimg1 from "../../assets/images/Adds/add1.png";
 import addimg2 from "../../assets/images/Adds/add2.png";
 import addimg3 from "../../assets/images/Adds/add3.png";
 import addimg4 from "../../assets/images/Adds/add4.png";
 import Container from "../../components/ui/Container";
-import Review from "./Review";
 import Loading from "../../components/ui/Loading";
 import { useState } from "react";
 
@@ -22,7 +20,9 @@ const Details = () => {
 		data: relatedBooks,
 		isLoading: isRelatedBookLoading,
 		isError: isRelatedBookError,
-	} = useGetBooksQuery({ author: book?.data?.author });
+	} = useGetBooksQuery({
+		author: book?.data?.author,
+	});
 
 	// conent loaded
 	let content = null;
@@ -89,12 +89,22 @@ const Details = () => {
 
 					{/* ADDS IMAGES------------------------------- */}
 					<div className='mt-4 md:grid grid-cols-2 gap-4'>
-						<img data-aos="flip-left"
-							data-aos-easing="ease-out-cubic"
-							data-aos-duration="500" className='w-80 h-auto mb-4 md:mb-0' src={addimg1} alt='' />
-						<img data-aos="flip-right"
-							data-aos-easing="ease-out-cubic"
-							data-aos-duration="500" className='w-80 h-auto mb-4 md:mb-0' src={addimg2} alt='' />
+						<img
+							data-aos='flip-left'
+							data-aos-easing='ease-out-cubic'
+							data-aos-duration='500'
+							className='w-80 h-auto mb-4 md:mb-0'
+							src={addimg1}
+							alt=''
+						/>
+						<img
+							data-aos='flip-right'
+							data-aos-easing='ease-out-cubic'
+							data-aos-duration='500'
+							className='w-80 h-auto mb-4 md:mb-0'
+							src={addimg2}
+							alt=''
+						/>
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg3} alt='' />
 						<img className='w-80 h-auto mb-4 md:mb-0' src={addimg4} alt='' />
 					</div>
@@ -118,8 +128,10 @@ const Details = () => {
 								আরো দেখুন…
 							</h2>
 
-							{!isRelatedBookLoading && !isRelatedBookError
-								? relatedBooks?.data?.books.slice(0, 8).map(book => (
+							{!isRelatedBookLoading &&
+							!isRelatedBookError &&
+							relatedBooks?.data?.books.length > 0 ? (
+								relatedBooks?.data?.books.slice(0, 8).map(book => (
 									<Link key={book._id} to={`/book/${book._id}`}>
 										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>
 											<img className='h-24 w-20' src={book.imageURL} alt='' />
@@ -145,7 +157,11 @@ const Details = () => {
 										</div>
 									</Link>
 								))
-								: ""}
+							) : (
+								<p className='text-primary font-medium text-center py-2'>
+									এই লেখকের অন্য কোন বই পাওয়া যায়নি
+								</p>
+							)}
 						</div>
 					</div>
 				</div>
