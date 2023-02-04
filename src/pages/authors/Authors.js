@@ -18,24 +18,22 @@ const Authors = () => {
 		isError,
 		error,
 	} = useGetAuthorsQuery({ page, limit: postPerPage });
-	console.log(authors?.data?.authors);
+	const { data: allAuthors, loading, ifError } = useGetAuthorsQuery();
 
 	// SEARCH AUTHOR Start
-	const inputRef = useRef(null)
+	const inputRef = useRef(null);
 	const [searchListVisible, setSearchListVisible] = useState(true);
 
 	const reSeatInput = () => {
 		setSearchData([]);
 		inputRef.current.value = "";
-		// console.log(inputRef.current.value);
-	}
+	};
 
 	const [searchData, setSearchData] = useState([]);
-	// console.log(searchData);
 	const searchItem = event => {
 		const searchText = event.target.value;
 		console.log(searchText);
-		const result = authors?.data?.authors.filter(item => {
+		const result = allAuthors?.data?.authors.filter(item => {
 			return (
 				item.author.toLowerCase().includes(searchText.toLowerCase()) ||
 				item.authorEng.toLowerCase().includes(searchText.toLowerCase())
@@ -43,14 +41,12 @@ const Authors = () => {
 		});
 		if (!searchText) {
 			setSearchData([]);
-			console.log("hello world");
+		} else if (result) {
+			setSearchData(result);
 		} else if (result) {
 			setSearchData(result);
 		}
-		else if (result) {
-			setSearchData(result)
-		}
-	}
+	};
 	// SEARCH AUTHOR END
 
 	useEffect(() => {
@@ -73,10 +69,10 @@ const Authors = () => {
 
 	// conent loaded
 	let content = null;
-	if (isLoading) {
+	if (isLoading || loading) {
 		content = <Loading />;
 	}
-	if (!isLoading && isError) {
+	if ((!isLoading && isError) || (!loading && ifError)) {
 		content = <p className='text-red-500'>{error}</p>;
 	}
 	if (!isLoading && !isError && authors?.data?.authors?.length === 0) {
@@ -98,9 +94,11 @@ const Authors = () => {
 					</ul>
 				</div>
 
-				<section className='py-2' data-aos="fade-left"
-					data-aos-easing="ease-out-cubic"
-					data-aos-duration="1000">
+				<section
+					className='py-2'
+					data-aos='fade-left'
+					data-aos-easing='ease-out-cubic'
+					data-aos-duration='1000'>
 					<img src={authorPage} alt='' className='w-full' />
 					<p className='pt-2 text-gray-500 text-sm'>
 						লেখক! আক্ষরিক ভাবে বলতে গেলে সৃজনশীল কোনকিছু লেখেন যিনি তাকেই লেখক
@@ -114,9 +112,11 @@ const Authors = () => {
 				</section>
 
 				<div>
-					<div className='flex items-center py-4 relative' data-aos="flip-right"
-						data-aos-easing="ease-out-cubic"
-						data-aos-duration="500">
+					<div
+						className='flex items-center py-4 relative'
+						data-aos='flip-right'
+						data-aos-easing='ease-out-cubic'
+						data-aos-duration='500'>
 						<div className='flex border border-primary border-2'>
 							<input
 								ref={inputRef}
@@ -136,27 +136,34 @@ const Authors = () => {
 							</button>
 						</div>
 					</div>
-					<div className="absolute z-10">
+					<div className='absolute z-10'>
 						{searchListVisible && (
 							<div>
-								{searchData.length ?
-									<ul className="top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2">
-										{searchData.map(data =>
-											<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><NavLink to={`/author/${data._id}`}>{data.author}</NavLink></li>)
-										}
-
+								{searchData.length ? (
+									<ul className='top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2'>
+										{searchData.map(data => (
+											<li
+												onClick={() => reSeatInput()}
+												className='cursor-pointer border-b border-primary'>
+												<NavLink to={`/author/${data._id}`}>
+													{data.author}
+												</NavLink>
+											</li>
+										))}
 									</ul>
-									:
+								) : (
 									""
-								}
+								)}
 							</div>
 						)}
 					</div>
 				</div>
 
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4' data-aos="fade-right"
-					data-aos-easing="ease-out-cubic"
-					data-aos-duration="1000">
+				<div
+					className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4'
+					data-aos='fade-right'
+					data-aos-easing='ease-out-cubic'
+					data-aos-duration='1000'>
 					{content}
 				</div>
 
