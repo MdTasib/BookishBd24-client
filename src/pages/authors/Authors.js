@@ -113,7 +113,7 @@ const Authors = () => {
 					</p>
 				</section>
 
-				<div>
+				<div className="relative">
 					<div className='flex items-center py-4 relative' data-aos="flip-right"
 						data-aos-easing="ease-out-cubic"
 						data-aos-duration="500">
