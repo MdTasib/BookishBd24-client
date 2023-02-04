@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { FaHome } from "react-icons/fa";
-import { RiArrowRightSLine } from "react-icons/ri";
+import React, { useState, useEffect } from "react";
+import Breadcrumb from "../../components/ui/Breadcrumb";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
 import SubjectCategory from "./SubjectCategory";
@@ -12,7 +11,12 @@ const Subject = () => {
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(26);
-	const { data: books, isLoading, isError, error } = useGetBooksQuery({ page, limit: postPerPage });
+	const {
+		data: books,
+		isLoading,
+		isError,
+		error,
+	} = useGetBooksQuery({ page, limit: postPerPage });
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
@@ -57,11 +61,12 @@ const Subject = () => {
 	return (
 		<Container>
 			<section className='flex my-5'>
-				<FaHome className='hover:cursor-pointer' />
-				<RiArrowRightSLine className='mx-1 mt-0.5' />
-				<button>বই</button>
-				<RiArrowRightSLine className='mx-1 mt-0.5' />
-				<h1>বিষয়</h1>
+				<div className='text-sm breadcrumbs'>
+					<ul>
+						<Breadcrumb route='/' name='হোম' />
+						<Breadcrumb route='/subject' name='বিষয়' />
+					</ul>
+				</div>
 			</section>
 
 			<div>
@@ -77,10 +82,13 @@ const Subject = () => {
 					data-aos-easing='ease-out-cubic'
 					data-aos-duration='1000'
 					className='pt-2 text-lg text-gray-500 text-sm'>
-					লক্ষাধিক বইয়ের সংগ্রহ বৈশাখীবিডি-২৪ ডট কমে। বইয়ের এই বিশাল সমুদ্র-মন্থনে পাঠকের সুবিধার্থে প্রায় ৫০ টির মতো ক্যাটাগরি ও সহস্রাধিক বিষয়ভিত্তিক
-                    ক্যাটাগরি রয়েছে বৈশাখীবিডি-২৪ ডট কমে। যার ফলে খুব সহজেই পাঠক তার পছন্দের
-                     ক্যাটাগরি বেছে নিয়ে নির্দিষ্ট বিষয়ভিত্তিক বইগুলো খুঁজে পাবে খুব সহজেই। বৈশাখীবিডি-২৪ ডট কমের এই বিশাল বইয়ের সমুদ্রে জ্ঞানের জাহাজের নাবিক
-                     হতে আপনাকে নিমন্ত্রণ। মানচিত্রটা ধরা আছে নিচেই...
+					লক্ষাধিক বইয়ের সংগ্রহ বৈশাখীবিডি-২৪ ডট কমে। বইয়ের এই বিশাল
+					সমুদ্র-মন্থনে পাঠকের সুবিধার্থে প্রায় ৫০ টির মতো ক্যাটাগরি ও সহস্রাধিক
+					বিষয়ভিত্তিক ক্যাটাগরি রয়েছে বৈশাখীবিডি-২৪ ডট কমে। যার ফলে খুব সহজেই
+					পাঠক তার পছন্দের ক্যাটাগরি বেছে নিয়ে নির্দিষ্ট বিষয়ভিত্তিক বইগুলো
+					খুঁজে পাবে খুব সহজেই। বৈশাখীবিডি-২৪ ডট কমের এই বিশাল বইয়ের সমুদ্রে
+					জ্ঞানের জাহাজের নাবিক হতে আপনাকে নিমন্ত্রণ। মানচিত্রটা ধরা আছে
+					নিচেই...
 				</p>
 			</div>
 
@@ -124,17 +132,17 @@ const Subject = () => {
 			</div>
 
 			<div className='text-center py-10'>
-					<Pagination
-						onChange={value => setPage(value)}
-						pageSize={postPerPage}
-						total={total}
-						current={page}
-						showSizeChanger
-						showQuickJumper
-						onShowSizeChange={onShowSizeChange}
-						itemRender={itemRender}
-					/>
-				</div>
+				<Pagination
+					onChange={value => setPage(value)}
+					pageSize={postPerPage}
+					total={total}
+					current={page}
+					showSizeChanger
+					showQuickJumper
+					onShowSizeChange={onShowSizeChange}
+					itemRender={itemRender}
+				/>
+			</div>
 		</Container>
 	);
 };
