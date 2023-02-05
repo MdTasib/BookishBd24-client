@@ -95,7 +95,7 @@ const AddAuthor = () => {
 						<div className='form-control'>
 							<div>
 								<label className='label'>
-									<span className='label-text'>Upload Author Image</span>
+									<span className='label-text'>লেখকের ছবি আপলোড করুন</span>
 								</label>
 
 								<div className='flex justify-center items-center w-full'>
@@ -117,7 +117,7 @@ const AddAuthor = () => {
 											</svg>
 											<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
 												<span className='font-semibold'>
-													Click to upload image
+												ছবি আপলোড করতে ক্লিক করুন
 												</span>
 											</p>
 										</div>
@@ -134,40 +134,40 @@ const AddAuthor = () => {
 							{/*  */}
 							<div className=''>
 								<label className='label'>
-									<span className='label-text'>Author Name</span>
+									<span className='label-text'>লেখকের নাম</span>
 								</label>
 								<input
 									{...register("AuthorName", { required: true })}
 									type='text'
-									placeholder='Author Name'
+									placeholder='লেখকের নাম'
 									className='input input-bordered input-primary w-full'
 								/>
 							</div>
 							<div className=''>
 								<label className='label'>
-									<span className='label-text'>Author Name English</span>
+									<span className='label-text'>লেখকের নাম ইংরেজিতে</span>
 								</label>
 								<input
 									{...register("AuthorNameEng", { required: true })}
 									type='text'
-									placeholder='Author Name Eng'
+									placeholder='লেখকের নাম ইংরেজিতে'
 									className='input input-bordered input-primary w-full'
 								/>
 							</div>
 
 							<div className='form-control'>
 								<label className='label'>
-									<span className='label-text'>Description</span>
+									<span className='label-text'>লেখকের পরিচিতি</span>
 								</label>
 								<textarea
 									{...register("description", { required: true })}
 									className='textarea textarea-primary w-full'
-									placeholder='Description'></textarea>
+									placeholder='লেখকের পরিচিতি'></textarea>
 							</div>
 						</div>
 
 						<div className='form-control mt-6'>
-							<button className='btn btn-primary'>Upload</button>
+							<button className='btn btn-primary'>আপলোড করুন</button>
 						</div>
 					</form>
 				</div>
