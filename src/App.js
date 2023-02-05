@@ -25,7 +25,7 @@ import MyProfile from "./components/dashboard/profile/MyProfile";
 import UpdateProfile from "./components/dashboard/profile/UpdateProfile";
 import Cart from "./pages/cart/Cart";
 import AuthorDetails from "./pages/authors/AuthorDetails";
-import UserReview from "./pages/userReview/UserReview";
+import Reviews from "./pages/userReview/Reviews";
 import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
@@ -47,7 +47,7 @@ function App() {
 				<Route path='/prokasok' element={<Publisher />} />
 				<Route path='/book/:id' element={<Details />} />
 				<Route path='/author/:id' element={<AuthorDetails />} />
-				<Route path='/userreview' element={<UserReview />} />
+				<Route path='/user-review' element={<Reviews />} />
 				<Route path='/cart' element={<Cart />} />
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
