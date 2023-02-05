@@ -10,15 +10,26 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
 import Loading from "../ui/Loading";
 import { useState } from "react";
+import { useCreateAuthorMutation } from "../../features/api/apiSlice";
 
 const AddAuthor = () => {
 	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
-	const [loading, setLoading] = useState(false);
+	const [addAuthor, { isLoading, isError, isSuccess }] =
+		useCreateAuthorMutation();
+
+	if (isLoading) {
+		return <Loading />;
+	}
+	if (!isLoading && isError) {
+		toast.error("আপনার লেখক যোগ করতে ব্যর্থ হয়েছে। আমার চেষ্টা করুন!");
+	}
+	if (!isError && !isLoading && isSuccess) {
+		toast.success("আপনার লেখক যোগ হয়েছে।");
+	}
 
 	const onSubmit = async data => {
 		if (singleImages.length > 1) {
-			setLoading(false);
 			toast.error("Max 1 images");
 			return;
 		}
@@ -71,21 +82,20 @@ const AddAuthor = () => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log(imageURLS);
-        
-        const faq = {
-			AuthorName: data.AuthorName,
-			AuthorNameEng: data.AuthorNameEng,
+
+		const author = {
+			author: data.authorName,
+			authorEng: data.authorNameEng,
 			description: data.description,
-			imagesURLS: imageURLS[0]
+			imageUrl: imageURLS[0],
 		};
-		console.log(faq);
-        reset()
-		
-    }
-	if (loading) {
-		return <Loading />;
-	}
+
+		if (!isLoading || isSuccess) {
+			addAuthor(author);
+		}
+
+		reset();
+	};
 
 	return (
 		<div className='hero'>
@@ -117,7 +127,7 @@ const AddAuthor = () => {
 											</svg>
 											<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
 												<span className='font-semibold'>
-												ছবি আপলোড করতে ক্লিক করুন
+													ছবি আপলোড করতে ক্লিক করুন
 												</span>
 											</p>
 										</div>
@@ -137,7 +147,7 @@ const AddAuthor = () => {
 									<span className='label-text'>লেখকের নাম</span>
 								</label>
 								<input
-									{...register("AuthorName", { required: true })}
+									{...register("authorName", { required: true })}
 									type='text'
 									placeholder='লেখকের নাম'
 									className='input input-bordered input-primary w-full'
@@ -148,7 +158,7 @@ const AddAuthor = () => {
 									<span className='label-text'>লেখকের নাম ইংরেজিতে</span>
 								</label>
 								<input
-									{...register("AuthorNameEng", { required: true })}
+									{...register("authorNameEng", { required: true })}
 									type='text'
 									placeholder='লেখকের নাম ইংরেজিতে'
 									className='input input-bordered input-primary w-full'
