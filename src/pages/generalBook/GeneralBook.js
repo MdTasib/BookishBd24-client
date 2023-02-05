@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
+import Slider from "infinite-react-carousel";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
+import sliders from "./generalBookSlider";
 
 const GeneralBook = () => {
 	const [total, setTotal] = useState("");
@@ -50,8 +52,25 @@ const GeneralBook = () => {
 		));
 	}
 
+	const settings = {
+		arrows: false,
+		autoplay: true,
+		dots: true,
+		pauseOnHover: false,
+	};
+
 	return (
 		<Container>
+			<Slider {...settings} className='my-10'>
+				{sliders.map(slider => (
+					<img
+						key={slider.id}
+						className='w-full h-64 object-cover'
+						src={slider.image}
+						alt=''
+					/>
+				))}
+			</Slider>
 			<div>
 				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
 					<h2 className='text-primary font-bold animate-pulse'>ভর্তি গাইড</h2>
