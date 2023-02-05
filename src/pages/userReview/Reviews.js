@@ -4,6 +4,7 @@ import reviewPage from "../../assets/images/book-library.jpg2.jpg";
 import { useGetReviewsQuery } from "../../features/api/apiSlice";
 import Loading from "../../components/ui/Loading";
 import Review from "./Review";
+import Breadcrumb from "../../components/ui/Breadcrumb";
 
 const UserReview = () => {
 	const { data: reviews, isLoading, isError, error } = useGetReviewsQuery();
@@ -25,6 +26,12 @@ const UserReview = () => {
 	return (
 		<Container>
 			<div>
+			<div className='text-sm breadcrumbs py-4'>
+				<ul>
+					<Breadcrumb route='/' name='হোম' />
+					<Breadcrumb route='/user-review' name='রিভিউসমূহ' />
+				</ul>
+			</div>
 				<img
 					data-aos='flip-left'
 					data-aos-easing='ease-out-cubic'

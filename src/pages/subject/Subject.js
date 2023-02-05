@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const Subject = () => {
 	const [total, setTotal] = useState("");
 	const [page, setPage] = useState(1);
-	const [postPerPage, setPostPerPage] = useState(26);
+	const [postPerPage, setPostPerPage] = useState(20);
 	const {
 		data: books,
 		isLoading,
