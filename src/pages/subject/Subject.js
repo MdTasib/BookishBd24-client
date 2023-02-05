@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
@@ -6,6 +6,7 @@ import SubjectCategory from "./SubjectCategory";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { getUniqueListBy } from "../../utils/getUniqueListBy";
 import { Pagination } from "antd";
+import { Link } from "react-router-dom";
 
 const Subject = () => {
 	const [total, setTotal] = useState("");
@@ -58,6 +59,41 @@ const Subject = () => {
 		));
 	}
 
+
+	// SEARCH AUTHOR Start
+	const inputRef = useRef(null)
+	const [searchListVisible, setSearchListVisible] = useState(true);
+
+	const reSeatInput = () => {
+		setSearchData([]);
+		inputRef.current.value = "";
+		// console.log(inputRef.current.value);
+	}
+
+	const [searchData, setSearchData] = useState([]);
+	// console.log(searchData);
+	const searchItem = event => {
+		const searchText = event.target.value;
+		// console.log(searchText);
+		const categorys = getUniqueListBy(books?.data?.books, "category")
+		const result = categorys.filter(item => {
+			return (
+				item.category.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.category.toLowerCase().includes(searchText.toLowerCase())
+			);
+		});
+		if (!searchText) {
+			setSearchData([]);
+			// console.log("hello world");
+		} else if (result) {
+			setSearchData(result);
+		}
+		else if (result) {
+			setSearchData(result)
+		}
+	}
+	// SEARCH AUTHOR END
+
 	return (
 		<Container>
 			<div className='text-sm breadcrumbs py-4'>
@@ -101,26 +137,46 @@ const Subject = () => {
 					</h1>
 				</div>
 
-				<div className='flex items-center justify-center'>
-					<div
-						className='flex border border-primary border-2'
-						data-aos='fade-up'
-						data-aos-easing='ease-out-cubic'
-						data-aos-duration='1000'>
-						<input
-							type='text'
-							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
-							placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
-						/>
-						<button className='flex items-center justify-center px-4 bg-primary'>
-							<svg
-								className='w-6 h-6 text-white'
-								fill='currentColor'
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'>
-								<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
-							</svg>
-						</button>
+				<div className="relative">
+					<div className='flex items-center justify-center'>
+						<div
+							className='flex border border-primary border-2'
+							data-aos='fade-up'
+							data-aos-easing='ease-out-cubic'
+							data-aos-duration='1000'>
+							<input
+								ref={inputRef}
+								type='text'
+								className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+								placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
+								onChange={event => searchItem(event)}
+							/>
+							<button className='flex items-center justify-center px-4 bg-primary'>
+								<svg
+									className='w-6 h-6 text-white'
+									fill='currentColor'
+									xmlns='http://www.w3.org/2000/svg'
+									viewBox='0 0 24 24'>
+									<path d='M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z' />
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div className="absolute z-10 mb-[-110px]">
+						{searchListVisible && (
+							<div>
+								{searchData.length ?
+									<ul className="w-[378px] h-auto px-4 bg-accent border-2 z-10 border-primary">
+										{searchData.map(data =>
+											<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><Link to="/bookroute" >{data.category}</Link></li>)
+										}
+
+									</ul>
+									:
+									""
+								}
+							</div>
+						)}
 					</div>
 				</div>
 			</section>
