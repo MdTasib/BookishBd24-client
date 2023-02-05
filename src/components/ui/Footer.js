@@ -10,73 +10,71 @@ import WhatsApp from "../../pages/whatsapp/WhatsApp";
 
 const Footer = () => {
 	return (
-		<>
-			<div className='bg-accent h-1/2 w-full flex md:flex-row flex-col justify-around items-start px-10 py-4'>
-				<div className='p-5 '>
-					<ul>
-						<p className='font-bold text-2xl pb-4'>
-							BookishBD<span className='text-primary'>24</span>
-						</p>
-						<div className='flex gap-6 pb-5'>
-							<FaFacebook className='text-xl cursor-pointer hover:text-blue-600' />
-							<FaInstagram className='text-xl cursor-pointer hover:text-purple-600' />
-							<FaTwitter className='text-xl cursor-pointer hover:text-blue-600' />
-							<FaYoutube className='text-xl cursor-pointer hover:text-red-600' />
-						</div>
-					</ul>
-				</div>
-				<div className='p-5'>
-					<ul>
-						<p className='font-bold text-1xl pb-2'>প্রয়োজনীয় লিংক</p>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							যোগাযোগ করুন
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							ব্লগ
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							প্রশ্নোত্তর
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							কিভাবে কেনাকাটা করবেন ?
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							শর্তাবলী
-						</li>
-					</ul>
-				</div>
-				<div className='p-5'>
-					<ul>
-						<p className='font-bold text-1xl pb-2'>জনপ্রিয়</p>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							আপনার পছন্দের তালিকা
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							প্যাকেজ
-						</li>
-						<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-							জেনারেল ও অ্যাকাডেমিক বই
-						</li>
-					</ul>
-				</div>
-				<div className='p-5'>
-					<ul>
-						<p className='font-bold text-1xl pb-2'>যোগাযোগ</p>
-						<li className='text-sm pb-2 flex items-center'>
-							<GrLocation className='mr-1' /> Head Office: Your office location
-							here
-						</li>
-						<li className='text-sm pb-2 flex items-center'>
-							<BiPhoneCall className='mr-1' /> +8801518477021
-						</li>
-						<li className='text-sm pb-2 flex items-center'>
-							<TfiEmail className='mr-1' /> mohammadtasib3@gmail.com
-						</li>
-					</ul>
-				</div>
-				<WhatsApp />
+		<div className='bg-accent h-1/2 w-full flex md:flex-row flex-col justify-around items-start px-10 py-4'>
+			<div className='p-5 '>
+				<ul>
+					<p className='font-bold text-2xl pb-4'>
+						BookishBD<span className='text-primary'>24</span>
+					</p>
+					<div className='flex gap-6 pb-5'>
+						<FaFacebook className='text-xl cursor-pointer hover:text-blue-600' />
+						<FaInstagram className='text-xl cursor-pointer hover:text-purple-600' />
+						<FaTwitter className='text-xl cursor-pointer hover:text-blue-600' />
+						<FaYoutube className='text-xl cursor-pointer hover:text-red-600' />
+					</div>
+				</ul>
 			</div>
-		</>
+			<div className='p-5'>
+				<ul>
+					<p className='font-bold text-1xl pb-2'>প্রয়োজনীয় লিংক</p>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						যোগাযোগ করুন
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						ব্লগ
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						প্রশ্নোত্তর
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						কিভাবে কেনাকাটা করবেন ?
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						শর্তাবলী
+					</li>
+				</ul>
+			</div>
+			<div className='p-5'>
+				<ul>
+					<p className='font-bold text-1xl pb-2'>জনপ্রিয়</p>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						আপনার পছন্দের তালিকা
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						প্যাকেজ
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						জেনারেল ও অ্যাকাডেমিক বই
+					</li>
+				</ul>
+			</div>
+			<div className='p-5'>
+				<ul>
+					<p className='font-bold text-1xl pb-2'>যোগাযোগ</p>
+					<li className='text-sm pb-2 flex items-center'>
+						<GrLocation className='mr-1' /> Head Office: Your office location
+						here
+					</li>
+					<li className='text-sm pb-2 flex items-center'>
+						<BiPhoneCall className='mr-1' /> +8801518477021
+					</li>
+					<li className='text-sm pb-2 flex items-center'>
+						<TfiEmail className='mr-1' /> mohammadtasib3@gmail.com
+					</li>
+				</ul>
+			</div>
+			<WhatsApp />
+		</div>
 	);
 };
 

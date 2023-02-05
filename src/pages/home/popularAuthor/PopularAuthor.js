@@ -52,7 +52,7 @@ const PopularAuthor = () => {
     return (
         <section className='pb-10'>
             <Container>
-                <div data-aos="fade-left"
+                <div data-aos="fade-down"
                     data-aos-easing="ease-out-cubic"
                     data-aos-duration="1000" className='shadow shadow-primary border-primary border p-3 mb-4'>
                     <h2 className='text-primary font-medium'>জনপ্রিয় লেখকগণ</h2>

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
 	margin: 0;
 	font-family: "Hind Siliguri", sans-serif;

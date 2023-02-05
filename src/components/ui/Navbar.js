@@ -1,6 +1,4 @@
-import { data } from "autoprefixer";
 import React from "react";
-import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -11,22 +9,17 @@ import MenuBar from "./MenuBar";
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const [value, setValue] = useState("");
-	const [cursorPosition, setCursorPosition] = useState();
-	console.log(cursorPosition);
+	const inputRef = useRef(null)
 	const [searchListVisible, setSearchListVisible] = useState(true);
-	const handleSearchResultClick = (data) => {
-		// setSearchListVisible(!false);
-		// navigate to other page
-		navigate(`book/${data._id}`);
-		setValue("");
-		console.log("cheak Value", value);
-	};
+
+	const reSeatInput = () =>{
+		setSearchData([]);
+		inputRef.current.value = "";
+		// console.log(inputRef.current.value);
+	}
 	
-
-
 	const [searchData, setSearchData] = useState([]);
-	console.log(searchData);
+	// console.log(searchData);
 
 
 	const { data: books, isLoading, isError } = useGetBooksQuery();
@@ -35,25 +28,34 @@ const Navbar = () => {
 	}
 	// console.log(books?.data?.books);
 
-	const searchItem = (event) => {
-		const searchText = event.target.value
+	const searchItem = event => {
+		const searchText = event.target.value;
 		console.log(searchText);
-		const result = books?.data?.books.filter((item) => {
-			return item.name.toLowerCase().includes(searchText.toLowerCase()) || item.nameEng.toLowerCase().includes(searchText.toLowerCase()) || item.author.toLowerCase().includes(searchText.toLowerCase()) || item.authorEng.toLowerCase().includes(searchText.toLowerCase())
-		})
+		const result = books?.data?.books.filter(item => {
+			return (
+				item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.nameEng.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.author.toLowerCase().includes(searchText.toLowerCase()) ||
+				item.authorEng.toLowerCase().includes(searchText.toLowerCase())
+			);
+		});
 		if (!searchText) {
-			setSearchData([])
+			setSearchData([]);
 			console.log("hello world");
+		} else if (result) {
+			setSearchData(result);
 		}
 		else if (result) {
 			setSearchData(result)
 		}
 	}
 
+	
 
 
 	const handleNavigate = () => {
 		navigate("/cart");
+		
 	};
 	const menuItems = (
 		<>
@@ -119,9 +121,11 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className='navbar bg-white border-b-2 border-primary py-0' data-aos="fade-down"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="1000">
+			<nav
+				className='navbar bg-white border-b-2 border-primary py-0'
+				data-aos='fade-down'
+				data-aos-easing='ease-out-cubic'
+				data-aos-duration='1000'>
 				<Container>
 					<div className='flex-1'>
 						<Link to='/' className='text-xl font-bold text-black'>
@@ -130,11 +134,11 @@ const Navbar = () => {
 						</Link>
 					</div>
 
-					<div className="relative">
+					<div className='relative'>
 						<div className='flex items-center justify-center'>
 							<div className='flex border border-primary border-2'>
-
 								<input
+								 ref = {inputRef}
 									type='text'
 									className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 									placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
@@ -155,9 +159,9 @@ const Navbar = () => {
 							{searchListVisible && (
 								<div>
 									{searchData.length ?
-										<ul className="top-12 w-[376px] h-auto px-4 bg-gray-300 border-2 z-10 border-primary mr-2">
+										<ul className="top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2">
 											{searchData.map(data =>
-												<li onClick={() => handleSearchResultClick(data)} className="cursor-pointer">{data.name}</li>)
+												<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
 											}
 
 										</ul>
@@ -169,8 +173,6 @@ const Navbar = () => {
 						</div>
 	
 					</div>
-
-
 
 					<div className='flex-none'>
 						<div className='dropdown dropdown-end'>
