@@ -166,7 +166,7 @@ const BookRoute = () => {
 										রিসেট ফিল্টার
 									</span>
 								</div>
-								<div className='pl-2 h-64 overflow-y-scroll'>
+								<div className='pl-2 max-h-64 overflow-y-scroll'>
 									{uniqueAuthors?.map(book => (
 										<div key={book._id} className='form-control'>
 											<label className='label cursor-pointer'>
@@ -192,7 +192,7 @@ const BookRoute = () => {
 										রিসেট ফিল্টার
 									</span>
 								</div>
-								<div className='pl-2 h-64 overflow-y-scroll'>
+								<div className='pl-2 max-h-64 overflow-y-scroll'>
 									{uniquePublications?.map(book => (
 										<div key={book._id} className='form-control'>
 											<label className='label cursor-pointer'>
@@ -218,7 +218,7 @@ const BookRoute = () => {
 										রিসেট ফিল্টার
 									</span>
 								</div>
-								<div className='pl-2 h-24 overflow-y-scroll'>
+								<div className='pl-2 max-h-24 overflow-y-scroll'>
 									{uniqueLanguage?.map(book => (
 										<div key={book._id} className='form-control'>
 											<label className='label cursor-pointer'>
@@ -244,7 +244,7 @@ const BookRoute = () => {
 										রিসেট ফিল্টার
 									</span>
 								</div>
-								<div className='pl-2 h-64 overflow-y-scroll'>
+								<div className='pl-2 max-h-64 overflow-y-scroll'>
 									{uniqueCategory?.map(book => (
 										<div key={book._id} className='form-control'>
 											<label className='label cursor-pointer'>
