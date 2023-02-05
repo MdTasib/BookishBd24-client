@@ -4,7 +4,7 @@ import Slider from "infinite-react-carousel";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
-import sliders from "./generalBookSlider";
+import GeneralBookSlider from "./GeneralBookSlider";
 
 const GeneralBook = () => {
 	const [total, setTotal] = useState("");
@@ -52,44 +52,11 @@ const GeneralBook = () => {
 		));
 	}
 
-	// GENERAL BOOK SLIDER
-	const sliders = [
-		{
-			id: 1,
-			image:
-				"https://wafilife-media.wafilife.com/uploads/2020/01/general-books-self-development-book.jpg",
-		},
-		{
-			id: 2,
-			image:
-				"https://wafilife-media.wafilife.com/uploads/2020/01/programming.jpg",
-		},
-		{
-			id: 3,
-			image:
-				"https://wafilife-media.wafilife.com/uploads/2021/03/aslaf_desktop-1.jpg",
-		}
-	];
-
-	const settings = {
-		arrows: false,
-		autoplay: true,
-		dots: true,
-		pauseOnHover: false,
-	};
+	
 
 	return (
 		<Container>
-			<Slider {...settings} className='my-10'>
-				{sliders.map(slider => (
-					<img
-						key={slider.id}
-						className='w-full h-64 object-cover'
-						src={slider.image}
-						alt=''
-					/>
-				))}
-			</Slider>
+			<GeneralBookSlider />
 			<div>
 				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
 					<h2 className='text-primary font-bold animate-pulse'>ভর্তি গাইড</h2>
