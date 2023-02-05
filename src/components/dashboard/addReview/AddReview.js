@@ -12,6 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useCreateReviewMutation } from "../../../features/api/apiSlice";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from "../../../firebase.init";
+
 
 const colors = {
 	orange: "#FFBA5A",
@@ -28,6 +31,8 @@ const AddReview = () => {
 	const [hoverValue, setHoverValue] = useState(undefined);
 	const [comment, setComment] = useState("");
 	const stars = Array(5).fill(0);
+	const [user] = useAuthState(auth);
+	console.log(user);
 
 	// RENDER BY CONDITION
 	let content;
@@ -58,76 +63,77 @@ const AddReview = () => {
 	};
 
 	const onSubmit = async data => {
-		if (singleImages.length > 1) {
-			setLoading(false);
-			toast.error("Max 1 images");
-			return;
-		}
+		// if (singleImages.length > 1) {
+		// 	setLoading(false);
+		// 	toast.error("Max 1 images");
+		// 	return;
+		// }
 
-		///////////////   single images upload   //////////////////
-		// Store single images in firebase
-		const storeImage = async image => {
-			return new Promise((resolve, reject) => {
-				const storage = getStorage();
-				const fileName = `${image.name}-${uuidv4()}`;
+		// ///////////////   single images upload   //////////////////
+		// // Store single images in firebase
+		// const storeImage = async image => {
+		// 	return new Promise((resolve, reject) => {
+		// 		const storage = getStorage();
+		// 		const fileName = `${image.name}-${uuidv4()}`;
 
-				const storageRef = ref(storage, "images/" + fileName);
+		// 		const storageRef = ref(storage, "images/" + fileName);
 
-				const uploadTask = uploadBytesResumable(storageRef, image);
+		// 		const uploadTask = uploadBytesResumable(storageRef, image);
 
-				uploadTask.on(
-					"state_changed",
-					snapshot => {
-						const progress =
-							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-						console.log("Upload is " + progress + "% done");
-						switch (snapshot.state) {
-							case "paused":
-								console.log("Upload is paused");
-								break;
-							case "running":
-								console.log("Upload is running");
-								break;
-							default:
-								break;
-						}
-					},
-					error => {
-						reject(error);
-					},
-					() => {
-						// Handle successful uploads on complete
-						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
-						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-							resolve(downloadURL);
-						});
-					}
-				);
-			});
-		};
+		// 		uploadTask.on(
+		// 			"state_changed",
+		// 			snapshot => {
+		// 				const progress =
+		// 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+		// 				console.log("Upload is " + progress + "% done");
+		// 				switch (snapshot.state) {
+		// 					case "paused":
+		// 						console.log("Upload is paused");
+		// 						break;
+		// 					case "running":
+		// 						console.log("Upload is running");
+		// 						break;
+		// 					default:
+		// 						break;
+		// 				}
+		// 			},
+		// 			error => {
+		// 				reject(error);
+		// 			},
+		// 			() => {
+		// 				// Handle successful uploads on complete
+		// 				// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+		// 				getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+		// 					resolve(downloadURL);
+		// 				});
+		// 			}
+		// 		);
+		// 	});
+		// };
 
-		const imageURLS = await Promise.all(
-			[...singleImages].map(image => storeImage(image))
-		).catch(() => {
-			toast.error("Images not uploaded");
-			return;
-		});
+		// const imageURLS = await Promise.all(
+		// 	[...singleImages].map(image => storeImage(image))
+		// ).catch(() => {
+		// 	toast.error("Images not uploaded");
+		// 	return;
+		// });
 
 		const uploadReview = {
 			review: data.review,
-			name: "test name",
-			email: "test email",
+			name: user.displayName,
+			email: user.email,
 			rating: rating,
-			photoURL: imageURLS[0],
+			photoURL: user?.photoURL,
 			date: new Date().toDateString(),
 		};
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
+			reset();
 			console.log(uploadReview, content);
 		}
 
-		reset();
+		
 	};
 
 	return (
@@ -136,7 +142,7 @@ const AddReview = () => {
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>
 			<form onSubmit={handleSubmit(onSubmit)} className='card-body pb-0'>
-				<div className='avatar mx-auto flex-col items-center gap-3'>
+				{/* <div className='avatar mx-auto flex-col items-center gap-3'>
 					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
 						<label
 							for='dropzone-file'
@@ -167,6 +173,12 @@ const AddReview = () => {
 							/>
 						</label>
 					</div>
+				</div> */}
+				<div className="avatar mx-auto flex-col items-center gap-3">
+					<div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+						<img src={`${user?.photoURL ? user?.photoURL : 'https://i.pravatar.cc/300'}`} alt={`${user?.displayName}`} />
+					</div>
+					<h2 className="text-2xl font-bold">{user?.displayName}</h2>
 				</div>
 
 				<div className='flex flex-row justify-center'>
