@@ -24,6 +24,7 @@ const AddReview = () => {
 	const [comment, setComment] = useState("");
 	const stars = Array(5).fill(0);
 	const [user] = useAuthState(auth);
+	console.log("user - ", user);
 
 	// RENDER BY CONDITION
 	if (isLoading || loading) {
@@ -54,8 +55,8 @@ const AddReview = () => {
 	const onSubmit = async data => {
 		const uploadReview = {
 			review: data.review,
-			name: user.displayName,
-			email: user.email,
+			name: user?.displayName,
+			email: user?.email,
 			rating: rating,
 			photoURL: user?.photoURL,
 			date: new Date().toDateString(),
