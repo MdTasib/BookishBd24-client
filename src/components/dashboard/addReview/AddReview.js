@@ -5,9 +5,9 @@ import { FaStar } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useCreateReviewMutation } from "../../../features/api/apiSlice";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
-
+import profileIcon from "../../../assets/icons/user.png";
 
 const colors = {
 	orange: "#FFBA5A",
@@ -52,7 +52,6 @@ const AddReview = () => {
 	};
 
 	const onSubmit = async data => {
-
 		const uploadReview = {
 			review: data.review,
 			name: user.displayName,
@@ -65,9 +64,8 @@ const AddReview = () => {
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
-			reset()
+			reset();
 		}
-
 	};
 
 	return (
@@ -108,11 +106,14 @@ const AddReview = () => {
 						</label>
 					</div>
 				</div> */}
-				<div className="avatar mx-auto flex-col items-center gap-3">
-					<div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-						<img src={`${user?.photoURL ? user?.photoURL : 'https://i.pravatar.cc/300'}`} alt={`${user?.displayName}`} />
+				<div className='avatar mx-auto flex-col items-center gap-3'>
+					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+						<img
+							src={`${user?.photoURL ? user?.photoURL : profileIcon}`}
+							alt={`${user?.displayName}`}
+						/>
 					</div>
-					<h2 className="text-2xl font-bold">{user?.displayName}</h2>
+					<h2 className='text-2xl font-bold'>{user?.displayName}</h2>
 				</div>
 
 				<div className='flex flex-row justify-center'>
