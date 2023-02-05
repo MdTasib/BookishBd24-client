@@ -60,7 +60,6 @@ const AddReview = () => {
 			photoURL: user?.photoURL,
 			date: new Date().toDateString(),
 		};
-		console.log(uploadReview);
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
