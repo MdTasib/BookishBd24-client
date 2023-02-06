@@ -10,7 +10,7 @@ import WhatsApp from "../../pages/whatsapp/WhatsApp";
 
 const Footer = () => {
 	return (
-		<div className='bg-accent h-1/2 w-full flex md:flex-row flex-col justify-around items-start px-10 py-4'>
+		<div className='bg-accent h-1/2 w-full flex md:flex-row flex-col justify-around items-start px-10 py-4 block relative bottom-0'>
 			<div className='p-5 '>
 				<ul>
 					<p className='font-bold text-2xl pb-4'>

@@ -5,9 +5,10 @@ import { FaStar } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useCreateReviewMutation } from "../../../features/api/apiSlice";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
-
+import profileIcon from "../../../assets/icons/user.png";
+import { Helmet } from "react-helmet";
 
 const colors = {
 	orange: "#FFBA5A",
@@ -24,6 +25,7 @@ const AddReview = () => {
 	const [comment, setComment] = useState("");
 	const stars = Array(5).fill(0);
 	const [user] = useAuthState(auth);
+	console.log("user - ", user);
 
 	// RENDER BY CONDITION
 	if (isLoading || loading) {
@@ -52,26 +54,30 @@ const AddReview = () => {
 	};
 
 	const onSubmit = async data => {
-
 		const uploadReview = {
 			review: data.review,
-			name: user.displayName,
-			email: user.email,
+			name: user?.displayName,
+			email: user?.email,
 			rating: rating,
 			photoURL: user?.photoURL,
 			date: new Date().toDateString(),
 		};
-		console.log(uploadReview);
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
-			reset()
+			reset();
 		}
-
 	};
 
 	return (
 		<div className='w-full p-10 lg:w-1/2 mx-auto'>
+			{/*=== React-Helmet Start ===*/}
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddReview | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
+			{/*=== React-Helmet End ===*/}
 			<h1 className='text-xl text-center text-primary'>
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>
@@ -108,11 +114,14 @@ const AddReview = () => {
 						</label>
 					</div>
 				</div> */}
-				<div className="avatar mx-auto flex-col items-center gap-3">
-					<div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-						<img src={`${user?.photoURL ? user?.photoURL : 'https://i.pravatar.cc/300'}`} alt={`${user?.displayName}`} />
+				<div className='avatar mx-auto flex-col items-center gap-3'>
+					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+						<img
+							src={`${user?.photoURL ? user?.photoURL : profileIcon}`}
+							alt={`${user?.displayName}`}
+						/>
 					</div>
-					<h2 className="text-2xl font-bold">{user?.displayName}</h2>
+					<h2 className='text-2xl font-bold'>{user?.displayName}</h2>
 				</div>
 
 				<div className='flex flex-row justify-center'>

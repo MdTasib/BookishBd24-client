@@ -1,9 +1,15 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
 	return (
 		<div className='drawer drawer-mobile'>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Dashboard | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<input id='dashboard-sidebar' type='checkbox' className='drawer-toggle' />
 			<div className='drawer-content p-5'>
 				{/* <!-- Page content here --> */}
