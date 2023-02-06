@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const MyProfile = () => {
 	const [singleImages, setSingleImages] = useState({});
@@ -90,6 +91,13 @@ const MyProfile = () => {
 
 	return (
 		<div className='hero min-h-screen'>
+			{/* React-Helmet Start */}
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>MyProfile | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
+			{/* React-Helmet End */}
 			<div className='card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100'>
 				<form onSubmit={handleSubmit(onSubmit)} className='card-body'>
 					<label

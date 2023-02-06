@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import Loading from "../ui/Loading";
 import { useState } from "react";
 import { useCreateAuthorMutation } from "../../features/api/apiSlice";
+import { Helmet } from "react-helmet";
 
 const AddAuthor = () => {
 	const [singleImages, setSingleImages] = useState({});
@@ -99,6 +100,11 @@ const AddAuthor = () => {
 
 	return (
 		<div className='hero'>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddAuthor | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='hero-content w-full'>
 				<div className='card w-full shadow-2xl bg-base-100'>
 					<form onSubmit={handleSubmit(onSubmit)} className='card-body'>

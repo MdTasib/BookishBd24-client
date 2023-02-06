@@ -1,10 +1,18 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 
 const UpdateProfile = () => {
     const { register, handleSubmit, reset } = useForm();
     return (
         <div className='card shadow-2xl bg-base-100 w-[50%] mx-auto'>
+            {/* React-Helmet Start */}
+            <Helmet>
+				<meta charSet="utf-8"/>
+				<title>UpdateProfile | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
+            {/* React-Helmet End */}
             <form onSubmit={handleSubmit()} className='card-body'>
                 <div className='form-control'>
                     <div className=''>

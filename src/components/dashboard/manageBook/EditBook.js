@@ -1,4 +1,5 @@
 import ColumnGroup from "antd/es/table/ColumnGroup";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 
 const EditBook = () => {
@@ -20,6 +21,11 @@ const EditBook = () => {
 
   return (
     <div className='hero'>
+      <Helmet>
+				<meta charSet="utf-8"/>
+				<title>EditBook | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
       <div className='hero-content w-full'>
         <div className='card w-full shadow-2xl bg-base-100'>
           <form onSubmit={handleSubmit(onSubmit)} className='card-body'>

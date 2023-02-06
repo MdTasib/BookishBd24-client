@@ -8,6 +8,7 @@ import { useCreateReviewMutation } from "../../../features/api/apiSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import profileIcon from "../../../assets/icons/user.png";
+import { Helmet } from "react-helmet";
 
 const colors = {
 	orange: "#FFBA5A",
@@ -70,6 +71,13 @@ const AddReview = () => {
 
 	return (
 		<div className='w-full p-10 lg:w-1/2 mx-auto'>
+			{/*=== React-Helmet Start ===*/}
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddReview | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
+			{/*=== React-Helmet End ===*/}
 			<h1 className='text-xl text-center text-primary'>
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>

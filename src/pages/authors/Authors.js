@@ -7,6 +7,9 @@ import Author from "./Author";
 import Loading from "../../components/ui/Loading";
 import { Pagination } from "antd";
 import { NavLink } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
+
 
 const Authors = () => {
 	const [total, setTotal] = useState("");
@@ -86,6 +89,11 @@ const Authors = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Authors | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>
 					<Breadcrumb route='/' name='হোম' />
@@ -119,7 +127,7 @@ const Authors = () => {
 						<input
 							ref={inputRef}
 							type='text'
-							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+							className='px-4 py-2 input-sm w-full md:w-80 input-primary'
 							placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
 							onChange={event => searchItem(event)}
 						/>

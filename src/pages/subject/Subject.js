@@ -7,6 +7,7 @@ import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { getUniqueListBy } from "../../utils/getUniqueListBy";
 import { Pagination } from "antd";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Subject = () => {
 	const [total, setTotal] = useState("");
@@ -96,6 +97,11 @@ const Subject = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Subjects | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>
 					<Breadcrumb route='/' name='হোম' />
@@ -126,7 +132,7 @@ const Subject = () => {
 				</p>
 			</div>
 
-			<section className='flex justify-center items-center my-5'>
+			<section className='md:flex justify-center items-center my-5'>
 				<div className='mr-8'>
 					<h1
 						className='text-xl text-gray-700'
@@ -138,7 +144,7 @@ const Subject = () => {
 				</div>
 
 				<div className="relative">
-					<div className='flex items-center justify-center'>
+					<div className='flex items-center md:justify-center'>
 						<div
 							className='flex border border-primary border-2'
 							data-aos='fade-up'
@@ -147,7 +153,7 @@ const Subject = () => {
 							<input
 								ref={inputRef}
 								type='text'
-								className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+								className='px-4 py-2 input-sm :w-full md:w-80 input-primary'
 								placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
 								onChange={event => searchItem(event)}
 							/>
