@@ -29,9 +29,9 @@ const Offer = () => {
 	return (
 		<Container>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>Offer | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>
@@ -39,7 +39,7 @@ const Offer = () => {
 					<Breadcrumb route='/offer' name='অফারসমূহ' />
 				</ul>
 			</div>
-			<Slider {...settings} className='my-10'>
+			<Slider {...settings} className='mb-10'>
 				{sliders.map(slider => (
 					<img
 						key={slider.id}
