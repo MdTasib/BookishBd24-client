@@ -13,7 +13,7 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const inputRef = useRef(null);
 	const [searchListVisible, setSearchListVisible] = useState(true);
-	const [user] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 	const reSeatInput = () => {
 		setSearchData([]);
 		inputRef.current.value = "";
@@ -21,7 +21,7 @@ const Navbar = () => {
 	const [searchData, setSearchData] = useState([]);
 	const { data: books, isLoading } = useGetBooksQuery();
 
-	if (isLoading) {
+	if (isLoading || loading) {
 		return <Loading />;
 	}
 
