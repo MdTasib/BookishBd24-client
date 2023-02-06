@@ -5,6 +5,7 @@ import Container from "../../components/ui/Container";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { getUniqueListBy } from "../../utils/getUniqueListBy";
 import Loading from "../../components/ui/Loading";
+import { Helmet } from "react-helmet";
 
 const BookRoute = () => {
 	const [totalBooks, setTotalBooks] = useState([]);
@@ -113,6 +114,11 @@ const BookRoute = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>BookRoute | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className="main">
 				<div className='grid grid-cols-2 py-4'>
 					<p

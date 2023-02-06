@@ -4,11 +4,17 @@ import book1 from "../../assets/images/book.png";
 import book2 from "../../assets/images/book2.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Checkout from './Checkout';
+import { Helmet } from 'react-helmet';
 
 const Cart = () => {
     return (
 
         <div className='bg-[#F1F2F4]'>
+            <Helmet>
+				<meta charSet="utf-8"/>
+				<title>Cart | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
             <Container>
                 <div className='md:flex lg:flex justify-between gap-6 md:px-12 lg:px-12'>
                     <div className='md:w-[82%] lg:w-[82%]'>

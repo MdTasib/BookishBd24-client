@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -70,6 +71,11 @@ const AddSlider = () => {
 
 	return (
 		<>
+		    <Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddSlider | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='flex justify-center mt-8'>
 				<form
 					onSubmit={handleSubmit(onSubmit)}

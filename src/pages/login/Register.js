@@ -16,6 +16,7 @@ import showIcon from "../../assets/icons/show.png";
 import hideIcon from "../../assets/icons/hide.png";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
 	const [passwordShow, setPasswordShow] = useState(false);
@@ -76,6 +77,11 @@ const Register = () => {
 
 	return (
 		<div>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Register | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='relative flex '>
 				<div className='flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white'>
 					<div className='sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-primary text-white bg-no-repeat bg-cover relative'>

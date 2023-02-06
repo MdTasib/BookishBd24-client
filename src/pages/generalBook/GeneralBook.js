@@ -3,6 +3,7 @@ import Container from "../../components/ui/Container";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
+import { Helmet } from "react-helmet";
 
 const GeneralBook = () => {
 	const [total, setTotal] = useState("");
@@ -52,6 +53,11 @@ const GeneralBook = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>GeneralBook | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div>
 				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
 					<h2 className='text-primary font-bold animate-pulse'>ভর্তি গাইড</h2>

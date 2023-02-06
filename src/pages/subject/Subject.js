@@ -7,6 +7,7 @@ import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { getUniqueListBy } from "../../utils/getUniqueListBy";
 import { Pagination } from "antd";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Subject = () => {
 	const [total, setTotal] = useState("");
@@ -96,6 +97,11 @@ const Subject = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Subjects | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>
 					<Breadcrumb route='/' name='হোম' />
