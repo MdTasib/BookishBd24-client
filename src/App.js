@@ -33,6 +33,7 @@ import Offer from "./pages/offer/Offer";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 
 function App() {
+
 	return (
 		<Router>
 			<Toaster />
@@ -72,8 +73,8 @@ function App() {
 			</Routes>
 
 			<Footer />
-
 		</Router>
+
 	);
 }
 
