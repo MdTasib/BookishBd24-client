@@ -12,7 +12,7 @@ import Navbar from "./components/ui/Navbar";
 import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardIntro from "./components/dashboard/DashboardIntro";
-import AddSlider from "./components/dashboard/AddSlider";
+import AddSlider from "./components/dashboard/slider/AddSlider";
 import AddProduct from "./components/dashboard/AddProduct";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/login/Login";
