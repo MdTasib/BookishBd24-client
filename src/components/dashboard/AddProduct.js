@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
 import Loading from "../ui/Loading";
 import { app } from "../../firebase.init";
+import { Helmet } from "react-helmet";
 
 const AddProduct = () => {
 	const [bookImage, setBookImage] = useState(null);
@@ -115,6 +116,11 @@ const AddProduct = () => {
 
 	return (
 		<div className='hero'>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddProduct | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='hero-content w-full'>
 				<div className='card w-full shadow-2xl bg-base-100'>
 					<form onSubmit={handleSubmit(onSubmit)} className='card-body'>

@@ -6,6 +6,7 @@ import Loading from "../../components/ui/Loading";
 import Review from "./Review";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import { Pagination } from "antd";
+import { Helmet } from "react-helmet";
 
 const UserReview = () => {
 	const [total, setTotal] = useState("");
@@ -48,6 +49,11 @@ const UserReview = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Reviews | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>

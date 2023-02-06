@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Container from '../../components/ui/Container';
 import { products } from '../../data/data';
@@ -7,6 +8,11 @@ import PreOrderBook from '../preOderBook/PreOrderBook';
 const PriOrder = () => {
     return (
         <div>
+            <Helmet>
+				<meta charSet="utf-8"/>
+				<title>PreOrder | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
             <Container>
             <div className='text-sm breadcrumbs py-4'>
 				<ul>
