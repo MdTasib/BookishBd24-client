@@ -15,7 +15,7 @@ const GeneralBook = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetBooksQuery({ page, limit: postPerPage });
+	} = useGetBooksQuery({ page, limit: postPerPage, category:"জেনারেল বই" });
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
