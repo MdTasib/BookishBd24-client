@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
+import Slider from "infinite-react-carousel";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
 import { Helmet } from "react-helmet";
+import GeneralBookSlider from "./GeneralBookSlider";
+
 
 const GeneralBook = () => {
 	const [total, setTotal] = useState("");
@@ -14,7 +17,7 @@ const GeneralBook = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetBooksQuery({ page, limit: postPerPage });
+	} = useGetBooksQuery({ page, limit: postPerPage, category:"জেনারেল বই" });
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
@@ -51,13 +54,19 @@ const GeneralBook = () => {
 		));
 	}
 
+	
+
 	return (
 		<Container>
+
 			<Helmet>
 				<meta charSet="utf-8"/>
 				<title>GeneralBook | BookishBD24</title>
 				<meta name="description" content="BookishBD24 website using React JS"/>
 			</Helmet>
+
+			<GeneralBookSlider />
+
 			<div>
 				<div className='shadow shadow-gray-400 border-gray-400 border p-3 my-6'>
 					<h2 className='text-primary font-bold animate-pulse'>ভর্তি গাইড</h2>

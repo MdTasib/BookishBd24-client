@@ -127,7 +127,7 @@ const Authors = () => {
 						<input
 							ref={inputRef}
 							type='text'
-							className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
+							className='px-4 py-2 input-sm w-full md:w-80 input-primary'
 							placeholder='লেখকের নাম দিয়ে অনুসন্ধান করুন'
 							onChange={event => searchItem(event)}
 						/>

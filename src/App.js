@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./assets/css/styles.css";
 import Footer from "./components/ui/Footer";
@@ -30,8 +30,10 @@ import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
 import Offer from "./pages/offer/Offer";
+import ColumnGroup from "antd/es/table/ColumnGroup";
 
 function App() {
+
 	return (
 		<Router>
 			<Toaster />
@@ -72,6 +74,7 @@ function App() {
 
 			<Footer />
 		</Router>
+
 	);
 }
 
