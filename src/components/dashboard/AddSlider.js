@@ -10,11 +10,25 @@ import {
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "../ui/Loading";
+import { useCreateSliderMutation } from "../../features/api/apiSlice";
 
 const AddSlider = () => {
+	const [addSlider, { isLoading, isError, isSuccess }] =
+		useCreateSliderMutation();
 	const [singleImage, setSingleImage] = useState({});
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
+
+	// RENDER BY CONDITION
+	if (isLoading || loading) {
+		return <Loading />;
+	}
+	if (!isLoading && isError) {
+		toast.error("আপনার স্লাইডারটি যোগ করতে ব্যর্থ হয়েছে| আবার চেষ্টা করুন");
+	}
+	if (!isError && !isLoading && isSuccess) {
+		toast.success("আপনার স্লাইডারটি সফল ভাবে যোগ হয়েছে!");
+	}
 
 	const onSubmit = async data => {
 		///////////////   slider image upload   //////////////////
@@ -68,13 +82,12 @@ const AddSlider = () => {
 			image: imageURL[0],
 		};
 
-		console.log(sliderImage);
+		if (!isLoading || isSuccess) {
+			addSlider(sliderImage);
+		}
 
 		reset();
 	};
-	if (loading) {
-		return <Loading />;
-	}
 
 	// SLIDER IMAGES
 	const sliders = [
