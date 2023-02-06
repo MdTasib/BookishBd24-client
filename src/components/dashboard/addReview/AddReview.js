@@ -2,13 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaStar } from "react-icons/fa";
-import {
-	getStorage,
-	ref,
-	uploadBytesResumable,
-	getDownloadURL,
-} from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useCreateReviewMutation } from "../../../features/api/apiSlice";
@@ -22,9 +15,8 @@ const colors = {
 };
 
 const AddReview = () => {
-	const [addReveiw, { isLoading, isError, isSuccess, error, data: review }] =
+	const [addReveiw, { isLoading, isError, isSuccess }] =
 		useCreateReviewMutation();
-	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
 	const [rating, setRating] = useState(0);
@@ -32,19 +24,16 @@ const AddReview = () => {
 	const [comment, setComment] = useState("");
 	const stars = Array(5).fill(0);
 	const [user] = useAuthState(auth);
-	console.log(user);
 
 	// RENDER BY CONDITION
-	let content;
 	if (isLoading || loading) {
-		content = <Loading />;
+		return <Loading />;
 	}
 	if (!isLoading && isError) {
-		// content = <p className='text-red-500'>Review can't added!😢</p>;
-		content = console.log(error);
+		toast.error("Review can't added!😢");
 	}
 	if (!isError && !isLoading && isSuccess) {
-		content = console.log(review);
+		toast.success("Review added");
 	}
 
 	const handleComment = e => {
@@ -63,60 +52,6 @@ const AddReview = () => {
 	};
 
 	const onSubmit = async data => {
-		// if (singleImages.length > 1) {
-		// 	setLoading(false);
-		// 	toast.error("Max 1 images");
-		// 	return;
-		// }
-
-		// ///////////////   single images upload   //////////////////
-		// // Store single images in firebase
-		// const storeImage = async image => {
-		// 	return new Promise((resolve, reject) => {
-		// 		const storage = getStorage();
-		// 		const fileName = `${image.name}-${uuidv4()}`;
-
-		// 		const storageRef = ref(storage, "images/" + fileName);
-
-		// 		const uploadTask = uploadBytesResumable(storageRef, image);
-
-		// 		uploadTask.on(
-		// 			"state_changed",
-		// 			snapshot => {
-		// 				const progress =
-		// 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-		// 				console.log("Upload is " + progress + "% done");
-		// 				switch (snapshot.state) {
-		// 					case "paused":
-		// 						console.log("Upload is paused");
-		// 						break;
-		// 					case "running":
-		// 						console.log("Upload is running");
-		// 						break;
-		// 					default:
-		// 						break;
-		// 				}
-		// 			},
-		// 			error => {
-		// 				reject(error);
-		// 			},
-		// 			() => {
-		// 				// Handle successful uploads on complete
-		// 				// For instance, get the download URL: https://firebasestorage.googleapis.com/...
-		// 				getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-		// 					resolve(downloadURL);
-		// 				});
-		// 			}
-		// 		);
-		// 	});
-		// };
-
-		// const imageURLS = await Promise.all(
-		// 	[...singleImages].map(image => storeImage(image))
-		// ).catch(() => {
-		// 	toast.error("Images not uploaded");
-		// 	return;
-		// });
 
 		const uploadReview = {
 			review: data.review,
@@ -126,19 +61,18 @@ const AddReview = () => {
 			photoURL: user?.photoURL,
 			date: new Date().toDateString(),
 		};
+		console.log(uploadReview);
 
 		if (!isLoading || isSuccess) {
 			addReveiw(uploadReview);
-			reset();
-			console.log(uploadReview, content);
+			reset()
 		}
 
-		
 	};
 
 	return (
 		<div className='w-full p-10 lg:w-1/2 mx-auto'>
-			<h1 className='text-2xl text-center text-primary'>
+			<h1 className='text-xl text-center text-primary'>
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>
 			<form onSubmit={handleSubmit(onSubmit)} className='card-body pb-0'>

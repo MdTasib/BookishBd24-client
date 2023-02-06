@@ -1,20 +1,28 @@
 import React from "react";
 
 const Review = ({
-	review: { review, rating, photoURL, name, email, date },
+	review: { review, rating = 1, photoURL, displayName, email, date },
 }) => {
 	return (
 		<div className='shadow-xl p-4 rounded-md'>
 			<div className='flex items-center gap-4'>
-				<img
-					className='w-24 border-primary border border-3 h-24 mb-3 rounded-full shadow-lg'
-					src={photoURL ? photoURL : name.slice(0, 1)}
-					alt=''
-				/>
+				{photoURL ? (
+					<div className='avatar'>
+						<div className='w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+							<img src={photoURL} alt={displayName} className='object-cover' />
+						</div>
+					</div>
+				) : (
+					<div className='avatar placeholder'>
+						<div className='bg-accent rounded-full w-16 ring ring-primary'>
+							<span className='text-xl'>{email.slice(0, 1)}</span>
+						</div>
+					</div>
+				)}
 				<div>
-					<h3 className='font-bold animate-pulse'>{name}</h3>
+					<h3 className='font-bold animate-pulse'>{displayName}</h3>
 					<div className='rating rating-sm'>
-						{[...Array(Number(rating))].map((star, index) => (
+						{[...Array(Number(rating))]?.map((star, index) => (
 							<input
 								type='radio'
 								name='rating-4'
@@ -28,9 +36,7 @@ const Review = ({
 					</h3>
 				</div>
 			</div>
-			<div>
-				<p>{review}</p>
-			</div>
+			<p className='pt-2'>{review}</p>
 		</div>
 	);
 };

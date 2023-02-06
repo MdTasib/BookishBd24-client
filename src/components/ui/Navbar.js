@@ -1,8 +1,10 @@
 import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
+import auth from "../../firebase.init";
 import Container from "./Container";
 import Loading from "./Loading";
 import MenuBar from "./MenuBar";
@@ -11,6 +13,8 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const inputRef = useRef(null)
 	const [searchListVisible, setSearchListVisible] = useState(true);
+	const [user] = useAuthState(auth);
+
 
 	const reSeatInput = () =>{
 		setSearchData([]);
@@ -96,18 +100,15 @@ const Navbar = () => {
 				<div className='dropdown dropdown-end'>
 					<label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
 						<div className='w-10 rounded-full'>
-							<img src='https://placeimg.com/80/80/people' alt='' />
+							<img src={`${user?.photoURL ? user?.photoURL : 'https://i.pravatar.cc/300'}`} alt='' />
 						</div>
 					</label>
 					<ul
 						tabIndex={0}
 						className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'>
 						<li>
-							<a href='' className='justify-between'>
+							<a href='/dashboard/add-review' className='justify-between'>
 								View Profile
-							</a>
-							<a href='' className='justify-between'>
-								Update Profile
 							</a>
 						</li>
 						<li>
