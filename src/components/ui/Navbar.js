@@ -135,7 +135,7 @@ const Navbar = () => {
 						</Link>
 					</div>
 
-					<div className='relative'>
+					<div className='relative '>
 						<div className='flex items-center justify-center'>
 							<div className='flex border border-primary border-2'>
 								<input
