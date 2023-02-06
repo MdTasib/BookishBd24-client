@@ -1,54 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import Loading from "../ui/Loading";
 
 const AddSlider = () => {
+	const [singleImage, setSingleImage] = useState({});
 	const { register, handleSubmit, reset } = useForm();
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async data => {
-		const image = data.image[0];
-		const formData = new FormData();
-		formData.append("image", image);
+		///////////////   slider image upload   //////////////////
+		// Store slider image in firebase
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
 
-		fetch(
-			`https://api.imgbb.com/1/upload?key=eb7bb93d7839539a8bddb41471f7e0da`,
-			{
-				method: "POST",
-				body: formData,
-			}
-		)
-			.then(res => res.json())
-			.then(result => {
-				const imageURL = result.data.url;
+				const storageRef = ref(storage, "images/" + fileName);
 
-				const uploadImage = {
-					image: imageURL,
-				};
+				const uploadTask = uploadBytesResumable(storageRef, image);
 
-				if (result.success) {
-					fetch(`https://beatnik-task-server.vercel.app/slider`, {
-						method: "POST",
-						headers: {
-							"content-type": "application/json",
-						},
-						body: JSON.stringify(uploadImage),
-					})
-						.then(res => res.json())
-						.then(data => {
-							Swal.fire({
-								position: "top-center",
-								icon: "success",
-								title: "Successfully upload a new product",
-								showConfirmButton: false,
-								timer: 1500,
-							});
-
-							reset();
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
 						});
-				}
+					}
+				);
 			});
+		};
+
+		const imageURL = await Promise.all(
+			[...singleImage].map(image => storeImage(image))
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+
+		const sliderImage = {
+			image: imageURL[0],
+		};
+
+		console.log(sliderImage);
+
+		reset();
 	};
+	if (loading) {
+		return <Loading />;
+	}
 
 	// SLIDER IMAGES
 	const sliders = [
@@ -71,10 +97,10 @@ const AddSlider = () => {
 
 	return (
 		<>
-		    <Helmet>
-				<meta charSet="utf-8"/>
+			<Helmet>
+				<meta charSet='utf-8' />
 				<title>AddSlider | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<div className='flex justify-center mt-8'>
 				<form
@@ -108,6 +134,7 @@ const AddSlider = () => {
 									{...register("image", { required: true })}
 									type='file'
 									className='input-file'
+									onChange={e => setSingleImage(e.target.files)}
 								/>
 							</label>
 						</div>
