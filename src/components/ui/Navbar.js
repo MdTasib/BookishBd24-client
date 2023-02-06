@@ -14,21 +14,16 @@ const Navbar = () => {
 	const inputRef = useRef(null);
 	const [searchListVisible, setSearchListVisible] = useState(true);
 	const [user] = useAuthState(auth);
-
 	const reSeatInput = () => {
 		setSearchData([]);
 		inputRef.current.value = "";
-		// console.log(inputRef.current.value);
 	};
-
 	const [searchData, setSearchData] = useState([]);
-	// console.log(searchData);
+	const { data: books, isLoading } = useGetBooksQuery();
 
-	const { data: books, isLoading, isError } = useGetBooksQuery();
 	if (isLoading) {
 		return <Loading />;
 	}
-	// console.log(books?.data?.books);
 
 	const searchItem = event => {
 		const searchText = event.target.value;
@@ -56,11 +51,13 @@ const Navbar = () => {
 	};
 	const menuItems = (
 		<>
-			<li className='p-0'>
-				<NavLink className='text-sm mb-2 ' to='/dashboard'>
-					ড্যাশবোর্ড
-				</NavLink>
-			</li>
+			{user && (
+				<li className='p-0'>
+					<NavLink className='text-sm mb-2 ' to='/dashboard'>
+						ড্যাশবোর্ড
+					</NavLink>
+				</li>
+			)}
 			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/login'>
 					লগইন / রেজিস্টার
@@ -109,11 +106,13 @@ const Navbar = () => {
 								View Profile
 							</NavLink>
 						</li>
-						<button
-							onClick={() => signOut(auth)}
-							className='btn btn-sm btn-primary'>
-							Log Out
-						</button>
+						{user && (
+							<button
+								onClick={() => signOut(auth)}
+								className='btn btn-sm btn-primary'>
+								Log Out
+							</button>
+						)}
 					</ul>
 				</div>
 			</div>
