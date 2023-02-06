@@ -129,7 +129,7 @@ const BookRoute = () => {
 			<Container>
 				<div className="">
 
-					<div className='grid grid-cols-2 py-4'>
+					<div className='md:grid grid-cols-2 py-4'>
 						<p
 							className='text-start'
 							data-aos='fade-right'
@@ -147,7 +147,7 @@ const BookRoute = () => {
 							টি আইটেম পাওয়া গিয়েছে
 						</p>
 						<div
-							className='text-end'
+							className='md:text-end'
 							data-aos='fade-left'
 							data-aos-easing='ease-out-cubic'
 							data-aos-duration='1000'>
