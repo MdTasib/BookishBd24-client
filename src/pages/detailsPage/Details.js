@@ -16,6 +16,18 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 
 const Details = () => {
+	const models = [
+		{
+			id: 1,
+			image:
+				"https://s3-ap-southeast-1.amazonaws.com/rokomari110/LookInside20190827/7046f8b31_188057-3.jpg",
+		},
+		{
+			id: 2,
+			image:
+				"https://s3-ap-southeast-1.amazonaws.com/rokomari110/LookInside20190827/b7f556d65_188057-4.jpg",
+		},
+	];
 	const [seeMore, setSeeMore] = useState(false);
 	const { id } = useParams();
 	const dispatch = useDispatch();
@@ -88,10 +100,26 @@ const Details = () => {
 							className='bg-[#F23534] text-white px-4 py-2 rounded'>
 							অর্ডার করুন
 						</button>
-						<button className='bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]'>
-							আরও পড়ুন
-						</button>
-					</div>
+						
+			{/* The button to open modal */}
+  <label htmlFor="my-modal-3" className="bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]">আরও পড়ুন</label>
+  <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+<div className="modal">
+  <div className="modal-box relative">
+    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+    <h3 className="text-lg font-bold text-center">{book?.data?.name}</h3>
+    <p className="text-center">{book?.data?.author}</p>
+	{models?.map(model => (
+				<img
+					key={model.id}
+					className='w-full'
+					src={model.image}
+					alt=''
+					/>
+				))}
+     </div>
+    </div>
+	</div>
 
 					{/* ADDS IMAGES------------------------------- */}
 					<div className='mt-4 md:grid grid-cols-2 gap-4'>
