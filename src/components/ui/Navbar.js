@@ -1,32 +1,31 @@
-import React from "react";
-import { useRef } from "react";
-import { useState } from "react";
+import { signOut } from "firebase/auth";
+import React, { useState, useRef } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
+import auth from "../../firebase.init";
 import Container from "./Container";
 import Loading from "./Loading";
 import MenuBar from "./MenuBar";
+import profileIcon from "../../assets/icons/user.png";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const inputRef = useRef(null)
+	const inputRef = useRef(null);
 	const [searchListVisible, setSearchListVisible] = useState(true);
-
-	const reSeatInput = () =>{
+	const [user, loading] = useAuthState(auth);
+	const reSeatInput = () => {
 		setSearchData([]);
 		inputRef.current.value = "";
-		// console.log(inputRef.current.value);
-	}
-	
+	};
 	const [searchData, setSearchData] = useState([]);
-	// console.log(searchData);
+	const { data: books, isLoading } = useGetBooksQuery();
+	const { cart } = useSelector(state => state);
 
-
-	const { data: books, isLoading, isError } = useGetBooksQuery();
-	if (isLoading) {
+	if (isLoading || loading) {
 		return <Loading />;
 	}
-	// console.log(books?.data?.books);
 
 	const searchItem = event => {
 		const searchText = event.target.value;
@@ -44,26 +43,23 @@ const Navbar = () => {
 			console.log("hello world");
 		} else if (result) {
 			setSearchData(result);
+		} else if (result) {
+			setSearchData(result);
 		}
-		else if (result) {
-			setSearchData(result)
-		}
-	}
-
-	
-
+	};
 
 	const handleNavigate = () => {
 		navigate("/cart");
-		
 	};
 	const menuItems = (
 		<>
-			<li className='p-0'>
-				<NavLink className='text-sm mb-2 ' to='/dashboard'>
-					ড্যাশবোর্ড
-				</NavLink>
-			</li>
+			{user && (
+				<li className='p-0'>
+					<NavLink className='text-sm mb-2 ' to='/dashboard'>
+						ড্যাশবোর্ড
+					</NavLink>
+				</li>
+			)}
 			<li>
 				<NavLink className='mx-1 text-sm py-1 mb-2' to='/login'>
 					লগইন / রেজিস্টার
@@ -87,7 +83,7 @@ const Navbar = () => {
 					</svg>
 
 					<span className='badge badge-primary badge-sm indicator-item mt-2 mr-4'>
-						0
+						{cart.length}
 					</span>
 				</div>
 			</li>
@@ -96,23 +92,29 @@ const Navbar = () => {
 				<div className='dropdown dropdown-end'>
 					<label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
 						<div className='w-10 rounded-full'>
-							<img src='https://placeimg.com/80/80/people' alt='' />
+							<img
+								src={`${user?.photoURL ? user?.photoURL : profileIcon}`}
+								alt=''
+							/>
 						</div>
 					</label>
 					<ul
 						tabIndex={0}
 						className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'>
 						<li>
-							<a href='' className='justify-between'>
+							<NavLink
+								to='/dashboard/my-profile'
+								className='justify-between w-full mb-2'>
 								View Profile
-							</a>
-							<a href='' className='justify-between'>
-								Update Profile
-							</a>
+							</NavLink>
 						</li>
-						<li>
-							<a href=''>Logout</a>
-						</li>
+						{user && (
+							<button
+								onClick={() => signOut(auth)}
+								className='btn btn-sm btn-primary'>
+								Log Out
+							</button>
+						)}
 					</ul>
 				</div>
 			</div>
@@ -134,11 +136,11 @@ const Navbar = () => {
 						</Link>
 					</div>
 
-					<div className='relative'>
+					<div className='relative '>
 						<div className='flex items-center justify-center'>
 							<div className='flex border border-primary border-2'>
 								<input
-								 ref = {inputRef}
+									ref={inputRef}
 									type='text'
 									className='px-4 py-2 input-sm w-24 md:w-80 input-primary'
 									placeholder='বইয়ের নাম ও লেখক দিয়ে অনুসন্ধান করুন'
@@ -155,23 +157,25 @@ const Navbar = () => {
 								</button>
 							</div>
 						</div>
-						<div className="absolute z-10">
+						<div className='absolute z-10'>
 							{searchListVisible && (
 								<div>
-									{searchData.length ?
-										<ul className="top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2">
-											{searchData.map(data =>
-												<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><NavLink to={`book/${data._id}`}>{data.name}</NavLink></li>)
-											}
-
+									{searchData.length ? (
+										<ul className='top-12 w-[376px] h-auto px-4 bg-accent border-2 z-10 border-primary mr-2'>
+											{searchData.map(data => (
+												<li
+													onClick={() => reSeatInput()}
+													className='cursor-pointer border-b border-primary'>
+													<NavLink to={`book/${data._id}`}>{data.name}</NavLink>
+												</li>
+											))}
 										</ul>
-										:
+									) : (
 										""
-									}
+									)}
 								</div>
 							)}
 						</div>
-	
 					</div>
 
 					<div className='flex-none'>

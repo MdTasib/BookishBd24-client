@@ -1,5 +1,6 @@
 import { Pagination } from "antd";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { useGetBooksQuery } from "../../../features/api/apiSlice";
 import Loading from "../../ui/Loading";
@@ -76,6 +77,11 @@ const ManageBook = () => {
 
 	return (
 		<div className='overflow-x-auto'>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>ManageBook | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<table className='table w-full'>
 				<thead>
 					<tr>
