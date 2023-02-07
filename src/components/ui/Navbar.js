@@ -8,6 +8,7 @@ import Container from "./Container";
 import Loading from "./Loading";
 import MenuBar from "./MenuBar";
 import profileIcon from "../../assets/icons/user.png";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Navbar = () => {
 	};
 	const [searchData, setSearchData] = useState([]);
 	const { data: books, isLoading } = useGetBooksQuery();
+	const { cart } = useSelector(state => state);
 
 	if (isLoading || loading) {
 		return <Loading />;
@@ -81,7 +83,7 @@ const Navbar = () => {
 					</svg>
 
 					<span className='badge badge-primary badge-sm indicator-item mt-2 mr-4'>
-						0
+						{cart.length}
 					</span>
 				</div>
 			</li>
