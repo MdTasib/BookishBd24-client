@@ -5,7 +5,7 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:5000/api/v1",
 	}),
-	tagTypes: ["books", "authors", "book", "reviews"],
+	tagTypes: ["books", "authors", "book", "reviews", "sliders"],
 	endpoints: builder => ({
 		// get books on database
 		getBooks: builder.query({
@@ -52,6 +52,13 @@ export const apiSlice = createApi({
 			providesTags: ["reviews"],
 		}),
 
+		// get sliders
+		getSlider: builder.query({
+			query: () => "/slider",
+			keepUnusedDataFor: 800,
+			providesTags: ["sliders"],
+		}),
+
 		// post book on database
 		createBook: builder.mutation({
 			query: data => ({
@@ -72,6 +79,7 @@ export const apiSlice = createApi({
 			invalidatesTags: ["authors"],
 		}),
 
+		// post review on database
 		createReview: builder.mutation({
 			query: data => ({
 				url: "/review",
@@ -79,6 +87,15 @@ export const apiSlice = createApi({
 				body: data,
 			}),
 			invalidatesTags: ["reviews"],
+		}),
+
+		// post slider image on database
+		createSlider: builder.mutation({
+			query: data => ({
+				url: "/slider",
+				method: "POST",
+				body: data,
+			}),
 		}),
 	}),
 });
@@ -89,7 +106,9 @@ export const {
 	useGetAuthorDetailsQuery,
 	useGetBookDetailsQuery,
 	useGetReviewsQuery,
+	useGetSliderQuery,
 	useCreateBookMutation,
 	useCreateAuthorMutation,
 	useCreateReviewMutation,
+	useCreateSliderMutation,
 } = apiSlice;

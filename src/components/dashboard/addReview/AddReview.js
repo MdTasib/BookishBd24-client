@@ -73,47 +73,15 @@ const AddReview = () => {
 		<div className='w-full p-10 lg:w-1/2 mx-auto'>
 			{/*=== React-Helmet Start ===*/}
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>AddReview | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			{/*=== React-Helmet End ===*/}
 			<h1 className='text-xl text-center text-primary'>
 				BookishBD24 সম্পর্কে আপনার মতামত লিখুন
 			</h1>
 			<form onSubmit={handleSubmit(onSubmit)} className='card-body pb-0'>
-				{/* <div className='avatar mx-auto flex-col items-center gap-3'>
-					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-						<label
-							for='dropzone-file'
-							className='flex flex-col justify-center items-center w-full bg-accent rounded-lg  cursor-pointer'>
-							<div className='flex flex-col justify-center items-center pt-5 pb-6'>
-								<svg
-									className='mb-3 w-5 h-5 text-primary'
-									fill='none'
-									stroke='currentColor'
-									viewBox='0 0 24 24'
-									xmlns='http://www.w3.org/2000/svg'>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'></path>
-								</svg>
-								<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
-									<span className='font-semibold'>upload</span>
-								</p>
-							</div>
-							<input
-								{...register("image", { required: true })}
-								id='dropzone-file'
-								type='file'
-								className='hidden'
-								onChange={e => setSingleImages(e.target.files)}
-							/>
-						</label>
-					</div>
-				</div> */}
 				<div className='avatar mx-auto flex-col items-center gap-3'>
 					<div className='w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
 						<img
