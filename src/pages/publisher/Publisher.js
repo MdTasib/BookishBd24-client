@@ -7,6 +7,7 @@ import AllPublisher from "./AllPublisher";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
 import Breadcrumb from "../../components/ui/Breadcrumb";
+import { Helmet } from "react-helmet";
 
 const Publisher = () => {
 	const [total, setTotal] = useState("");
@@ -56,6 +57,11 @@ const Publisher = () => {
 	return (
 		<div>
 			<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Publishers | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 				<div className='text-sm breadcrumbs py-4'>
 					<ul>
 						<Breadcrumb route='/' name='হোম' />

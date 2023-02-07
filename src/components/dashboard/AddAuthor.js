@@ -10,15 +10,27 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
 import Loading from "../ui/Loading";
 import { useState } from "react";
+import { useCreateAuthorMutation } from "../../features/api/apiSlice";
+import { Helmet } from "react-helmet";
 
 const AddAuthor = () => {
 	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
-	const [loading, setLoading] = useState(false);
+	const [addAuthor, { isLoading, isError, isSuccess }] =
+		useCreateAuthorMutation();
+
+	if (isLoading) {
+		return <Loading />;
+	}
+	if (!isLoading && isError) {
+		toast.error("আপনার লেখক যোগ করতে ব্যর্থ হয়েছে। আমার চেষ্টা করুন!");
+	}
+	if (!isError && !isLoading && isSuccess) {
+		toast.success("আপনার লেখক যোগ হয়েছে।");
+	}
 
 	const onSubmit = async data => {
 		if (singleImages.length > 1) {
-			setLoading(false);
 			toast.error("Max 1 images");
 			return;
 		}
@@ -71,31 +83,35 @@ const AddAuthor = () => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log(imageURLS);
-        
-        const faq = {
-			AuthorName: data.AuthorName,
-			AuthorNameEng: data.AuthorNameEng,
+
+		const author = {
+			author: data.authorName,
+			authorEng: data.authorNameEng,
 			description: data.description,
-			imagesURLS: imageURLS[0]
+			imageUrl: imageURLS[0],
 		};
-		console.log(faq);
-        reset()
-		
-    }
-	if (loading) {
-		return <Loading />;
-	}
+
+		if (!isLoading || isSuccess) {
+			addAuthor(author);
+		}
+
+		reset();
+	};
 
 	return (
 		<div className='hero'>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AddAuthor | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='hero-content w-full'>
 				<div className='card w-full shadow-2xl bg-base-100'>
 					<form onSubmit={handleSubmit(onSubmit)} className='card-body'>
 						<div className='form-control'>
 							<div>
 								<label className='label'>
-									<span className='label-text'>Upload Author Image</span>
+									<span className='label-text'>লেখকের ছবি আপলোড করুন</span>
 								</label>
 
 								<div className='flex justify-center items-center w-full'>
@@ -117,7 +133,7 @@ const AddAuthor = () => {
 											</svg>
 											<p className='mb-2 text-sm text-gray-500 dark:text-primary'>
 												<span className='font-semibold'>
-													Click to upload image
+													ছবি আপলোড করতে ক্লিক করুন
 												</span>
 											</p>
 										</div>
@@ -134,40 +150,40 @@ const AddAuthor = () => {
 							{/*  */}
 							<div className=''>
 								<label className='label'>
-									<span className='label-text'>Author Name</span>
+									<span className='label-text'>লেখকের নাম</span>
 								</label>
 								<input
-									{...register("AuthorName", { required: true })}
+									{...register("authorName", { required: true })}
 									type='text'
-									placeholder='Author Name'
+									placeholder='লেখকের নাম'
 									className='input input-bordered input-primary w-full'
 								/>
 							</div>
 							<div className=''>
 								<label className='label'>
-									<span className='label-text'>Author Name English</span>
+									<span className='label-text'>লেখকের নাম ইংরেজিতে</span>
 								</label>
 								<input
-									{...register("AuthorNameEng", { required: true })}
+									{...register("authorNameEng", { required: true })}
 									type='text'
-									placeholder='Author Name Eng'
+									placeholder='লেখকের নাম ইংরেজিতে'
 									className='input input-bordered input-primary w-full'
 								/>
 							</div>
 
 							<div className='form-control'>
 								<label className='label'>
-									<span className='label-text'>Description</span>
+									<span className='label-text'>লেখকের পরিচিতি</span>
 								</label>
 								<textarea
 									{...register("description", { required: true })}
 									className='textarea textarea-primary w-full'
-									placeholder='Description'></textarea>
+									placeholder='লেখকের পরিচিতি'></textarea>
 							</div>
 						</div>
 
 						<div className='form-control mt-6'>
-							<button className='btn btn-primary'>Upload</button>
+							<button className='btn btn-primary'>আপলোড করুন</button>
 						</div>
 					</form>
 				</div>

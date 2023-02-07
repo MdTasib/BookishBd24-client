@@ -10,6 +10,7 @@ import {
 import Loading from "../../components/ui/Loading";
 import Carousel from "react-multi-carousel";
 import Book from "../../components/SectionBooks/Book";
+import { Helmet } from "react-helmet";
 
 const AuthorDetails = () => {
 	const { id } = useParams();
@@ -80,6 +81,11 @@ const AuthorDetails = () => {
 	return (
 		<div className='py-6'>
 			<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>AuthorDetails | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 				<div className='text-sm breadcrumbs'>
 					<ul>
 						<Breadcrumb route='/' name='হোম' />

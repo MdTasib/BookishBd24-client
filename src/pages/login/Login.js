@@ -18,6 +18,7 @@ import Loading from "../../components/ui/Loading";
 import auth from "../../firebase.init";
 import { useRef } from "react";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
 	const [signInWithGoogle, googleUser, googleLoading, googleError] =
@@ -68,6 +69,11 @@ const Login = () => {
 
 	return (
 		<div>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Login | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='relative flex '>
 				<div className='flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white'>
 					<div

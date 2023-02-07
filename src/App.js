@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	useLocation,
+} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./assets/css/styles.css";
 import Footer from "./components/ui/Footer";
@@ -30,6 +35,7 @@ import AddAuthor from "./components/dashboard/AddAuthor";
 import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
 import Offer from "./pages/offer/Offer";
+import PrivateAuth from "./components/PrivateRoute/PrivateAuth";
 
 function App() {
 	return (
@@ -48,14 +54,27 @@ function App() {
 				<Route path='/book/:id' element={<Details />} />
 				<Route path='/author/:id' element={<AuthorDetails />} />
 				<Route path='/user-review' element={<Reviews />} />
-				<Route path='/cart' element={<Cart />} />
+				<Route
+					path='/cart'
+					element={
+						<PrivateAuth>
+							<Cart />
+						</PrivateAuth>
+					}
+				/>
 				<Route path='/bookroute' element={<BookRoute />} />
 				<Route path='/generalbook' element={<GeneralBook />} />
 				<Route path='/offer' element={<Offer />} />
 
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
-				<Route path='/dashboard' element={<Dashboard />}>
+				<Route
+					path='/dashboard'
+					element={
+						<PrivateAuth>
+							<Dashboard />
+						</PrivateAuth>
+					}>
 					<Route index element={<DashboardIntro />} />
 					<Route path='/dashboard/add-slider' element={<AddSlider />} />
 					<Route path='/dashboard/add-author' element={<AddAuthor />} />

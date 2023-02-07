@@ -11,6 +11,7 @@ import addimg4 from "../../assets/images/Adds/add4.png";
 import Container from "../../components/ui/Container";
 import Loading from "../../components/ui/Loading";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Details = () => {
 	const [seeMore, setSeeMore] = useState(false);
@@ -115,6 +116,11 @@ const Details = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>Details | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
 			<div className='py-10'>
 				<div className='md:grid grid-cols-[70%,30%] justify-around gap-4'>
 					<div>

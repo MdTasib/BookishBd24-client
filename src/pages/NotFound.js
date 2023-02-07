@@ -1,9 +1,18 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
 	return (
+		
 		<main className='h-screen w-full flex flex-col justify-center items-center bg-accent'>
+			{/* React-Helmet Start */}
+			<Helmet>
+				<meta charSet="utf-8"/>
+				<title>NotFound | BookishBD24</title>
+				<meta name="description" content="BookishBD24 website using React JS"/>
+			</Helmet>
+			{/* React-Helmet End */}
 			<h1 className='text-9xl font-extrabold text-primary tracking-widest'>
 				404
 			</h1>

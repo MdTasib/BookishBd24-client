@@ -2,6 +2,8 @@ import React from "react";
 import Container from "../../components/ui/Container";
 import Slider from "infinite-react-carousel";
 import { FaShoppingCart } from "react-icons/fa";
+import Breadcrumb from "../../components/ui/Breadcrumb";
+import { Helmet } from "react-helmet";
 
 const Offer = () => {
 	const sliders = [
@@ -26,7 +28,18 @@ const Offer = () => {
 
 	return (
 		<Container>
-			<Slider {...settings} className='my-10'>
+			<Helmet>
+				<meta charSet='utf-8' />
+				<title>Offer | BookishBD24</title>
+				<meta name='description' content='BookishBD24 website using React JS' />
+			</Helmet>
+			<div className='text-sm breadcrumbs py-4'>
+				<ul>
+					<Breadcrumb route='/' name='হোম' />
+					<Breadcrumb route='/offer' name='অফারসমূহ' />
+				</ul>
+			</div>
+			<Slider {...settings} className='mb-10'>
 				{sliders.map(slider => (
 					<img
 						key={slider.id}
