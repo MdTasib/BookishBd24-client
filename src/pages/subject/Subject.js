@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Breadcrumb from "../../components/ui/Breadcrumb";
+import Loading from "../../components/ui/Loading";
 import Container from "../../components/ui/Container";
 import bg_img from "../../assets/images/allcategory.png";
 import SubjectCategory from "./SubjectCategory";
@@ -41,7 +42,7 @@ const Subject = () => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
@@ -60,23 +61,22 @@ const Subject = () => {
 		));
 	}
 
-
 	// SEARCH AUTHOR Start
-	const inputRef = useRef(null)
+	const inputRef = useRef(null);
 	const [searchListVisible, setSearchListVisible] = useState(true);
 
 	const reSeatInput = () => {
 		setSearchData([]);
 		inputRef.current.value = "";
 		// console.log(inputRef.current.value);
-	}
+	};
 
 	const [searchData, setSearchData] = useState([]);
 	// console.log(searchData);
 	const searchItem = event => {
 		const searchText = event.target.value;
 		// console.log(searchText);
-		const categorys = getUniqueListBy(books?.data?.books, "category")
+		const categorys = getUniqueListBy(books?.data?.books, "category");
 		const result = categorys.filter(item => {
 			return (
 				item.category.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -88,19 +88,18 @@ const Subject = () => {
 			// console.log("hello world");
 		} else if (result) {
 			setSearchData(result);
+		} else if (result) {
+			setSearchData(result);
 		}
-		else if (result) {
-			setSearchData(result)
-		}
-	}
+	};
 	// SEARCH AUTHOR END
 
 	return (
 		<Container>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>Subjects | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<div className='text-sm breadcrumbs py-4'>
 				<ul>
@@ -143,7 +142,7 @@ const Subject = () => {
 					</h1>
 				</div>
 
-				<div className="relative">
+				<div className='relative'>
 					<div className='flex items-center md:justify-center'>
 						<div
 							className='flex border border-primary border-2'
@@ -168,19 +167,22 @@ const Subject = () => {
 							</button>
 						</div>
 					</div>
-					<div className="absolute z-10 mb-[-110px]">
+					<div className='absolute z-10 mb-[-110px]'>
 						{searchListVisible && (
 							<div>
-								{searchData.length ?
-									<ul className="w-[378px] h-auto px-4 bg-accent border-2 z-10 border-primary">
-										{searchData.map(data =>
-											<li onClick={() => reSeatInput()} className="cursor-pointer border-b border-primary"><Link to="/bookroute" >{data.category}</Link></li>)
-										}
-
+								{searchData.length ? (
+									<ul className='w-[378px] h-auto px-4 bg-accent border-2 z-10 border-primary'>
+										{searchData.map(data => (
+											<li
+												onClick={() => reSeatInput()}
+												className='cursor-pointer border-b border-primary'>
+												<Link to='/bookroute'>{data.category}</Link>
+											</li>
+										))}
 									</ul>
-									:
+								) : (
 									""
-								}
+								)}
 							</div>
 						)}
 					</div>
