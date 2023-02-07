@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
 	reducerPath: "bookishbdApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: "http://localhost:5000/api/v1",
+		baseUrl: "https://bookishbd24.onrender.com/api/v1/",
 	}),
 	tagTypes: ["books", "authors", "book", "reviews", "sliders"],
 	endpoints: builder => ({
