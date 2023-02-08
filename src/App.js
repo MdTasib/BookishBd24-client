@@ -36,6 +36,7 @@ import AddReview from "./components/dashboard/addReview/AddReview";
 import EditBook from "./components/dashboard/manageBook/EditBook";
 import Offer from "./pages/offer/Offer";
 import PrivateAuth from "./components/PrivateRoute/PrivateAuth";
+import Conditions from "./staticPage/Conditions";
 
 function App() {
 	return (
@@ -68,6 +69,7 @@ function App() {
 
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+				<Route path='/condition' element={<Conditions />} />
 				<Route
 					path='/dashboard'
 					element={

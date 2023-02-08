@@ -40,7 +40,7 @@ const Footer = () => {
 						কিভাবে কেনাকাটা করবেন ?
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-						শর্তাবলী
+						<a href="/condition">শর্তাবলী</a>
 					</li>
 				</ul>
 			</div>
