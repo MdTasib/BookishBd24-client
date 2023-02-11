@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/ui/Container";
-import Slider from "infinite-react-carousel";
+import Loading from "../../components/ui/Loading";
 import Book from "../../components/SectionBooks/Book";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
 import { Helmet } from "react-helmet";
 import GeneralBookSlider from "./GeneralBookSlider";
-
 
 const GeneralBook = () => {
 	const [total, setTotal] = useState("");
@@ -17,7 +16,7 @@ const GeneralBook = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetBooksQuery({ page, limit: postPerPage, category:"জেনারেল বই" });
+	} = useGetBooksQuery({ page, limit: postPerPage, category: "জেনারেল বই" });
 
 	useEffect(() => {
 		setTotal(books?.data?.totalBooks);
@@ -40,7 +39,7 @@ const GeneralBook = () => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
@@ -54,15 +53,12 @@ const GeneralBook = () => {
 		));
 	}
 
-	
-
 	return (
 		<Container>
-
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>GeneralBook | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 
 			<GeneralBookSlider />
@@ -73,9 +69,11 @@ const GeneralBook = () => {
 				</div>
 			</div>
 
-			<div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5' data-aos="flip-left"
-				data-aos-easing="ease-out-cubic"
-				data-aos-duration="500">
+			<div
+				className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-4 mb-5'
+				data-aos='flip-left'
+				data-aos-easing='ease-out-cubic'
+				data-aos-duration='500'>
 				{content}
 			</div>
 

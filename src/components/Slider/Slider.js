@@ -5,6 +5,34 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 
 const ImageSlider = () => {
+	// const { data, isLoading, isError, error } = useGetSliderQuery();
+
+	// // conent loaded
+	// let content = null;
+	// if (isLoading) {
+	// 	content = <Loading />;
+	// }
+	// if (!isLoading && isError) {
+	// 	content = <p className='text-red-500'>{error}</p>;
+	// }
+	// if (!isLoading && !isError && data?.data.length === 0) {
+	// 	content = (
+	// 		<p className='text-red-500 text-xl font-bold'>
+	// 			কোনো স্লাইডার পাওয়া যায়নি!
+	// 		</p>
+	// 	);
+	// }
+	// if (!isError && !isLoading && data?.data?.length > 0) {
+	// 	content = data?.data?.map((slider, index) => (
+	// 		<img
+	// 					key={slider.id}
+	// 					className='w-full h-64 object-cover'
+	// 					src={slider.image}
+	// 					alt=''
+	// 				/>
+	// 	));
+	// }
+
 	// fake slider data
 	const sliders = [
 		{

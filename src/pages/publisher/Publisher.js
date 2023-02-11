@@ -7,6 +7,7 @@ import AllPublisher from "./AllPublisher";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import { Pagination } from "antd";
 import Breadcrumb from "../../components/ui/Breadcrumb";
+import Loading from "../../components/ui/Loading";
 import { Helmet } from "react-helmet";
 
 const Publisher = () => {
@@ -41,7 +42,7 @@ const Publisher = () => {
 	// conent loaded
 	let content = null;
 	if (isLoading) {
-		content = <h3 className='text-4xl'>Loading...</h3>;
+		content = <Loading />;
 	}
 	if (!isLoading && isError) {
 		content = <p className='text-red-500'>{error}</p>;
@@ -57,11 +58,14 @@ const Publisher = () => {
 	return (
 		<div>
 			<Container>
-			<Helmet>
-				<meta charSet="utf-8"/>
-				<title>Publishers | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
-			</Helmet>
+				<Helmet>
+					<meta charSet='utf-8' />
+					<title>Publishers | BookishBD24</title>
+					<meta
+						name='description'
+						content='BookishBD24 website using React JS'
+					/>
+				</Helmet>
 				<div className='text-sm breadcrumbs py-4'>
 					<ul>
 						<Breadcrumb route='/' name='হোম' />

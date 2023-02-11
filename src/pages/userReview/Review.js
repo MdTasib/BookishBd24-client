@@ -24,7 +24,9 @@ const Review = ({
 					</div>
 				)}
 				<div>
-					<h3 className='font-bold animate-pulse'>{name ? name : email}</h3>
+					<h3 className='font-bold text- animate-pulse'>
+						{name ? name : email.slice(0, email.length - 10)}
+					</h3>
 					<div className='rating rating-sm'>
 						{[...Array(Number(rating))]?.map((star, index) => (
 							<input
