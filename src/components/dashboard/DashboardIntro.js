@@ -1,5 +1,5 @@
 import React from "react";
-import wave from "../../assets/images/wave.png";
+import hello from "../../assets/images/hello.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 
