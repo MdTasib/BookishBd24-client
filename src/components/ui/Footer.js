@@ -31,6 +31,9 @@ const Footer = () => {
 						যোগাযোগ করুন
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						<a href="/about-us">আমাদের সম্পর্কে জানুন</a>
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
 						ব্লগ
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
