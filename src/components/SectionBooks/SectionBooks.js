@@ -20,7 +20,7 @@ const SectionBooks = ({ title, filters }) => {
 		superLargeDesktop: {
 			// the naming can be any, depends on you.
 			breakpoint: { max: 4000, min: 1560 },
-			items: 6,
+			items: 4,
 		},
 		desktop: {
 			breakpoint: { max: 1560, min: 1024 },
