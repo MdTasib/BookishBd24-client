@@ -4,7 +4,11 @@ import cartIcon from "../../assets/icons/shopping-cart.gif";
 import Checkout from "./Checkout";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, deleteToCart } from "../../features/cart/cartSlice";
+import {
+	addToCart,
+	clearCart,
+	deleteToCart,
+} from "../../features/cart/cartSlice";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
@@ -92,8 +96,13 @@ const Cart = () => {
 								)}
 							</div>
 							{cart.length > 0 ? (
-								<div className='bg-[#FFFFFF] p-8 relative'>
-									<button className='bg-primary text-white py-2 px-6 absolute right-0 top-2 mr-5 rounded'>
+								<div className='relative pb-14'>
+									<button
+										onClick={() => dispatch(clearCart())}
+										className='bg-red-500 text-white py-2 px-6 absolute left-0 top-0 ml-5 rounded'>
+										Clear Cart
+									</button>
+									<button className='bg-primary text-white py-2 px-6 absolute right-0 top-0 mr-5 rounded'>
 										Place Order
 									</button>
 								</div>

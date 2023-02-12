@@ -29,7 +29,6 @@ const Navbar = () => {
 
 	const searchItem = event => {
 		const searchText = event.target.value;
-		console.log(searchText);
 		const result = books?.data?.books.filter(item => {
 			return (
 				item.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -40,7 +39,6 @@ const Navbar = () => {
 		});
 		if (!searchText) {
 			setSearchData([]);
-			console.log("hello world");
 		} else if (result) {
 			setSearchData(result);
 		} else if (result) {
