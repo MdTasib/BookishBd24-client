@@ -10,9 +10,11 @@ import {
 	deleteToCart,
 } from "../../features/cart/cartSlice";
 import { Link } from "react-router-dom";
+import { cartTotalSelector } from "../../features/cart/selectors";
 
 const Cart = () => {
 	const { cart } = useSelector(state => state);
+	const total = useSelector(cartTotalSelector);
 	const dispatch = useDispatch();
 
 	return (
@@ -25,7 +27,9 @@ const Cart = () => {
 			<Container>
 				<div className='md:flex lg:flex justify-between gap-6'>
 					<div className='md:w-[82%] lg:w-[82%]'>
-						<h3 className='text-xl pt-6'>আপনার শপিং ব্যাগে ৫টি আইটেম আছে</h3>
+						<h3 className='text-xl pt-6'>
+							আপনার শপিং ব্যাগে {total} টি আইটেম আছে
+						</h3>
 
 						<div className='bg-[#FFF] mt-8 mb-8'>
 							<div className='py-6'>
@@ -66,10 +70,10 @@ const Cart = () => {
 												</button>
 											</div>
 											<div className='md:mr-10 lg:mr-10 ml-4 md:ml-0 lg:ml-0'>
-												<p>TK. {item.price}</p>
+												<p>TK. {item.price * item.qty}</p>
 												<p>
 													<del className='text-red-600'>
-														TK. {item.prePrice}
+														TK. {item.prePrice * item.qty}
 													</del>
 												</p>
 											</div>
