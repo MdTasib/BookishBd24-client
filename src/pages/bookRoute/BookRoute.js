@@ -10,7 +10,6 @@ import { Helmet } from "react-helmet";
 const BookRoute = () => {
 	const [totalBooks, setTotalBooks] = useState([]);
 	const [height, setHeight] = useState(0);
-	console.log(height);
 	const heightRef = useRef(null);
 	useEffect(() => {
 		setHeight(heightRef.current.clientHeight);
