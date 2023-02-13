@@ -2,7 +2,11 @@ import { Pagination } from "antd";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
-import { useGetBooksQuery } from "../../../features/api/apiSlice";
+import Swal from "sweetalert2";
+import {
+	useDeleteBookMutation,
+	useGetBooksQuery,
+} from "../../../features/api/apiSlice";
 import Loading from "../../ui/Loading";
 
 const ManageBook = () => {
@@ -15,6 +19,7 @@ const ManageBook = () => {
 		isError,
 		error,
 	} = useGetBooksQuery({ page, limit: postPerPage });
+	const [deleteBook, { loading, ifError }] = useDeleteBookMutation();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -35,12 +40,29 @@ const ManageBook = () => {
 		return originalElement;
 	};
 
+	const handleDeleteBook = id => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You Delete This Product",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#d33",
+			cancelButtonColor: "#3085d6",
+			confirmButtonText: "Yes, delete it!",
+		}).then(result => {
+			if (result.isConfirmed) {
+				deleteBook(id);
+				Swal.fire("Deleted!", "Product has been deleted.", "success");
+			}
+		});
+	};
+
 	// conent loaded
 	let content = null;
-	if (isLoading) {
+	if (isLoading || loading) {
 		content = <Loading />;
 	}
-	if (!isLoading && isError) {
+	if ((!isLoading && isError) || ifError) {
 		content = <p className='text-red-500'>{error}</p>;
 	}
 	if (!isLoading && !isError && books?.data?.books?.length === 0) {
@@ -57,7 +79,11 @@ const ManageBook = () => {
 				<td>${book.prePrice}</td>
 				<td>{book.price}</td>
 				<td>
-					<button className='bg-red-500 px-2 rounded text-white'>Delete</button>
+					<button
+						onClick={() => handleDeleteBook(book._id)}
+						className='bg-red-500 px-2 rounded text-white'>
+						Delete
+					</button>
 				</td>
 				<td>
 					<button
@@ -78,9 +104,9 @@ const ManageBook = () => {
 	return (
 		<div className='overflow-x-auto'>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>ManageBook | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<table className='table w-full'>
 				<thead>
