@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import MenuBar from "./MenuBar";
 import profileIcon from "../../assets/icons/user.png";
 import { useSelector } from "react-redux";
+import { cartTotalSelector } from "../../features/cart/selectors";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Navbar = () => {
 	};
 	const [searchData, setSearchData] = useState([]);
 	const { data: books, isLoading } = useGetBooksQuery();
-	const { cart } = useSelector(state => state);
+	const total = useSelector(cartTotalSelector);
 
 	if (isLoading || loading) {
 		return <Loading />;
@@ -29,7 +30,6 @@ const Navbar = () => {
 
 	const searchItem = event => {
 		const searchText = event.target.value;
-		console.log(searchText);
 		const result = books?.data?.books.filter(item => {
 			return (
 				item.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -40,7 +40,6 @@ const Navbar = () => {
 		});
 		if (!searchText) {
 			setSearchData([]);
-			console.log("hello world");
 		} else if (result) {
 			setSearchData(result);
 		} else if (result) {
@@ -83,7 +82,7 @@ const Navbar = () => {
 					</svg>
 
 					<span className='badge badge-primary badge-sm indicator-item mt-2 mr-4'>
-						{cart.length}
+						{total}
 					</span>
 				</div>
 			</li>
