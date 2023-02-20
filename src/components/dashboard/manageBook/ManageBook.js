@@ -89,7 +89,7 @@ const ManageBook = () => {
 					<button
 						for='edit-modal'
 						className='bg-primary px-3 rounded text-white'
-						onClick={() => editBook()}>
+						onClick={() => editBook(book._id)}>
 						Edit
 					</button>
 				</td>
@@ -97,8 +97,8 @@ const ManageBook = () => {
 		));
 	}
 
-	const editBook = () => {
-		navigate("/dashboard/edit-book");
+	const editBook = id => {
+		navigate(`/dashboard/edit-book/${id}`);
 	};
 
 	return (

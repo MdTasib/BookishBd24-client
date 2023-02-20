@@ -82,7 +82,7 @@ function App() {
 					<Route path='/dashboard/add-author' element={<AddAuthor />} />
 					<Route path='/dashboard/add-product' element={<AddProduct />} />
 					<Route path='/dashboard/manage-book' element={<ManageBook />} />
-					<Route path='/dashboard/edit-book' element={<EditBook />} />
+					<Route path='/dashboard/edit-book/:id' element={<EditBook />} />
 					<Route path='/dashboard/order-book' element={<OrderBook />} />
 					<Route path='/dashboard/my-profile' element={<MyProfile />} />
 					<Route path='/dashboard/add-review' element={<AddReview />} />
