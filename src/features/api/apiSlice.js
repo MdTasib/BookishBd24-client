@@ -66,7 +66,7 @@ export const apiSlice = createApi({
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags: ["books"],
+			invalidatesTags: ["books", "book"],
 		}),
 
 		// post author on database
@@ -97,6 +97,25 @@ export const apiSlice = createApi({
 				body: data,
 			}),
 		}),
+
+		// delete book in the database
+		deleteBook: builder.mutation({
+			query: id => ({
+				url: `/book/${id}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: ["books", "book"],
+		}),
+
+		// update book mutation
+		updateBook: builder.mutation({
+			query: ({ id, data }) => ({
+				url: `/book/${id}`,
+				method: "PATCH",
+				body: data,
+			}),
+			invalidatesTags: ["books", "book"],
+		}),
 	}),
 });
 
@@ -111,4 +130,6 @@ export const {
 	useCreateAuthorMutation,
 	useCreateReviewMutation,
 	useCreateSliderMutation,
+	useDeleteBookMutation,
+	useUpdateBookMutation,
 } = apiSlice;

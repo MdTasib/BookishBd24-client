@@ -6,9 +6,9 @@ const Dashboard = () => {
 	return (
 		<div className='drawer drawer-mobile'>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>Dashboard | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<input id='dashboard-sidebar' type='checkbox' className='drawer-toggle' />
 			<div className='drawer-content p-5'>
@@ -19,9 +19,9 @@ const Dashboard = () => {
 				<label htmlFor='dashboard-sidebar' className='drawer-overlay'></label>
 				<ul className='menu p-4 overflow-y-auto w-52 bg-accent text-base-content'>
 					{/* <!-- Sidebar content here --> */}
-					<li className='text-primary my-1'>
+					{/* <li className='text-primary my-1'>
 						<NavLink to='/dashboard/add-slider'>Add Slider</NavLink>
-					</li>
+					</li> */}
 					<li className='text-primary my-1'>
 						<NavLink to='/dashboard/my-profile'>My Profile</NavLink>
 					</li>
