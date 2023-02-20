@@ -37,6 +37,8 @@ import EditBook from "./components/dashboard/manageBook/EditBook";
 import Offer from "./pages/offer/Offer";
 import PrivateAuth from "./components/PrivateRoute/PrivateAuth";
 import Conditions from "./staticPage/Conditions";
+import AboutUs from "./staticPage/AboutUs";
+import Contact from "./staticPage/Contact";
 
 function App() {
 	return (
@@ -70,6 +72,8 @@ function App() {
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/condition' element={<Conditions />} />
+				<Route path='/about-us' element={<AboutUs />} />
+				<Route path='/contact' element={<Contact />} />
 				<Route
 					path='/dashboard'
 					element={

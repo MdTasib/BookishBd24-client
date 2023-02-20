@@ -28,7 +28,10 @@ const Footer = () => {
 				<ul>
 					<p className='font-bold text-1xl pb-2'>প্রয়োজনীয় লিংক</p>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-						যোগাযোগ করুন
+						<a href="/contact">যোগাযোগ করুন</a> 
+					</li>
+					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
+						<a href="/about-us">আমাদের সম্পর্কে জানুন</a>
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
 						ব্লগ
