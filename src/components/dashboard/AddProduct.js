@@ -127,7 +127,7 @@ const AddProduct = () => {
 						<div className='form-control'>
 							<div className='md:grid grid-cols-2 gap-10'>
 								{/* ............................... */}
-								{/* <div>
+								 <div>
 									<div className='md:grid grid-cols-2 gap-6'>
 										<div>
 											<label className='label'>
@@ -301,7 +301,7 @@ const AddProduct = () => {
 											className='textarea textarea-primary w-full max-w-xs'
 											placeholder='Enter Description'></textarea>
 									</div>
-								</div> */}
+								</div> 
 								{/* ............................... */}
 								<div>
 									<label className='formLabel'>Images for book</label>
