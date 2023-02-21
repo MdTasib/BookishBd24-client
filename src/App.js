@@ -39,6 +39,7 @@ import PrivateAuth from "./components/PrivateRoute/PrivateAuth";
 import Conditions from "./staticPage/Conditions";
 import AboutUs from "./staticPage/AboutUs";
 import Contact from "./staticPage/Contact";
+import Refund from "./staticPage/Refund";
 
 function App() {
 	return (
@@ -74,6 +75,7 @@ function App() {
 				<Route path='/condition' element={<Conditions />} />
 				<Route path='/about-us' element={<AboutUs />} />
 				<Route path='/contact' element={<Contact />} />
+				<Route path='/refund' element={<Refund />} />
 				<Route
 					path='/dashboard'
 					element={

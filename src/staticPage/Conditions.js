@@ -16,6 +16,13 @@ const Conditions = () => {
           <p>৭) আপনার অর্ডারের পণ্য আপনার কাছে হস্তান্তরের আগে যে কোন সময়ে আপনি অর্ডারটি বাতিল করতে পারেন।</p>
           <p className='my-3'>৮) বুকিশবিডি-২৪ সাধারণত কোন সুনির্দিষ্ট কারণ ছাড়া অর্ডার বাতিল করে না। তবে বুকিশবিডি-২৪ যে কোন সময় কোন কারণ দেখানো ব্যতীত অর্ডার বাতিল করার সম্পূর্ণ অধিকার সংরক্ষণ করে।</p>
         </div>
+        <div className='ml-20 my-5'>
+         <button to='/condition' className='bg-primary text-white px-16 py-2 mx-2 mt-2 rounded transform transition-all hover:scale-90'>
+         <a href="/condition">Return & Exchange</a></button>
+         <button className='bg-primary text-white px-20 py-2 mx-2 rounded mt-2 transform transition-all hover:scale-90'>Delivery Policy</button>
+         <button className='bg-primary text-white px-20 py-2 mx-2 mt-2 rounded transform transition-all hover:scale-90'><a href="/condition">Refund Policy</a></button>
+         <button className='bg-primary text-white px-20 py-2 mx-2 mt-2 rounded transform transition-all hover:scale-90'>Pricing Policy</button>
+         </div>   
         </Container>
     );
 };
