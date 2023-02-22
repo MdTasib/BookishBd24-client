@@ -33,6 +33,7 @@ const AddProduct = () => {
 		}
 	};
 
+
 	const handleBookUrl = () => {
 		const storage = getStorage();
 		const imageRef = ref(storage, "images/");
@@ -70,7 +71,8 @@ const AddProduct = () => {
 			prePrice: data.prePrice,
 			discount: data.discount,
 			description: data.description,
-			imageURLS: data.imageURLS
+			imageURL: imageURL[0],
+			imageURLS: imageURLS
 		}
 		console.log("uploadBook",uploadBook);
 		// handle book image function
@@ -88,9 +90,50 @@ const AddProduct = () => {
 			return;
 		}
 
+		///////////////   Single images upload   //////////////////
+		// Store single images in firebase
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
+
+				const storageRef = ref(storage, "images/" + fileName);
+
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
+						});
+					}
+				);
+			});
+		};
 		///////////////   Multiple images upload   //////////////////
 		// Store multiple images in firebase
-		const storeImage = async image => {
+		const storeImages = async image => {
 			return new Promise((resolve, reject) => {
 				const storage = getStorage();
 				const fileName = `${image.name}-${uuidv4()}`;
@@ -138,7 +181,7 @@ const AddProduct = () => {
 		});
 		console.log("single image url",imageURL[0])
 		const imageURLS = await Promise.all(
-			[...multipleImages].map(image => storeImage(image))
+			[...multipleImages].map(image => storeImages(image))
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
