@@ -71,8 +71,7 @@ const AddProduct = () => {
 			prePrice: data.prePrice,
 			discount: data.discount,
 			description: data.description,
-			imageURL: imageURL[0],
-			imageURLS: imageURLS
+			
 		}
 		console.log("uploadBook",uploadBook);
 		// handle book image function
