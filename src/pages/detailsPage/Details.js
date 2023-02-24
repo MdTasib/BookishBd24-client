@@ -102,7 +102,7 @@ const Details = () => {
 						</button>
 						
 			{/* The button to open modal */}
-  <label htmlFor="my-modal-3" className="bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534]">আরও পড়ুন</label>
+  <label htmlFor="my-modal-3" className="bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534] cursor-pointer">আরও পড়ুন</label>
   <input type="checkbox" id="my-modal-3" className="modal-toggle" />
 <div className="modal">
   <div className="modal-box relative">
