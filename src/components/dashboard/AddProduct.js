@@ -19,19 +19,23 @@ const AddProduct = () => {
 	const [bookImage, setBookImage] = useState(null);
 	const [bookImageUrl, setBookImageUrl] = useState(null);
 	const [multipleImages, setMultipleImages] = useState({});
+	const [singleFirebaseUrl, setSingleFirebaseUrl] = useState({});
+	const [multipleFirebaseUrl, setMultipleFirebaseUrl] = useState({});
 	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
+	console.log("single image",singleFirebaseUrl);
+	console.log("multiple image",multipleFirebaseUrl);
 
 	if (loading) {
 		return <Loading />;
 	}
 
-	const handleBookImage = e => {
-		if (e.target.files[0]) {
-			setBookImage(e.target.files[0]);
-		}
-	};
+	// const handleBookImage = e => {
+	// 	if (e.target.files[0]) {
+	// 		setBookImage(e.target.files[0]);
+	// 	}
+	// };
 
 
 	const handleBookUrl = () => {
@@ -52,9 +56,9 @@ const AddProduct = () => {
 				console.log(error.message);
 			});
 	};
-
+	
+	
 	const onSubmit = async data => {
-
 		const uploadBook={
 			name: data.name,
 			nameEng: data.nameEng,
@@ -71,7 +75,8 @@ const AddProduct = () => {
 			prePrice: data.prePrice,
 			discount: data.discount,
 			description: data.description,
-			
+			imageURL: singleFirebaseUrl,
+			imageURLS: multipleFirebaseUrl
 		}
 		console.log("uploadBook",uploadBook);
 		// handle book image function
@@ -173,19 +178,21 @@ const AddProduct = () => {
 		};
 
 		const imageURL = await Promise.all(
-			[...singleImages].map(image => storeImage(image))
+			[...singleImages].map(image =>
+				storeImage(image)
+			)
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log("single image url",imageURL[0])
+		setSingleFirebaseUrl(imageURL[0])
 		const imageURLS = await Promise.all(
 			[...multipleImages].map(image => storeImages(image))
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log("multiple imageURLS",imageURLS);
+		setMultipleFirebaseUrl(imageURLS)
 		///////////////   Multiple images upload   //////////////////
 	};
 
