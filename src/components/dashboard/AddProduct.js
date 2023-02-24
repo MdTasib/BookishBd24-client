@@ -19,6 +19,7 @@ const AddProduct = () => {
 	const [bookImage, setBookImage] = useState(null);
 	const [bookImageUrl, setBookImageUrl] = useState(null);
 	const [multipleImages, setMultipleImages] = useState({});
+	const [singleImages, setSingleImages] = useState({});
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
 
@@ -31,6 +32,7 @@ const AddProduct = () => {
 			setBookImage(e.target.files[0]);
 		}
 	};
+
 
 	const handleBookUrl = () => {
 		const storage = getStorage();
@@ -52,18 +54,43 @@ const AddProduct = () => {
 	};
 
 	const onSubmit = async data => {
+
+		const uploadBook={
+			name: data.name,
+			nameEng: data.nameEng,
+			author: data.author,
+			authorEng: data.authorEng,
+			category: data.category,
+			publication: data.publication,
+			subject: data.subject,
+			pages: data.pages,
+			cover: data.cover,
+			edition: data.edition,
+			language: data.language,
+			price: data.price,
+			prePrice: data.prePrice,
+			discount: data.discount,
+			description: data.description,
+			
+		}
+		console.log("uploadBook",uploadBook);
 		// handle book image function
 		handleBookUrl();
 		console.log(bookImage, bookImageUrl);
 
+		if (singleImages.length > 1) {
+			setLoading(false);
+			toast.error("Max 1 images");
+			return;
+		}
 		if (multipleImages.length > 6) {
 			setLoading(false);
 			toast.error("Max 6 images");
 			return;
 		}
 
-		///////////////   Multiple images upload   //////////////////
-		// Store multiple images in firebase
+		///////////////   Single images upload   //////////////////
+		// Store single images in firebase
 		const storeImage = async image => {
 			return new Promise((resolve, reject) => {
 				const storage = getStorage();
@@ -103,14 +130,62 @@ const AddProduct = () => {
 				);
 			});
 		};
+		///////////////   Multiple images upload   //////////////////
+		// Store multiple images in firebase
+		const storeImages = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${image.name}-${uuidv4()}`;
 
-		const imageURLS = await Promise.all(
-			[...multipleImages].map(image => storeImage(image))
+				const storageRef = ref(storage, "images/" + fileName);
+
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						console.log("Upload is " + progress + "% done");
+						switch (snapshot.state) {
+							case "paused":
+								console.log("Upload is paused");
+								break;
+							case "running":
+								console.log("Upload is running");
+								break;
+							default:
+								break;
+						}
+					},
+					error => {
+						reject(error);
+					},
+					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+							resolve(downloadURL);
+						});
+					}
+				);
+			});
+		};
+
+		const imageURL = await Promise.all(
+			[...singleImages].map(image => storeImage(image))
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log(imageURLS);
+		console.log("single image url",imageURL[0])
+		const imageURLS = await Promise.all(
+			[...multipleImages].map(image => storeImages(image))
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+		console.log("multiple imageURLS",imageURLS);
 		///////////////   Multiple images upload   //////////////////
 	};
 
@@ -169,7 +244,7 @@ const AddProduct = () => {
 										<div>
 											<label className='label'>
 												<span className='label-text font-bold'>
-													Author Namr in English
+													Author Name in English
 												</span>
 											</label>
 											<input
@@ -197,7 +272,7 @@ const AddProduct = () => {
 												</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("publication", { required: true })}
 												type='text'
 												placeholder='Enter Publication'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -208,7 +283,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Subject</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("subject", { required: true })}
 												type='text'
 												placeholder='Enter Subject'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -219,7 +294,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Pages</span>
 											</label>
 											<input
-												{...register("number", { required: true })}
+												{...register("pages", { required: true })}
 												type='number'
 												placeholder='Enter Pages'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -230,7 +305,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Cover</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("cover", { required: true })}
 												type='text'
 												placeholder='Enter Cover'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -241,7 +316,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Edition</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("edition", { required: true })}
 												type='text'
 												placeholder='Enter Edition'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -252,7 +327,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Language</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("language", { required: true })}
 												type='text'
 												placeholder='Enter Language'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -274,7 +349,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Pre Price</span>
 											</label>
 											<input
-												{...register("price", { required: true })}
+												{...register("prePrice", { required: true })}
 												type='number'
 												placeholder='Enter Pre price'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -285,7 +360,7 @@ const AddProduct = () => {
 												<span className='label-text font-bold'>Discount</span>
 											</label>
 											<input
-												{...register("text", { required: true })}
+												{...register("discount", { required: true })}
 												type='text'
 												placeholder='Enter Pre price'
 												className='input input-bordered input-primary w-full max-w-xs'
@@ -316,7 +391,7 @@ const AddProduct = () => {
 										className='formInputFile'
 										type='file'
 										required
-										onChange={handleBookImage}
+										onChange={e => setSingleImages(e.target.files)}
 									/>
 
 									<div className=''>

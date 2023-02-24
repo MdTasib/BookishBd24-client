@@ -3,14 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import bookimg from "../../../assets/images/book.png";
 import { FaRegEdit } from "react-icons/fa";
 import { Helmet } from 'react-helmet';
+import { useState } from 'react';
+import auth from '../../../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 
 const MyProfile = () => {
+    const [user, loading, error] = useAuthState(auth);
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
+    console.log("userdetails",userInfo);
 
     const updateUserProfile = () => {
         navigate("/dashboard/updateprofile")
+    }
+
+    if (user) {
+        const email = user.email;
+        fetch(`http://localhost:5000/userInfo/${email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setUserInfo(data);
+          });
     }
 
     return (
