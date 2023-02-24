@@ -39,11 +39,8 @@ import PrivateAuth from "./components/PrivateRoute/PrivateAuth";
 import Conditions from "./staticPage/Conditions";
 import AboutUs from "./staticPage/AboutUs";
 import Contact from "./staticPage/Contact";
-<<<<<<< HEAD
 import Payment from "./components/dashboard/payment/Payment";
-=======
 import Refund from "./staticPage/Refund";
->>>>>>> d0c5c48477e66467bea7df361eded680b29d78c7
 
 function App() {
 	return (
