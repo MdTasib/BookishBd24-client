@@ -7,6 +7,7 @@ import { GrLocation } from "react-icons/gr";
 import { BiPhoneCall } from "react-icons/bi";
 import { TfiEmail } from "react-icons/tfi";
 import WhatsApp from "../../pages/whatsapp/WhatsApp";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
@@ -28,10 +29,10 @@ const Footer = () => {
 				<ul>
 					<p className='font-bold text-1xl pb-2'>প্রয়োজনীয় লিংক</p>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-						<a href="/contact">যোগাযোগ করুন</a> 
+						 <Link to="/contact">যোগাযোগ করুন</Link>
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-						<a href="/about-us">আমাদের সম্পর্কে জানুন</a>
+						 <Link to="/about-us">আমাদের সম্পর্কে জানুন</Link>
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
 						ব্লগ
@@ -40,10 +41,10 @@ const Footer = () => {
 						প্রশ্নোত্তর
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-					<a href="/refund">রিফান্ড নীতিমালা</a>
+					 <Link to="/refund">রিফান্ড নীতিমালা</Link>
 					</li>
 					<li className='text-sm pb-2 hover:underline  text-gray-700 hover:text-black cursor-pointer'>
-						<a href="/condition">শর্তাবলী</a>
+						<Link to="/condition">শর্তাবলী</Link>
 					</li>
 				</ul>
 			</div>
