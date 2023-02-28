@@ -20,12 +20,12 @@ const Payment = () => {
                 </div>
             </div>
             <div>
-                <div className='bg-white mt-5 w-64 py-4 rounded-md shadow-lg leading-10'>
-                    <h4 className='ml-4 text-green-700 font-bold'>পেমেন্ট কিভাবে সম্পন্ন করবেন?</h4>
-                    <p className='ml-4'>১. আপনার কার্ড নাম্বারটি দিন</p>
-                    <p className='ml-4'>২. এক্সপায়ারেশন ডেট লিখুন</p>
-                    <p className='ml-4'>৩. CVC লিখুন (তিন সংখ্যার ডিজিট)</p>
-                    <p className='ml-4'>৪. এবং সবশেষে জিপ কোড দিন</p>
+                <div className='bg-white mt-5 w-64 py-4 rounded-md shadow-lg leading-8 px-4'>
+                    <h4 className='text-green-700 font-bold'>পেমেন্ট কিভাবে সম্পন্ন করবেন?</h4>
+                    <p>১. কার্ড নাম্বারটি দিন - 4242 4242 4242 4242</p>
+                    <p>২. এক্সপায়ারেশন ডেট লিখুন - 12 / 25</p>
+                    <p>৩. CVC লিখুন - 124</p>
+                    <p>৪. এবং সবশেষে জিপ কোড দিন - 87521</p>
                 </div>
             </div>
         </div>
