@@ -18,82 +18,21 @@ import { Helmet } from "react-helmet";
 const AddProduct = () => {
 	const [bookImage, setBookImage] = useState(null);
 	const [bookImageUrl, setBookImageUrl] = useState(null);
-	const [multipleImages, setMultipleImages] = useState({});
-	const [singleFirebaseUrl, setSingleFirebaseUrl] = useState({});
-	const [multipleFirebaseUrl, setMultipleFirebaseUrl] = useState({});
-	const [singleImages, setSingleImages] = useState({});
+	const [multipleImages, setMultipleImages] = useState(null);
+	const [singleImages, setSingleImages] = useState(null);
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
-	console.log("single image",singleFirebaseUrl);
-	console.log("multiple image",multipleFirebaseUrl);
 
-	if (loading) {
-		return <Loading />;
-	}
-
-	// const handleBookImage = e => {
-	// 	if (e.target.files[0]) {
-	// 		setBookImage(e.target.files[0]);
-	// 	}
-	// };
-
-
-	const handleBookUrl = () => {
-		const storage = getStorage();
-		const imageRef = ref(storage, "images/");
-		uploadBytes(imageRef, bookImage)
-			.then(() => {
-				getDownloadURL(imageRef)
-					.then(url => {
-						setBookImageUrl(url);
-					})
-					.catch(error => {
-						console.log(error.message, "can't upload you book image");
-					});
-				setBookImage(null);
-			})
-			.catch(error => {
-				console.log(error.message);
-			});
-	};
 	
-	
-	const onSubmit = async data => {
-		const uploadBook={
-			name: data.name,
-			nameEng: data.nameEng,
-			author: data.author,
-			authorEng: data.authorEng,
-			category: data.category,
-			publication: data.publication,
-			subject: data.subject,
-			pages: data.pages,
-			cover: data.cover,
-			edition: data.edition,
-			language: data.language,
-			price: data.price,
-			prePrice: data.prePrice,
-			discount: data.discount,
-			description: data.description,
-			imageURL: singleFirebaseUrl,
-			imageURLS: multipleFirebaseUrl
-		}
-		console.log("uploadBook",uploadBook);
-		// handle book image function
-		handleBookUrl();
-		console.log(bookImage, bookImageUrl);
 
+	const handleSingleImage =async(image) => {
 		if (singleImages.length > 1) {
 			setLoading(false);
 			toast.error("Max 1 images");
 			return;
 		}
-		if (multipleImages.length > 6) {
-			setLoading(false);
-			toast.error("Max 6 images");
-			return;
-		}
-
+	
+		
 		///////////////   Single images upload   //////////////////
 		// Store single images in firebase
 		const storeImage = async image => {
@@ -130,11 +69,32 @@ const AddProduct = () => {
 						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
 							resolve(downloadURL);
+							
 						});
+						
 					}
 				);
 			});
 		};
+		const imageURL = await Promise.all(
+			[...singleImages].map(image =>
+				storeImage(image)
+			)
+		).catch(() => {
+			toast.error("Images not uploaded");
+			return;
+		});
+		console.log("Single Image Url",imageURL[0]);
+		return imageURL[0];
+	}
+
+	const handleMultipleImage =async(image)=> {
+		if (multipleImages.length > 6) {
+			setLoading(false);
+			toast.error("Max 6 images");
+			return;
+		}
+		
 		///////////////   Multiple images upload   //////////////////
 		// Store multiple images in firebase
 		const storeImages = async image => {
@@ -176,24 +136,81 @@ const AddProduct = () => {
 				);
 			});
 		};
-
-		const imageURL = await Promise.all(
-			[...singleImages].map(image =>
-				storeImage(image)
-			)
-		).catch(() => {
-			toast.error("Images not uploaded");
-			return;
-		});
-		setSingleFirebaseUrl(imageURL[0])
 		const imageURLS = await Promise.all(
 			[...multipleImages].map(image => storeImages(image))
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		setMultipleFirebaseUrl(imageURLS)
+		console.log("Multiple Image Url",imageURLS)
+	    return imageURLS;
 		///////////////   Multiple images upload   //////////////////
+	}
+
+
+
+	if ( loading) {
+		return <Loading />;
+	}
+
+	// const handleBookImage = e => {
+	// 	if (e.target.files[0]) {
+	// 		setBookImage(e.target.files[0]);
+	// 	}
+	// };
+
+
+	const handleBookUrl = () => {
+		const storage = getStorage();
+		const imageRef = ref(storage, "images/");
+		uploadBytes(imageRef, bookImage)
+			.then(() => {
+				getDownloadURL(imageRef)
+					.then(url => {
+						setBookImageUrl(url);
+					})
+					.catch(error => {
+						console.log(error.message, "can't upload you book image");
+					});
+				setBookImage(null);
+			})
+			.catch(error => {
+				console.log(error.message);
+			});
+	};
+	
+	
+	const onSubmit = async data => {
+		const imageUrl = await handleSingleImage();
+		const imageUrls= await handleMultipleImage();
+		
+		const uploadBook={
+			name: data.name,
+			nameEng: data.nameEng,
+			author: data.author,
+			authorEng: data.authorEng,
+			category: data.category,
+			publication: data.publication,
+			subject: data.subject,
+			pages: data.pages,
+			cover: data.cover,
+			edition: data.edition,
+			language: data.language,
+			price: data.price,
+			prePrice: data.prePrice,
+			discount: data.discount,
+			description: data.description,
+			imageURL: imageUrl,
+			imageURLS: imageUrls
+		}
+		console.log("uploadBook",uploadBook)
+		if(uploadBook){
+			reset();
+		}
+		
+		// handle book image function
+		handleBookUrl();
+		console.log(bookImage, bookImageUrl);
 	};
 
 	return (
