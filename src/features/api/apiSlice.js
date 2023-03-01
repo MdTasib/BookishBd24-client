@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
 	reducerPath: "bookishbdApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: "https://bookishbd24.onrender.com/api/v1/",
+		// baseUrl: "https://bookishbd24.onrender.com/api/v1/",
+		baseUrl: "http://localhost:5000/api/v1/",
 	}),
 	tagTypes: ["books", "authors", "book", "reviews", "sliders"],
 	endpoints: builder => ({
@@ -98,6 +99,15 @@ export const apiSlice = createApi({
 			}),
 		}),
 
+		// order post on database
+		createOrder: builder.mutation({
+			query: data => ({
+				url: "/place-order",
+				method: "POST",
+				body: data,
+			}),
+		}),
+
 		// delete book in the database
 		deleteBook: builder.mutation({
 			query: id => ({
@@ -130,6 +140,7 @@ export const {
 	useCreateAuthorMutation,
 	useCreateReviewMutation,
 	useCreateSliderMutation,
+	useCreateOrderMutation,
 	useDeleteBookMutation,
 	useUpdateBookMutation,
 } = apiSlice;
