@@ -4,12 +4,6 @@ import Container from '../components/ui/Container';
 const Refund = () => {
     return (
         <Container>
-         <div className='mx-10 mt-2'>
-         <button to='/condition' className='bg-primary text-white px-4 py-2 mt-2 rounded transform transition-all hover:scale-90'>
-         <a href="/condition">Terms</a></button>
-         <button className='bg-primary text-white px-4 py-2 mx-2 rounded mt-2 transform transition-all hover:scale-90'>Delivery</button>
-         <button className='bg-primary text-white px-4 py-2  mt-2 rounded transform transition-all hover:scale-90'>Exchange</button>
-         </div>   
         <div className='border-2 border-gray-300 shadow-md p-5 my-5 mx-10'>
           <h1 className='text-center text-xl font-bold mb-3'>রিফান্ড পলিসি (Safe Refund)</h1>
          <p>১) আপনার পেইড অর্ডারটি ক্যান্সেল হলে কিংবা গ্রাহক নিজে ক্যান্সেল করতে অনুরোধ করলে সম্পূর্ণ মূল্য রিফান্ড দেয়া হবে।</p>  
