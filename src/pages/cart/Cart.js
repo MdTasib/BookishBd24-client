@@ -33,6 +33,7 @@ const Cart = () => {
 	}
 
 	const handlePlaceOrder = (data = []) => {
+		console.log(data);
 		data.map(book => {
 			if (!isLoading || isSuccess) {
 				bookOrder({
