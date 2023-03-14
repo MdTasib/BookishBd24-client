@@ -33,14 +33,17 @@ const Cart = () => {
 	}
 
 	const handlePlaceOrder = (data = []) => {
-		console.log(data);
-		data.map(book => {
+		data?.map(book => {
 			if (!isLoading || isSuccess) {
 				bookOrder({
-					...book,
+					name: book?.name,
+					imageURL: book?.imageURL,
+					author: book?.author,
+					price: book?.price,
+					qty: book?.qty,
 					...{
-						userName: "testFront@gmail.com",
-						userEmail: "test front",
+						userEmail: "testFront@gmail.com",
+						userName: "test front",
 						bookId: book._id,
 					},
 				});
