@@ -23,7 +23,7 @@ const AddAuthor = () => {
 		return <Loading />;
 	}
 	if (!isLoading && isError) {
-		toast.error("আপনার লেখক যোগ করতে ব্যর্থ হয়েছে। আমার চেষ্টা করুন!");
+		toast.error("আপনার লেখক যোগ করতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন!");
 	}
 	if (!isError && !isLoading && isSuccess) {
 		toast.success("আপনার লেখক যোগ হয়েছে।");
@@ -101,9 +101,9 @@ const AddAuthor = () => {
 	return (
 		<div className='hero'>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>AddAuthor | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<div className='hero-content w-full'>
 				<div className='card w-full shadow-2xl bg-base-100'>

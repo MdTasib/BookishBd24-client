@@ -11,11 +11,48 @@ import {
 } from "../../features/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { cartTotalSelector } from "../../features/cart/selectors";
+import { useCreateOrderMutation } from "../../features/api/apiSlice";
+import Loading from "../../components/ui/Loading";
+import { toast } from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Cart = () => {
+	const [user] = useAuthState(auth);
+	console.log(user);
 	const { cart } = useSelector(state => state);
 	const total = useSelector(cartTotalSelector);
 	const dispatch = useDispatch();
+	const [bookOrder, { isLoading, isError, isSuccess }] =
+		useCreateOrderMutation();
+
+	if (isLoading) {
+		return <Loading />;
+	}
+	if (!isLoading && isError) {
+		toast.error("অর্ডারটি যোগ করতে ব্যর্থ হয়েছে। আমার চেষ্টা করুন!");
+	}
+	if (!isError && !isLoading && isSuccess) {
+		toast.success("আপনার অর্ডারটি MY ORDER পেজ এ যোগ হয়েছে।");
+	}
+
+	const handlePlaceOrder = (data = []) => {
+		data?.map(book => {
+			if (!isLoading || isSuccess) {
+				bookOrder({
+					name: book?.name,
+					imageURL: book?.imageURL,
+					author: book?.author,
+					price: book?.price,
+					qty: book?.qty,
+					userEmail: user.email,
+					userName: user.displayName,
+					bookId: book._id,
+				});
+			}
+		});
+		dispatch(clearCart());
+	};
 
 	return (
 		<div className='bg-[#F1F2F4]'>
@@ -106,7 +143,10 @@ const Cart = () => {
 										className='bg-red-500 text-white py-2 px-6 absolute left-0 top-0 ml-5 rounded'>
 										Clear Cart
 									</button>
-									<button className='bg-primary text-white py-2 px-6 absolute right-0 top-0 mr-5 rounded'>
+									<button
+										onClick={() => handlePlaceOrder(cart)}
+										disabled={isLoading}
+										className='bg-primary text-white py-2 px-6 absolute right-0 top-0 mr-5 rounded'>
 										Place Order
 									</button>
 								</div>

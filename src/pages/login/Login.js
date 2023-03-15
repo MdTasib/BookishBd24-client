@@ -4,6 +4,7 @@ import {
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
+	useAuthState,
 	useSignInWithEmailAndPassword,
 	useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -30,6 +31,12 @@ const Login = () => {
 
 	let from = location.state?.from?.pathname || "/";
 
+	const [user] = useAuthState(auth);
+	
+	if(user){
+		navigate(from, { replace: true });
+	}
+
 	// handle user login email and password
 	const handleSubmit = async event => {
 		event.preventDefault();
@@ -44,6 +51,8 @@ const Login = () => {
 
 				if (user.uid) {
 					navigate(from, { replace: true });
+					console.log(user.uid)
+					
 				}
 			})
 			.catch(error => {

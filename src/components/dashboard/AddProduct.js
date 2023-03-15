@@ -9,11 +9,10 @@ import {
 	uploadBytes,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
-import Swal from "sweetalert2";
-import { toast } from "react-hot-toast";
 import Loading from "../ui/Loading";
-import { app } from "../../firebase.init";
 import { Helmet } from "react-helmet";
+import { useCreateBookMutation } from "../../features/api/apiSlice";
+import { toast } from "react-hot-toast";
 
 const AddProduct = () => {
 	const [bookImage, setBookImage] = useState(null);
@@ -23,16 +22,25 @@ const AddProduct = () => {
 	const { register, handleSubmit, reset } = useForm();
 	const [loading, setLoading] = useState(false);
 
-	
+	const [addBook, { isLoading, isError, isSuccess }] = useCreateBookMutation();
 
-	const handleSingleImage =async(image) => {
+	if (isLoading || loading) {
+		return <Loading />;
+	}
+	if (!isLoading && isError) {
+		toast.error("আপনার বই যোগ করতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন!");
+	}
+	if (!isError && !isLoading && isSuccess) {
+		toast.success("আপনার বই যোগ হয়েছে।");
+	}
+
+	const handleSingleImage = async image => {
 		if (singleImages.length > 1) {
 			setLoading(false);
 			toast.error("Max 1 images");
 			return;
 		}
-	
-		
+
 		///////////////   Single images upload   //////////////////
 		// Store single images in firebase
 		const storeImage = async image => {
@@ -69,32 +77,28 @@ const AddProduct = () => {
 						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
 							resolve(downloadURL);
-							
 						});
-						
 					}
 				);
 			});
 		};
 		const imageURL = await Promise.all(
-			[...singleImages].map(image =>
-				storeImage(image)
-			)
+			[...singleImages].map(image => storeImage(image))
 		).catch(() => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log("Single Image Url",imageURL[0]);
+		console.log("Single Image Url", imageURL[0]);
 		return imageURL[0];
-	}
+	};
 
-	const handleMultipleImage =async(image)=> {
+	const handleMultipleImage = async image => {
 		if (multipleImages.length > 6) {
 			setLoading(false);
 			toast.error("Max 6 images");
 			return;
 		}
-		
+
 		///////////////   Multiple images upload   //////////////////
 		// Store multiple images in firebase
 		const storeImages = async image => {
@@ -142,23 +146,14 @@ const AddProduct = () => {
 			toast.error("Images not uploaded");
 			return;
 		});
-		console.log("Multiple Image Url",imageURLS)
-	    return imageURLS;
+		console.log("Multiple Image Url", imageURLS);
+		return imageURLS;
 		///////////////   Multiple images upload   //////////////////
-	}
+	};
 
-
-
-	if ( loading) {
+	if (loading) {
 		return <Loading />;
 	}
-
-	// const handleBookImage = e => {
-	// 	if (e.target.files[0]) {
-	// 		setBookImage(e.target.files[0]);
-	// 	}
-	// };
-
 
 	const handleBookUrl = () => {
 		const storage = getStorage();
@@ -178,13 +173,12 @@ const AddProduct = () => {
 				console.log(error.message);
 			});
 	};
-	
-	
+
 	const onSubmit = async data => {
 		const imageUrl = await handleSingleImage();
-		const imageUrls= await handleMultipleImage();
-		
-		const uploadBook={
+		const imageUrls = await handleMultipleImage();
+
+		const uploadBook = {
 			name: data.name,
 			nameEng: data.nameEng,
 			author: data.author,
@@ -192,33 +186,36 @@ const AddProduct = () => {
 			category: data.category,
 			publication: data.publication,
 			subject: data.subject,
-			pages: data.pages,
+			pages: Number(data.pages),
 			cover: data.cover,
 			edition: data.edition,
 			language: data.language,
-			price: data.price,
-			prePrice: data.prePrice,
-			discount: data.discount,
+			price: Number(data.price),
+			prePrice: Number(data.prePrice),
+			discount: Number(data.discount),
 			description: data.description,
+			quentity: Number(data.quentity),
 			imageURL: imageUrl,
-			imageURLS: imageUrls
-		}
-		console.log("uploadBook",uploadBook)
-		if(uploadBook){
-			reset();
-		}
-		
+			imageURLS: imageUrls,
+		};
+
 		// handle book image function
 		handleBookUrl();
-		console.log(bookImage, bookImageUrl);
+
+		console.log("uploadBook", uploadBook);
+
+		if (!isLoading || isSuccess || !loading) {
+			await addBook(uploadBook);
+			reset();
+		}
 	};
 
 	return (
 		<div className='hero'>
 			<Helmet>
-				<meta charSet="utf-8"/>
+				<meta charSet='utf-8' />
 				<title>AddProduct | BookishBD24</title>
-				<meta name="description" content="BookishBD24 website using React JS"/>
+				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
 			<div className='hero-content w-full'>
 				<div className='card w-full shadow-2xl bg-base-100'>
@@ -226,7 +223,7 @@ const AddProduct = () => {
 						<div className='form-control'>
 							<div className='md:grid grid-cols-2 gap-10'>
 								{/* ............................... */}
-								 <div>
+								<div>
 									<div className='md:grid grid-cols-2 gap-6'>
 										<div>
 											<label className='label'>
@@ -326,6 +323,17 @@ const AddProduct = () => {
 										</div>
 										<div>
 											<label className='label'>
+												<span className='label-text font-bold'>Quentity</span>
+											</label>
+											<input
+												{...register("quentity", { required: true })}
+												type='number'
+												placeholder='Enter quentity'
+												className='input input-bordered input-primary w-full max-w-xs'
+											/>
+										</div>
+										<div>
+											<label className='label'>
 												<span className='label-text font-bold'>Cover</span>
 											</label>
 											<input
@@ -400,7 +408,7 @@ const AddProduct = () => {
 											className='textarea textarea-primary w-full max-w-xs'
 											placeholder='Enter Description'></textarea>
 									</div>
-								</div> 
+								</div>
 								{/* ............................... */}
 								<div>
 									<label className='formLabel'>Images for book</label>
@@ -444,7 +452,10 @@ const AddProduct = () => {
 						</div>
 
 						<div className='form-control mt-6'>
-							<button type='submit' className='btn btn-primary'>
+							<button
+								disabled={isLoading || loading}
+								type='submit'
+								className='btn btn-primary'>
 								UPLOAD
 							</button>
 						</div>
