@@ -46,6 +46,12 @@ export const apiSlice = createApi({
 			providesTags: ["auhtors", "author"],
 		}),
 
+		// get order by email
+		getOrderByEmail: builder.query({
+			query: email => `/place-order?userEmail${email}`,
+			keepUnusedDataFor: 800,
+		}),
+
 		// get reviews
 		getReviews: builder.query({
 			query: () => "/review",
