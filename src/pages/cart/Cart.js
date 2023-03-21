@@ -14,6 +14,8 @@ import { cartTotalSelector } from "../../features/cart/selectors";
 import { useCreateOrderMutation } from "../../features/api/apiSlice";
 import Loading from "../../components/ui/Loading";
 import { toast } from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Cart = () => {
 	const { cart } = useSelector(state => state);
@@ -21,8 +23,9 @@ const Cart = () => {
 	const dispatch = useDispatch();
 	const [bookOrder, { isLoading, isError, isSuccess }] =
 		useCreateOrderMutation();
+	const [user, loading] = useAuthState(auth);
 
-	if (isLoading) {
+	if (isLoading || loading) {
 		return <Loading />;
 	}
 	if (!isLoading && isError) {
@@ -32,9 +35,23 @@ const Cart = () => {
 		toast.success("আপনার অর্ডারটি MY ORDER পেজ এ যোগ হয়েছে।");
 	}
 
+	console.log(user);
+
 	const handlePlaceOrder = (data = []) => {
 		data?.map(book => {
 			if (!isLoading || isSuccess) {
+				// console.log({
+				// 	name: book?.name,
+				// 	imageURL: book?.imageURL,
+				// 	author: book?.author,
+				// 	price: book?.price,
+				// 	qty: book?.qty,
+				// 	...{
+				// 		userEmail: user?.email,
+				// 		userName: user?.displayName,
+				// 		bookId: book._id,
+				// 	},
+				// });
 				bookOrder({
 					name: book?.name,
 					imageURL: book?.imageURL,
@@ -42,8 +59,8 @@ const Cart = () => {
 					price: book?.price,
 					qty: book?.qty,
 					...{
-						userEmail: "testFront@gmail.com",
-						userName: "test front",
+						userEmail: user?.email,
+						userName: user?.displayName,
 						bookId: book._id,
 					},
 				});
