@@ -140,6 +140,7 @@ export const {
 	useGetAuthorsQuery,
 	useGetAuthorDetailsQuery,
 	useGetBookDetailsQuery,
+	useGetOrderByEmailQuery,
 	useGetReviewsQuery,
 	useGetSliderQuery,
 	useCreateBookMutation,
