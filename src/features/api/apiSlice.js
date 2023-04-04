@@ -48,7 +48,7 @@ export const apiSlice = createApi({
 
 		// get order by email
 		getOrderByEmail: builder.query({
-			query: email => `/place-order?userEmail${email}`,
+			query: email => `/place-order?userEmail=${email}`,
 			keepUnusedDataFor: 800,
 		}),
 
