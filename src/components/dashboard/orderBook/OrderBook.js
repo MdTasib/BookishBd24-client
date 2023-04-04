@@ -5,6 +5,7 @@ import { useGetOrderByEmailQuery } from "../../../features/api/apiSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../ui/Loading";
+import { Link } from "react-router-dom";
 
 const OrderBook = () => {
 	const [user, loading] = useAuthState(auth);
@@ -40,7 +41,7 @@ const OrderBook = () => {
 						{" "}
 						{order.author.slice(0, 25)} {order.author.length > 25 ? "..." : ""}
 					</p>
-					<button className='bg-green-100 px-2 rounded-md'>Unpaid</button>
+					<Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>Unpaid</button></Link>
 				</div>
 			</div>
 		));

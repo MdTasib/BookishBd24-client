@@ -93,7 +93,7 @@ function App() {
 					<Route path='/dashboard/order-book' element={<OrderBook />} />
 					<Route path='/dashboard/my-profile' element={<MyProfile />} />
 					<Route path='/dashboard/add-review' element={<AddReview />} />
-					<Route path='/dashboard/payment' element={<Payment />} />
+					<Route path='/dashboard/payment/:id' element={<Payment />} />
 					<Route path='/dashboard/updateprofile' element={<UpdateProfile />} />
 				</Route>
 				<Route path='*' element={<NotFound />} />
