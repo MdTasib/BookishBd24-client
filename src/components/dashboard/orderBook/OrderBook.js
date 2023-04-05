@@ -28,22 +28,27 @@ const OrderBook = () => {
 		content = <p className='text-red-500'>No orders found</p>;
 	}
 	if (orderBooks?.data?.orders?.length > 0) {
-		content = orderBooks?.data?.orders.map(order => (
-			<div className='flex gap-4 border bg-white mt-2 lg:ml-2 md:ml-2 p-4 rounded-md shadow-md'>
-				<div>
-					<img className='h-16' src={order.imageURL} alt='' />
-				</div>
-				<div>
-					<h4 className='font-bold'>
-						{order.name.slice(0, 25)} {order.name.length > 25 ? "..." : ""}
-					</h4>
-					<p>
-						{" "}
-						{order.author.slice(0, 25)} {order.author.length > 25 ? "..." : ""}
-					</p>
-					<Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>Unpaid</button></Link>
-				</div>
-			</div>
+		content = orderBooks?.data?.orders.map((order, index) => (
+			<tr>
+				<td>
+					<img className='h-8' src={order.imageURL} alt="" />
+				</td>
+				<td>
+					{order.name.slice(0, 25)} {order.name.length > 25 ? "..." : ""}
+				</td>
+				<td>
+					{order.author.slice(0, 25)} {order.author.length > 25 ? "..." : ""}
+				</td>
+				<td>
+					{order.qty}
+				</td>
+				<td>
+					{order.price}
+				</td>
+				<td>
+					<Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>পেমেন্ট করুন</button></Link>
+				</td>
+			</tr>
 		));
 	}
 
@@ -57,7 +62,19 @@ const OrderBook = () => {
 				<title>OrderBook | BookishBD24</title>
 				<meta name='description' content='BookishBD24 website using React JS' />
 			</Helmet>
-			<div className='lg:grid md:grid grid-cols-4 gap-4 p-2'>{content}</div>
+			<table className='table w-full'>
+				<thead>
+					<tr>
+						<th>ছবি</th>
+						<th>নাম</th>
+						<th>লেখক নাম</th>
+						<th>বই সংখ্যা</th>
+						<th>দাম</th>
+						<th>পেমেন্ট</th>
+					</tr>
+				</thead>
+				<tbody>{content}</tbody>
+			</table>
 		</div>
 	);
 };

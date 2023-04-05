@@ -2,10 +2,16 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import CheckoutForm from './CheckoutForm';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const stripePromise = loadStripe('pk_test_51L0gMADuiIiaFlXNz9N5k6HXIPhnvURpmXcZeRZKvElE1vRaWTc2jUCiZQo6KHnurxrTpsvhinpjyKGlXZRDVFwg00cdBRF6R2');
 
 const Payment = () => {
+
+    // const { id } = useParams();
+    // const dispatch = useDispatch();
+
     return (
         <div className='bg-gray-100 pb-12 h-screen grid grid-cols-2 gap-4'>
             <div>
