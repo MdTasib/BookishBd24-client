@@ -43,7 +43,7 @@ const OrderBook = () => {
 					{order.qty}
 				</td>
 				<td>
-					{order.price}
+					{order.price * order.qty}
 				</td>
 				<td>
 					<Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>পেমেন্ট করুন</button></Link>

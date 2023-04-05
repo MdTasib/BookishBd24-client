@@ -6,7 +6,7 @@ export const apiSlice = createApi({
 		// baseUrl: "https://bookishbd24.onrender.com/api/v1/",
 		baseUrl: "http://localhost:5000/api/v1/",
 	}),
-	tagTypes: ["books", "authors", "book", "reviews", "sliders"],
+	tagTypes: ["books", "authors", "book", "reviews", "sliders", "orders"],
 	endpoints: builder => ({
 		// get books on database
 		getBooks: builder.query({
@@ -50,6 +50,7 @@ export const apiSlice = createApi({
 		getOrderByEmail: builder.query({
 			query: email => `/place-order?userEmail=${email}`,
 			keepUnusedDataFor: 800,
+			providesTags: ["orders"],
 		}),
 
 		// get reviews
@@ -64,6 +65,11 @@ export const apiSlice = createApi({
 			query: () => "/slider",
 			keepUnusedDataFor: 800,
 			providesTags: ["sliders"],
+		}),
+		// get orders by Id
+		getOrderById: builder.query({
+			query: ({id,email}) => `/place-order?_id=${id}&userEmail=${email}`,
+			keepUnusedDataFor: 800,
 		}),
 
 		// post book on database
@@ -112,6 +118,7 @@ export const apiSlice = createApi({
 				method: "POST",
 				body: data,
 			}),
+			invalidatesTags: ["orders"],
 		}),
 
 		// delete book in the database
@@ -143,6 +150,7 @@ export const {
 	useGetOrderByEmailQuery,
 	useGetReviewsQuery,
 	useGetSliderQuery,
+	useGetOrderByIdQuery,
 	useCreateBookMutation,
 	useCreateAuthorMutation,
 	useCreateReviewMutation,
