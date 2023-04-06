@@ -12,11 +12,12 @@ const stripePromise = loadStripe('pk_test_51L0gMADuiIiaFlXNz9N5k6HXIPhnvURpmXcZe
 
 const Payment = () => {
     const [user, loading] = useAuthState(auth);
-
     const { id } = useParams();
-    // const dispatch = useDispatch();
+
     const { data: book, isLoading, isError, error } = useGetOrderByIdQuery({id:id,email:user?.email});
+    
     let content = null;
+
 	if (isLoading || loading) {
 		content = <Loading />;
 	}
