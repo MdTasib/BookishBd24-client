@@ -46,7 +46,13 @@ const OrderBook = () => {
 					{order.price * order.qty}
 				</td>
 				<td>
-					<Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>পেমেন্ট করুন</button></Link>
+					{/* <Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-100 px-2 rounded-md'>পেমেন্ট করুন</button></Link> */}
+					{(order.price && !order.paid) && <Link to={`/dashboard/payment/${order._id}`}><button className='btn btn-xs btn-success'>pay</button></Link>}
+					{(order.price && order.paid) && <div>
+						<p><span className='text-primary'>Paid</span></p>
+						<p><span className='text-success'>{order.transactionId}</span></p>
+					</div>}
+
 				</td>
 			</tr>
 		));

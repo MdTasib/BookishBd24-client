@@ -3,22 +3,44 @@ import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import CheckoutForm from './CheckoutForm';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useGetOrderByIdQuery } from '../../../features/api/apiSlice';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import Loading from '../../ui/Loading';
 
 const stripePromise = loadStripe('pk_test_51L0gMADuiIiaFlXNz9N5k6HXIPhnvURpmXcZeRZKvElE1vRaWTc2jUCiZQo6KHnurxrTpsvhinpjyKGlXZRDVFwg00cdBRF6R2');
 
 const Payment = () => {
+    const [user, loading] = useAuthState(auth);
 
-    // const { id } = useParams();
+    const { id } = useParams();
     // const dispatch = useDispatch();
+    const { data: book, isLoading, isError, error } = useGetOrderByIdQuery({id:id,email:user?.email});
+    let content = null;
+	if (isLoading || loading) {
+		content = <Loading />;
+	}
+    if ((!isLoading && isError)) {
+		content = <p className='text-red-500'>{error}</p>;
+	}
+    // console.log(book?.data?.orders[0]);
+    if (!isLoading && !isError) {
+		content = (
+            <div>
+                <div className='text-center text-lg font-roboto py-2 w-96 mx-auto mt-5 bg-white mb-5 rounded-lg'>
+                    <h3>PAY FOR YOUR Orders - <span className='text-green-500 font-bold text-sm'>{book?.data?.orders[0].name}</span></h3>
+                    <p>Total quantity : <span className='text-red-600 font-bold'>{book?.data?.orders[0].qty}</span></p>
+                    <p>Please Pay : <span className='text-red-600 font-bold'>${book?.data?.orders[0].price * book?.data?.orders[0].qty}</span></p>
+                </div>
+            </div>
+
+        )
+        }
 
     return (
         <div className='bg-gray-100 pb-12 h-screen grid grid-cols-2 gap-4'>
             <div>
-                <div className='text-center text-lg font-roboto py-2 w-96 mx-auto mt-5 bg-white mb-5 rounded-lg'>
-                    <h3>PAY FOR YOUR Orders - <span className='text-[#1E88E5]'>Book Name</span></h3>
-                    <p className=''>Please Pay : <span className='text-red-600'>$120</span></p>
-                </div>
+                {content}
                 <div className='bg-white rounded-2xl shadow-2xl w-96 mx-auto p-8 '>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm />
