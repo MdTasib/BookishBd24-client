@@ -32,6 +32,7 @@ const Details = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const { data: book, isLoading, isError, error } = useGetBookDetailsQuery(id);
+	console.log(book);
 	const {
 		data: relatedBooks,
 		isLoading: isRelatedBookLoading,
@@ -100,26 +101,26 @@ const Details = () => {
 							className='bg-[#F23534] text-white px-4 py-2 rounded'>
 							অর্ডার করুন
 						</button>
-						
-			{/* The button to open modal */}
-  <label htmlFor="my-modal-3" className="bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534] cursor-pointer">আরও পড়ুন</label>
-  <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-<div className="modal">
-  <div className="modal-box relative">
-    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-    <h3 className="text-lg font-bold text-center">{book?.data?.name}</h3>
-    <p className="text-center">{book?.data?.author}</p>
-	{models?.map(model => (
-				<img
-					key={model.id}
-					className='w-full'
-					src={model.image}
-					alt=''
-					/>
-				))}
-     </div>
-    </div>
-	</div>
+
+						{/* The button to open modal */}
+						<label htmlFor="my-modal-3" className="bg-[#F29434] text-white px-4 py-2 rounded ml-3 hover:bg-[#F23534] cursor-pointer">আরও পড়ুন</label>
+						<input type="checkbox" id="my-modal-3" className="modal-toggle" />
+						<div className="modal">
+							<div className="modal-box relative">
+								<label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+								<h3 className="text-lg font-bold text-center">{book?.data?.name}</h3>
+								<p className="text-center">{book?.data?.author}</p>
+								{models?.map(model => (
+									<img
+										key={model.id}
+										className='w-full'
+										src={model.image}
+										alt=''
+									/>
+								))}
+							</div>
+						</div>
+					</div>
 
 					{/* ADDS IMAGES------------------------------- */}
 					<div className='mt-4 md:grid grid-cols-2 gap-4'>
@@ -168,8 +169,8 @@ const Details = () => {
 							</h2>
 
 							{!isRelatedBookLoading &&
-							!isRelatedBookError &&
-							relatedBooks?.data?.books.length > 0 ? (
+								!isRelatedBookError &&
+								relatedBooks?.data?.books.length > 0 ? (
 								relatedBooks?.data?.books.slice(0, 8).map(book => (
 									<Link key={book._id} to={`/book/${book._id}`}>
 										<div className='flex gap-2 border-b border-gray-500 p-2 hover:border-primary'>

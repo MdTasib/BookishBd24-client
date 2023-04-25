@@ -44,7 +44,7 @@ const Payment = () => {
                 {content}
                 <div className='bg-white rounded-2xl shadow-2xl w-96 mx-auto p-8 '>
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm />
+                        <CheckoutForm book={book?.data?.orders[0]} />
                     </Elements>
                 </div>
             </div>
