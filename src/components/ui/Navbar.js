@@ -121,7 +121,7 @@ const Navbar = () => {
 	);
 
 	return (
-		<>
+		<div>
 			<nav
 				className='navbar bg-white border-b-2 border-primary py-0'
 				data-aos='fade-down'
@@ -208,7 +208,7 @@ const Navbar = () => {
 				</Container>
 			</nav>
 			<MenuBar />
-		</>
+		</div>
 	);
 };
 
